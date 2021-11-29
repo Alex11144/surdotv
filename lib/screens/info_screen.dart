@@ -28,7 +28,7 @@ class InfoScreen extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 20,
+          height: 20, 
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),

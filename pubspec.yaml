@@ -52,6 +52,9 @@ flutter:
   assets:
     - assets/images/videoCamera.svg
     - assets/images/logo.svg
+    - assets/images/logo_min.png
+    - assets/images/logo_fond.png
+    
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

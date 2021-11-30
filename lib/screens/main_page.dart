@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screens/search_screen.dart';
 import './info_screen.dart';
 import './selected_category_screen.dart';
 import './categories_screen.dart';
@@ -34,7 +35,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       },
       {
         'title': 'Search',
-        'page': null,
+        'page': SearchScreen(),
       },
       {
         'title': 'Messages',

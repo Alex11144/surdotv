@@ -22,7 +22,6 @@ class _ContactScreenState extends State<ContactScreen> {
       body: Container(
         color: Theme.of(context).primaryColor.withOpacity(0.3),
         child: SingleChildScrollView(
-           
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,18 +58,25 @@ class _ContactScreenState extends State<ContactScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Flexible(
-                            child: TextFormField(
-                              decoration: myInputDecoration(aHintText: 'Ad Soyad *'),
-                              textInputAction: TextInputAction.next,
+                            child: Container(
+                              height: 50,
+                              margin: EdgeInsets.only(right: 5),
+                              child: TextFormField(
+                                decoration:
+                                    myInputDecoration(aHintText: 'Ad Soyad *'),
+                                textInputAction: TextInputAction.next,
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            width: 8,
-                          ),
                           Flexible(
-                            child: TextFormField(
-                              decoration: myInputDecoration(aHintText: 'E-mail *'),
-                              textInputAction: TextInputAction.next,
+                            child: Container(
+                              height: 50,
+                              margin: EdgeInsets.only(left: 5),
+                              child: TextFormField(
+                                decoration:
+                                    myInputDecoration(aHintText: 'E-mail *'),
+                                textInputAction: TextInputAction.next,
+                              ),
                             ),
                           ),
                         ],
@@ -82,18 +88,25 @@ class _ContactScreenState extends State<ContactScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Flexible(
-                            child: TextFormField(
-                              decoration: myInputDecoration(aHintText: 'Mobil *'),
-                              textInputAction: TextInputAction.next,
+                            child: Container(
+                              height: 50,
+                              margin: EdgeInsets.only(right: 5),
+                              child: TextFormField(
+                                decoration:
+                                    myInputDecoration(aHintText: 'Mobil *'),
+                                textInputAction: TextInputAction.next,
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            width: 8,
-                          ),
                           Flexible(
-                            child: TextFormField(
-                              decoration: myInputDecoration(aHintText: 'Şəhər *'),
-                              textInputAction: TextInputAction.next,
+                            child: Container(
+                              height: 50,
+                              margin: EdgeInsets.only(left: 5),
+                              child: TextFormField(
+                                decoration:
+                                    myInputDecoration(aHintText: 'Şəhər *'),
+                                textInputAction: TextInputAction.next,
+                              ),
                             ),
                           ),
                         ],
@@ -125,7 +138,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   ),
                 ),
               ),
-               Padding(
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
@@ -136,13 +149,16 @@ class _ContactScreenState extends State<ContactScreen> {
                     Text(
                       'Ünvan',
                       style: Theme.of(context).textTheme.headline6,
-                    ),                                  
+                    ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 4),
-                child: Image.asset('assets/images/map.png',fit: BoxFit.fill,),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: Image.asset(
+                  'assets/images/map.png',
+                  fit: BoxFit.fill,
+                ),
               ),
             ],
           ),

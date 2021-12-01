@@ -32,6 +32,7 @@ dependencies:
   carousel_slider: ^4.0.0
   dots_indicator: ^2.0.0
   flutter_svg: ^0.23.0+1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +55,7 @@ flutter:
     - assets/images/logo.svg
     - assets/images/mail.svg
     - assets/images/pin.svg
+    - assets/images/shareNetwork.svg    
     - assets/images/logo_min.png
     - assets/images/logo_fond.png
     - assets/images/map.png

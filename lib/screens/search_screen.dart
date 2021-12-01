@@ -57,14 +57,14 @@ class _SearchScreenState extends State<SearchScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                height: 70,
-                padding: const EdgeInsets.all(10.0),
+                height: 50,
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextField(
                   controller: edt,
-                  style: TextStyle(
-                    fontSize: 14,
+                  decoration: myInputDecoration(
+                    aHintText: 'Axtar ...',
+                    aSuffixIcon: Icons.search,
                   ),
-                  decoration: myInputDecoration(aHintText: 'Axtar ...',aSuffixIcon: Icons.search,),
                 ),
               ),
               Container(

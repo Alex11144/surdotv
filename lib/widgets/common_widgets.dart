@@ -17,12 +17,17 @@ Widget logo(double h, double w) {
   );
 }
 
+final Widget logoMSizeWhite = SvgPicture.asset('assets/images/logo.svg',
+    height: 25, width: 50, color: Colors.white);
+
 final Widget logoMSize = getVector('assets/images/logo.svg', 25, 50);
 final Widget logoLSize = getVector('assets/images/logo.svg', 55, 80);
 final Widget vCamera = getVector('assets/images/videoCamera.svg', 35, 35);
 
 final Widget svgMapPin = getVector('assets/images/pin.svg', 35, 35);
-final Widget svgMail =   getVector('assets/images/mail.svg', 35, 35);
+final Widget svgMail = getVector('assets/images/mail.svg', 35, 35);
+final Widget svgShareNetwork =
+    getVector('assets/images/shareNetwork.svg', 35, 35);
 
 final Widget logoMin = Image.asset('assets/images/logo_min.png');
 final Widget logoFund = Image.asset('assets/images/logo_fond.png');
@@ -62,22 +67,43 @@ Widget adsBlock(BuildContext ctx) {
   );
 }
 
-
-InputDecoration myInputDecoration ({String aHintText, IconData aSuffixIcon , String aErrortext = ''}) {
+InputDecoration myInputDecoration(
+    {String aHintText, IconData aSuffixIcon, String aErrortext = ''}) {
   return InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  suffixIcon: aSuffixIcon!= null ?Icon(aSuffixIcon) : null,
-                  hintText: aHintText,
-                  
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                    
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    borderSide: BorderSide(color: Colors.blue, width: 1),
-                  ),
-                );
+    filled: true,
+    fillColor: Colors.white,
+    suffixIcon: aSuffixIcon != null ? Icon(aSuffixIcon) : null,
+    hintText: aHintText,
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide(color: Colors.grey, width: 0.5),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide(color: Colors.blue, width: 1),
+    ),
+  );
+}
+
+class TextButtonWithSubfixIconChild extends StatelessWidget {
+  TextButtonWithSubfixIconChild({
+    @required this.label,
+    @required this.icon,
+  });
+
+  final Widget label;
+  final Widget icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Flexible(child: label),
+        SizedBox(width: 4),
+        icon,
+      ],
+    );
+  }
 }

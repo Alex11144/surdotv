@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surdotv_app/screens/detail_screen.dart';
 
 import './screens/selected_category_screen.dart';
 import 'screens/categories_screen.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Surdo TV App',
       theme: ThemeData(
         primaryColor: Color.fromRGBO(240, 232, 232, 1),
-        canvasColor:  Colors.white,
+        canvasColor: Colors.white,
         colorScheme: _isDark
             ? ColorScheme.dark(
                 secondary: Colors.red,
@@ -28,13 +29,14 @@ class MyApp extends StatelessWidget {
                 secondary: Colors.red,
                 primary: Color.fromRGBO(240, 232, 232, 1),
               ),
-      //  fontFamily: 'Helvetica',      
+        //  fontFamily: 'Helvetica',
       ),
-      home: HomePageScreen(), 
+      home: HomePageScreen(),
       routes: {
         CategoriesScreen.route_name: (ctx) => CategoriesScreen(),
         HomePageScreen.route_name: (ctx) => HomePageScreen(),
         SelectedCategoryScreen.routeName: (ctx) => SelectedCategoryScreen(''),
+        DetailScreen.routeName: (ctx) => DetailScreen(),
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/detail_screen.dart';
 
 class GridItem extends StatelessWidget {
   final String title;
@@ -35,7 +36,10 @@ class GridItem extends StatelessWidget {
                     ),
                   ),
                   child: InkWell(
-                    onTap: () {/* ... */},
+                    onTap: () {
+                      print('object clicked');
+                      Navigator.of(context).pushNamed(DetailScreen.routeName);
+                    },
                     child: Icon(
                       Icons.play_arrow,
                       color: Colors.white,

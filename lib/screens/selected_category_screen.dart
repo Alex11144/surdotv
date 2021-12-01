@@ -26,7 +26,7 @@ class SelectedCategoryScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              VCamera,
+              vCamera,
               SizedBox(
                 width: 5,
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surdotv_app/screens/contact_screen.dart';
 
 import '../screens/search_screen.dart';
 import './info_screen.dart';
@@ -39,7 +40,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       },
       {
         'title': 'Messages',
-        'page': null,
+        'page': ContactScreen(),
       },
       {
         'title': 'Selected Category',
@@ -74,6 +75,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           child: BottomNavigationBar(
             unselectedItemColor: Colors.black,
             selectedItemColor: Theme.of(context).colorScheme.secondary,
+            
             currentIndex: _selecedPageIndex, // _selected_index,
             onTap: (index) {
               setState(() {

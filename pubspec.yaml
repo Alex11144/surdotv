@@ -52,8 +52,12 @@ flutter:
   assets:
     - assets/images/videoCamera.svg
     - assets/images/logo.svg
+    - assets/images/mail.svg
+    - assets/images/pin.svg
     - assets/images/logo_min.png
     - assets/images/logo_fond.png
+    - assets/images/map.png
+    
     
     
 

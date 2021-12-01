@@ -11,12 +11,11 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController edt;
 
-    final List<String> _mostSearched = [
+  final List<String> _mostSearched = [
     'Yerli filmlər',
     'Qısametrajlı filmlər',
     'Qısametrajlı filmlər'
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
           centerTitle: true,
           elevation: 0,
           title: logoMSize,
-          backgroundColor: Theme.of(context).canvasColor,
+          backgroundColor: Theme.of(context).primaryColor.withOpacity(0.3),
           leading: '' != ''
               ? IconButton(
                   onPressed: () {
@@ -51,45 +50,38 @@ class _SearchScreenState extends State<SearchScreen> {
                 )
               : null,
         ),
-        body: SingleChildScrollView(
+        body: Container(
+          color: Theme.of(context).primaryColor.withOpacity(0.3),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
+              Container(
+                height: 70,
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
                   controller: edt,
-                  
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.search),
-                    hintText: 'Axtar ...',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5),
-                      borderSide: BorderSide(color: Colors.grey, width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5),
-                      borderSide: BorderSide(color: Colors.red, width: 1),
-                    ),
-                    ),
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                  decoration: myInputDecoration(aHintText: 'Axtar ...',aSuffixIcon: Icons.search,),
                 ),
               ),
               Container(
-          padding: EdgeInsets.all(10),
-          width: double.infinity,
-          child: Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: _mostSearched
-                .map((e) => OutlinedButton(
-                      onPressed: () {},
-                      child: Text(e),
-                      style: outlinedButtonStyle,
-                    ))
-                .toList(),
-          ),
-        ),
+                padding: EdgeInsets.all(10),
+                width: double.infinity,
+                child: Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: _mostSearched
+                      .map((e) => OutlinedButton(
+                            onPressed: () {},
+                            child: Text(e),
+                            style: outlinedButtonStyle,
+                          ))
+                      .toList(),
+                ),
+              ),
             ],
           ),
         ),

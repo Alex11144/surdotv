@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/animation.dart';
+import 'package:surdotv_app/screens/video_player.dart';
+
+import 'package:surdotv_app/screens/vimeo_player.dart';
 
 import '../widgets/common_widgets.dart';
 import 'package:intl/intl.dart';
@@ -28,36 +31,49 @@ class _DetailScreenState extends State<DetailScreen>
   CarouselController buttonCarouselController = CarouselController();
 
   Animation<double> _animation;
+  Animation<double> _animation2;
   AnimationController _animationController;
   var _animated = false;
+  var _animatedInit = false;
 
   @override
   void initState() {
-    animateShareIcons();
+    
+  //  animateShareIcons();
     super.initState();
   }
 
   void animateShareIcons() {
-    _animated = !_animated;
+
+    _animatedInit = true;
+    
     if (_animationController == null) {
       _animationController = AnimationController(
         vsync: this,
-        duration: Duration(seconds: 1),
+        duration: Duration(milliseconds: 500),
+
       );
     } else {
       _animationController.reset();
     }
+    _animation2 = CurvedAnimation(parent: _animationController, curve: Curves.fastOutSlowIn);
     _animation = Tween<double>(
-            begin: _animated ? 120 : -120, end: _animated ? -120 : 120)
-        .animate(_animationController)
+
+            begin: _animated ? 50.0 : -110.0,
+            end: _animated ? -110.0 : 50.0,
+            )
+        .animate(CurvedAnimation(parent: _animationController, curve: Curves.fastOutSlowIn))
       ..addListener(() {
         setState(() {});
+        
       });
+      _animated = !_animated;
     _animationController.forward();
   }
 
   @override
   void dispose() {
+    if (_animationController != null)
     _animationController.dispose();
     super.dispose();
   }
@@ -115,7 +131,9 @@ class _DetailScreenState extends State<DetailScreen>
                               ),
                             ),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).pushNamed(MyVideoPlayer.route_name);
+                              },
                               child: Icon(
                                 Icons.play_arrow,
                                 color: Colors.white,
@@ -204,13 +222,19 @@ class _DetailScreenState extends State<DetailScreen>
                         onTap: animateShareIcons,
                       ),
                       Positioned(
-                        left: _animation.value,
+                        left: _animatedInit  ? _animation.value : -120,
+                        
                         child: Container(
-                          color: Colors.orange,
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          height: 20,
-                          width: 120,
-                          child: const FlutterLogo(),
+                        
+                          child: Row(
+                            
+                            children: [
+                              InkWell(child:svgTwitter , onTap: (){print('twit');},),
+                              InkWell(child:svgFacebook , onTap: (){print('fb');},),
+                              InkWell(child:svgWhatsapp , onTap: (){print('wp');},),
+                               
+                            ],
+                          ),
                         ),
                       ),
                     ],

@@ -1,5 +1,9 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:surdotv_app/screens/detail_screen.dart';
+import 'package:surdotv_app/screens/video_player.dart';
+import 'package:surdotv_app/screens/vimeo_player.dart';
 
 import './screens/selected_category_screen.dart';
 import 'screens/categories_screen.dart';
@@ -37,6 +41,7 @@ class MyApp extends StatelessWidget {
         HomePageScreen.route_name: (ctx) => HomePageScreen(),
         SelectedCategoryScreen.routeName: (ctx) => SelectedCategoryScreen(''),
         DetailScreen.routeName: (ctx) => DetailScreen(),
+        MyVideoPlayer.route_name :(ctx) => MyVideoPlayer(),
       },
     );
   }

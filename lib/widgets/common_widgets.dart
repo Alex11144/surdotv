@@ -29,6 +29,15 @@ final Widget svgMail = getVector('assets/images/mail.svg', 35, 35);
 final Widget svgShareNetwork =
     getVector('assets/images/shareNetwork.svg', 35, 35);
 
+final Widget svgWhatsapp =
+    getVector('assets/images/whatsappLogo.svg', 35, 35);
+
+final Widget svgTwitter =
+    getVector('assets/images/twitterLogo.svg', 35, 35);
+
+final Widget svgFacebook =
+    getVector('assets/images/facebookLogo.svg', 35, 35);
+
 final Widget logoMin = Image.asset('assets/images/logo_min.png');
 final Widget logoFund = Image.asset('assets/images/logo_fond.png');
 

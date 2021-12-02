@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../widgets/common_widgets.dart';
 import '../widgets/grid_item.dart';
@@ -13,8 +12,6 @@ class SelectedCategoryScreen extends StatelessWidget {
   ];
   final String categoryId;
   SelectedCategoryScreen(this.categoryId);
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,19 +50,19 @@ class SelectedCategoryScreen extends StatelessWidget {
           ),
         ),
         GridView.builder(
-           primary: false,
-           shrinkWrap:true,
-           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-             childAspectRatio: 5 / 4,
-             crossAxisCount: 2,
-             crossAxisSpacing: 10,
-             mainAxisSpacing: 10,
-           ),
-           itemCount: 160,
-           itemBuilder: ((ctx, i) => GridTile(
-                 child: GridItem('a'),
-               )),
-         ),
+          primary: false,
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 5 / 4,
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: 160,
+          itemBuilder: ((ctx, i) => GridTile(
+                child: GridItem('a'),
+              )),
+        ),
       ],
     );
   }

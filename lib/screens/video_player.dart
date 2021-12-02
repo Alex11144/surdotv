@@ -62,25 +62,27 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
           width: _maxWidth,
           child: VimeoPlayer(videoId: videoId),
         ),
-        Positioned(
-          top: _maxHeight - 80,
-          left: _maxWidth - 80,
-          child: IconButton(
-            icon: Icon(
-              Icons.fullscreen,
-              size: 80,
-            ),
-            onPressed: () {
-              if (_isFullScreen) {
-                print('object cliecked');
-                _makeFullScreen();
-              } else {
-                  print('d cliecked');
-                _escapeFullScreen();
-              }
-            },
-          ),
-        )
+        // Positioned(
+        //   top: _maxHeight - 80,
+        //   left: _maxWidth - 80,
+        //   child: IconButton(
+        //     icon: Icon(
+        //       Icons.fullscreen,
+        //       size: 80,
+        //     ),
+        //     onPressed: () {
+        //       if (!_isFullScreen) {
+        //         print('object cliecked');
+        //         setState(() {
+        //           _makeFullScreen();
+        //         });
+        //       } else {
+        //         print('d cliecked');
+        //         _escapeFullScreen();
+        //       }
+        //     },
+        //   ),
+        // )
       ]),
     );
   }

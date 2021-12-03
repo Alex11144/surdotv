@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import '../screens/detail_screen.dart';
 
 class GridItem extends StatelessWidget {
+  final String id;
   final String title;
-  GridItem(this.title);
+  final String imgUrl;
+  GridItem({ this.id, this.title, this.imgUrl});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,7 +24,7 @@ class GridItem extends StatelessWidget {
                   padding: EdgeInsets.all(20),
                   color: Theme.of(context).colorScheme.primary,
                   child: Image.network(
-                    'https://surdotv.az/uploads/min-bir-ilme---197_29.jpg',
+                    imgUrl,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -36,9 +39,9 @@ class GridItem extends StatelessWidget {
                     ),
                   ),
                   child: InkWell(
+                     splashColor: Colors.green,
                     onTap: () {
-                      print('object clicked');
-                      Navigator.of(context).pushNamed(DetailScreen.routeName);
+                        Navigator.of(context).pushNamed(DetailScreen.routeName,arguments: id);
                     },
                     child: Icon(
                       Icons.play_arrow,
@@ -56,7 +59,7 @@ class GridItem extends StatelessWidget {
           Container(
             height: 20,
             alignment: Alignment.bottomLeft,
-            child: Text('footer text here -> $title'),
+            child: Text(title),
           ),
         ],
       ),

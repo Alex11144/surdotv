@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:surdotv_app/models/video_item.dart';
 import 'carousel_with_indigator.dart';
 
 import './grid_item.dart';
@@ -8,8 +9,9 @@ class HomePageBlock extends StatefulWidget {
   final String leftHeader;
   final String rightHeader;
   final IconData leftIcon;
+  final List<VideoItem> videoList;
 
-  HomePageBlock({this.leftHeader, this.leftIcon, this.rightHeader});
+  HomePageBlock({this.leftHeader, this.leftIcon, this.rightHeader, this.videoList});
 
   @override
   _HomePageBlockState createState() => _HomePageBlockState();
@@ -20,7 +22,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
   var _selectedPageIndex = 1.0;
 
   List<Widget> _itemList;
-  List<int> _gridItems = [0, 1, 2, 3];
+   
 
   @override
   void initState() {
@@ -44,7 +46,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
                 ),
                 itemCount: 4,
                 itemBuilder: ((ctx, i) => GridTile(
-                      child: GridItem('a'),
+                      child: GridItem(title : 'a'),
                     )),
               ),
               alignment: Alignment.topCenter,
@@ -67,7 +69,10 @@ class _HomePageBlockState extends State<HomePageBlock> {
                               .map(
                                 (z) => Expanded(
                                   child: GridItem(
-                                    (x + y + z).toString(),
+                                    id: widget.videoList[x+y+z].id,
+                                    title: widget.videoList[x+y+z].videoHead,
+                                    imgUrl : widget.videoList[x+y+z].getImageUrl
+
                                   ),
                                 ),
                               )

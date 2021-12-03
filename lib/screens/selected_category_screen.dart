@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:surdotv_app/models/video_item.dart';
 
 import '../widgets/common_widgets.dart';
 import '../widgets/grid_item.dart';
+import '../providers/videos.dart';
 
 class SelectedCategoryScreen extends StatelessWidget {
   static const routeName = '/selected-category';
-  final List<String> _subCategories = [
-    'Yerli filmlər',
-    'Qısametrajlı filmlər',
-    'Qısametrajlı filmlər'
-  ];
+  // final List<String> _subCategories = [
+  //   'Yerli filmlər',
+  //   'Qısametrajlı filmlər',
+  //   'Qısametrajlı filmlər'
+  // ];
   final String categoryId;
   SelectedCategoryScreen(this.categoryId);
 
@@ -17,6 +20,10 @@ class SelectedCategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // final String categoryId =
     //     ModalRoute.of(context).settings.arguments as String;
+final videos = Provider.of<Videos>(context, listen: false);
+    print(videos.items.length);
+    final _videos = videos.items.where((element) => element.categoryId == categoryId).toList() ;
+
     return Column(
       children: [
         Padding(
@@ -40,7 +47,7 @@ class SelectedCategoryScreen extends StatelessWidget {
           child: Wrap(
             spacing: 10,
             runSpacing: 10,
-            children: _subCategories
+            children: ['1','2']
                 .map((e) => OutlinedButton(
                       onPressed: () {},
                       child: Text(e),
@@ -58,9 +65,9 @@ class SelectedCategoryScreen extends StatelessWidget {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
           ),
-          itemCount: 160,
+          itemCount: _videos.length,
           itemBuilder: ((ctx, i) => GridTile(
-                child: GridItem('a'),
+                child: GridItem(id: _videos[i].id, imgUrl: _videos[i].getImageUrl,title: _videos[i].videoHead),
               )),
         ),
       ],

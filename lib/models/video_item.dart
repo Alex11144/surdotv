@@ -1,5 +1,5 @@
 class VideoItem {
-  int id;
+  String id;
   String subId;
   String ordering;
   String videoHead;
@@ -16,6 +16,7 @@ class VideoItem {
   String viewed;
   String len;
   String dt;
+  String categoryId;
 
   VideoItem(
       {this.id,
@@ -34,7 +35,8 @@ class VideoItem {
       this.imageUrl,
       this.viewed,
       this.len,
-      this.dt});
+      this.dt,
+      this.categoryId});
 
   String get getImageUrl => 'https://surdotv.az/uploads/$imageUrl';
   String get getVideoUrl => 'https://vimeo.com/$videoUrl';

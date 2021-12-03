@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './selected_category_screen.dart';
 import '../widgets/home_page_block.dart';
 import '../widgets/common_widgets.dart';
+import '../providers/categories.dart';
 
 
 class CategoriesScreen extends StatefulWidget {
@@ -14,9 +16,11 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   var _selectedCategory = '';
+  
 
   @override
   Widget build(BuildContext context) {
+    final _categories = Provider.of<Categories>(context, listen: false);
     return WillPopScope(
       onWillPop: () async {
         // Do something here
@@ -59,19 +63,21 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   
                   children: [
                   
-                    sub_categories_buttons(),
+                    sub_categories_buttons(_categories),
                     HomePageBlock(
-                      leftHeader: 'Filmlər',
-                      leftIcon: Icons.videocam_outlined,
-                      rightHeader: 'Bütün filmlər',
+                      leftHeader: _categories.items[0].name,
+                    leftIcon: Icons.videocam_outlined,
+                    rightHeader: 'Bütün filmlər',
+                    videoList: _categories.items[0].videoList,
                     ),
                     SizedBox(
                       height: 5,
                     ),
                     HomePageBlock(
-                      leftHeader: 'Cizgi Filmlər',
-                      leftIcon: Icons.videogame_asset_outlined,
-                      rightHeader: 'Bütün cizgi filmlər',
+                     leftHeader: _categories.items[1].name,
+                  leftIcon: Icons.videogame_asset_outlined,
+                  rightHeader: 'Bütün cizgi filmlər',
+                  videoList: _categories.items[1].videoList,
                     ),
                   ],
                 ),
@@ -80,26 +86,22 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
-  Widget sub_categories_buttons() {
+  Widget sub_categories_buttons(Categories categories) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Wrap(
         spacing: 10,
         runSpacing: 10,
-        children: [
-          1,
-          2,
-          3,
-        ]
+        children: categories.items 
             .map(
               (e) => OutlinedButton(
                 onPressed: () {
                   setState(() {
-                    _selectedCategory = e.toString();
+                    _selectedCategory = e.id;
                   });
                 },
                 child: Text(
-                  'ooook$e',
+                  e.name
                 ),
                 style: outlinedButtonStyle,
               ),

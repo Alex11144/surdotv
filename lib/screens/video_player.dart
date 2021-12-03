@@ -10,6 +10,7 @@ class MyVideoPlayer extends StatefulWidget {
 }
 
 class _MyVideoPlayerState extends State<MyVideoPlayer> {
+  var videoId = '';
   var _maxHeight = 0.0;
   var _maxWidth = 0.0;
   var _isFullScreen = false;
@@ -25,16 +26,33 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
       _maxHeight = MediaQuery.of(context).size.height;
       _maxWidth = MediaQuery.of(context).size.width;
     }
+    if (videoId.isEmpty) {
+      videoId = ModalRoute.of(context).settings.arguments;
+      print('video = ' + videoId);
+    }
+
     super.didChangeDependencies();
   }
 
+  void _changeScreenMode() {
+    if (_isFullScreen) {
+      _escapeFullScreen();
+    } else {
+      _makeFullScreen();
+    }
+  }
+
   void _makeFullScreen() {
-    _isFullScreen = true;
     SystemChrome.setEnabledSystemUIOverlays([]);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
+    setState(() {
+      _maxHeight = MediaQuery.of(context).size.height;
+      _maxWidth = MediaQuery.of(context).size.width;
+      _isFullScreen = true;
+    });
   }
 
   void _escapeFullScreen() {
@@ -52,15 +70,40 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
     super.dispose();
   }
 
-  final String videoId = '401880318';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        
+        children: _isFullScreen? [] : [
+          FloatingActionButton(
+            child: Icon(Icons.fullscreen, color: Colors.white,),
+            onPressed: () {
+              _escapeFullScreen();
+             
+            },
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          FloatingActionButton(
+            child: Icon(Icons.close, color: Colors.white,),
+            onPressed: () {
+              _escapeFullScreen();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
       body: Stack(children: [
         Container(
-          height: _maxHeight,
-          width: _maxWidth,
-          child: VimeoPlayer(videoId: videoId),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: InkWell(
+              onDoubleTap: _changeScreenMode,
+              child: VimeoPlayer(videoId: videoId)),
         ),
         // Positioned(
         //   top: _maxHeight - 80,

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/animation.dart';
-import 'package:surdotv_app/screens/video_player.dart';
+import 'package:provider/provider.dart';
+import 'package:surdotv_app/models/video_item.dart';
 
-import 'package:surdotv_app/screens/vimeo_player.dart';
+import '../providers/videos.dart';
+import '../screens/video_player.dart';
 
 import '../widgets/common_widgets.dart';
-import 'package:intl/intl.dart';
 
 class DetailScreen extends StatefulWidget {
   static const routeName = '/detail-screen';
@@ -17,65 +18,77 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen>
     with SingleTickerProviderStateMixin {
-  List<Widget> _imgList = [
-    'https://surdotv.az/uploads/bir-qalanin-sirri--196_51.jpg',
-    'https://surdotv.az/uploads/min-bir-ilme---197_29.jpg',
-    'https://surdotv.az/uploads/asif--vasif--agasif--193_51.jpg',
-  ]
-      .map((e) => Image.network(
-            e,
-            fit: BoxFit.fill,
-          ))
-      .toList();
+  List<Widget> _imgList = [];
+  String _header;
+  String _dt;
+  String _viewed;
+  String _txt;
 
   CarouselController buttonCarouselController = CarouselController();
+  ScrollController listScrollController = ScrollController();
 
   Animation<double> _animation;
   Animation<double> _animation2;
   AnimationController _animationController;
   var _animated = false;
   var _animatedInit = false;
+  var _isLoaded = false;
+  VideoItem _video;
+  List<VideoItem> _similarItems;
 
   @override
   void initState() {
-    
-  //  animateShareIcons();
+    //  animateShareIcons();
     super.initState();
   }
 
   void animateShareIcons() {
-
     _animatedInit = true;
-    
+
     if (_animationController == null) {
       _animationController = AnimationController(
         vsync: this,
         duration: Duration(milliseconds: 500),
-
       );
     } else {
       _animationController.reset();
     }
-    _animation2 = CurvedAnimation(parent: _animationController, curve: Curves.fastOutSlowIn);
+    _animation2 = CurvedAnimation(
+        parent: _animationController, curve: Curves.fastOutSlowIn);
     _animation = Tween<double>(
-
-            begin: _animated ? 50.0 : -110.0,
-            end: _animated ? -110.0 : 50.0,
-            )
-        .animate(CurvedAnimation(parent: _animationController, curve: Curves.fastOutSlowIn))
+      begin: _animated ? 50.0 : -110.0,
+      end: _animated ? -110.0 : 50.0,
+    ).animate(CurvedAnimation(
+        parent: _animationController, curve: Curves.fastOutSlowIn))
       ..addListener(() {
         setState(() {});
-        
       });
-      _animated = !_animated;
+    _animated = !_animated;
     _animationController.forward();
   }
 
   @override
   void dispose() {
-    if (_animationController != null)
-    _animationController.dispose();
+    if (_animationController != null) _animationController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (!_isLoaded) {
+      final videoId = ModalRoute.of(context).settings.arguments;
+      final allVideos = Provider.of<Videos>(context, listen: false);
+      VideoItem _video = allVideos.items.firstWhere((e) => e.id == videoId);
+      _similarItems = allVideos.similarItems(5, _video.id);
+      _video = _video;
+      _header = _video.videoHead;
+      _dt = _video.dt;
+      _viewed = _video.viewed;
+      _txt = _video.videoAbout;
+      _isLoaded = true;
+    }
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -104,11 +117,23 @@ class _DetailScreenState extends State<DetailScreen>
                     enlargeCenterPage: true,
                     //viewportFraction: 0.5,
                     onPageChanged: (index, r) {
-                      //
+                      setState(() {
+                        _video = _similarItems[index];
+                        _header = _similarItems[index].videoHead;
+                        _dt = _similarItems[index].dt;
+                        _viewed = _similarItems[index].viewed;
+                        _txt = _similarItems[index].videoAbout;
+                        if (listScrollController.hasClients) {
+                          final position =
+                              listScrollController.position.minScrollExtent;
+                          listScrollController.jumpTo(position);
+                        }
+                        print(index);
+                      });
                     }
                     //
                     ),
-                items: _imgList.map((item) {
+                items: _similarItems.map((item) {
                   return Builder(
                     builder: (BuildContext context) {
                       return Stack(children: [
@@ -118,7 +143,10 @@ class _DetailScreenState extends State<DetailScreen>
                             borderRadius: BorderRadius.all(
                               Radius.circular(15.0),
                             ),
-                            child: item,
+                            child: Image.network(
+                              item.getImageUrl,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                         Center(
@@ -132,7 +160,9 @@ class _DetailScreenState extends State<DetailScreen>
                             ),
                             child: InkWell(
                               onTap: () {
-                                Navigator.of(context).pushNamed(MyVideoPlayer.route_name);
+                                Navigator.of(context).pushNamed(
+                                    MyVideoPlayer.route_name,
+                                    arguments: item.videoUrl);
                               },
                               child: Icon(
                                 Icons.play_arrow,
@@ -151,10 +181,11 @@ class _DetailScreenState extends State<DetailScreen>
           ),
           Expanded(
             child: ListView(
+              controller: listScrollController,
               children: [
                 ListTile(
                   title: Text(
-                    'Xoştbəxtlik qayğıları',
+                    _header,
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   subtitle: Padding(
@@ -167,10 +198,7 @@ class _DetailScreenState extends State<DetailScreen>
                           color: Colors.black45,
                         ),
                         Text(
-                          DateFormat.yMd()
-                              .add_Hms()
-                              .format(DateTime.now())
-                              .toString(),
+                          _dt,
                         ),
                         SizedBox(
                           width: 8.0,
@@ -180,7 +208,7 @@ class _DetailScreenState extends State<DetailScreen>
                           size: 15,
                           color: Colors.black45,
                         ),
-                        Text('1521 baxış'),
+                        Text(_viewed),
                       ],
                     ),
                   ),
@@ -205,7 +233,7 @@ class _DetailScreenState extends State<DetailScreen>
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    'Musiqili film uşaq aləminin gözəlliyindən, onların xarakterlərindən, uşaqlarla heyvanların dostluğundan bəhs edir.',
+                    _txt,
                     style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'Helvetica',
@@ -222,17 +250,28 @@ class _DetailScreenState extends State<DetailScreen>
                         onTap: animateShareIcons,
                       ),
                       Positioned(
-                        left: _animatedInit  ? _animation.value : -120,
-                        
+                        left: _animatedInit ? _animation.value : -120,
                         child: Container(
-                        
                           child: Row(
-                            
                             children: [
-                              InkWell(child:svgTwitter , onTap: (){print('twit');},),
-                              InkWell(child:svgFacebook , onTap: (){print('fb');},),
-                              InkWell(child:svgWhatsapp , onTap: (){print('wp');},),
-                               
+                              InkWell(
+                                child: svgTwitter,
+                                onTap: () {
+                                  print('twit');
+                                },
+                              ),
+                              InkWell(
+                                child: svgFacebook,
+                                onTap: () {
+                                  print('fb');
+                                },
+                              ),
+                              InkWell(
+                                child: svgWhatsapp,
+                                onTap: () {
+                                  print('wp');
+                                },
+                              ),
                             ],
                           ),
                         ),

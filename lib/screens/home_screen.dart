@@ -19,6 +19,38 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    final _catProvider = Provider.of<Categories>(
+      context,
+      listen: false,
+    );
+
+    if (!_catProvider.isLoaded) {
+      Provider.of<Categories>(
+        context,
+        listen: false,
+      ).fetchAll().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    final _videoProvider = Provider.of<Videos>(
+      context,
+      listen: false,
+    );
+
+    if (!_videoProvider.isLoaded) {
+      Provider.of<Videos>(
+        context,
+        listen: false,
+      ).fetchAll().then((_) {
+        setState(() {
+          _isVideosLoaded = true;
+        });
+      });
+    }
+    _isFetched = true;
+
     super.initState();
   }
 
@@ -29,18 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _isLoading = true;
         });
-        
-        Provider.of<Categories>(context).fetchAll().then((_) {
-          setState(() {
-            _isLoading = false;
-          });
-        });
-        Provider.of<Videos>(context).fetchAll().then((_) {
- setState(() {
-            _isVideosLoaded = true;
-          });
-        });
-        _isFetched = true;
       } catch (e) {}
     }
     super.didChangeDependencies();
@@ -50,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final _categories = Provider.of<Categories>(context, listen: false);
 
-    return _isLoading
+    return !_categories.isLoaded
         ? Center(child: CircularProgressIndicator())
         : SingleChildScrollView(
             child: Column(

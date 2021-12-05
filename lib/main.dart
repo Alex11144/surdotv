@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surdotv_app/providers/videos.dart';
 
+import './providers/about.dart';
+import './providers/videos.dart';
 import './providers/categories.dart';
 import './screens/detail_screen.dart';
 import './screens/video_player.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) => Categories(context)),
         ChangeNotifierProvider(create: (ctx) => Videos()),
-        
+        ChangeNotifierProvider(create: (ctx) => About()),
       ],
       child: MaterialApp(
         title: 'Surdo TV App',

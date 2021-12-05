@@ -4,11 +4,11 @@ import 'dart:convert';
 
 import '../models/video_item.dart';
 
-
 import '../models/category_item.dart';
 
 class Categories with ChangeNotifier {
   List<CategoryItem> _items;
+  bool _isLoaded = false;
   BuildContext ctx;
 
   Categories(this.ctx);
@@ -23,19 +23,18 @@ class Categories with ChangeNotifier {
   }
 
   List<CategoryItem> get items => _items;
+  bool get isLoaded => _isLoaded;
 
-   
   Future<void> fetchAll() async {
-    final url = 'http://api.surdotv.az/api/index';
-
-   
-  
+    final url = Uri.http('api.surdotv.az', '/api/index');
+    final apiKey = {
+      'api_key':
+          'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    };
 
     try {
-      final resp = await http.get(url, headers: {
-        'api_key':
-            'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-      });
+      print(url.toString());
+      final resp = await http.get(url, headers: apiKey);
 
       if (resp.statusCode >= 400) {
         return;
@@ -57,6 +56,7 @@ class Categories with ChangeNotifier {
       loadedItems.add(json2CategoryItem(categotyData));
 
       _items = loadedItems;
+      _isLoaded = true;
     } catch (e) {
       print('error : ${e.toString()}');
     }
@@ -88,8 +88,6 @@ class Categories with ChangeNotifier {
           dt: e['tarix'],
         );
 
- 
-         
         return _newItem;
       }).toList(),
     );

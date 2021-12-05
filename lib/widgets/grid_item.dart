@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '../screens/detail_screen.dart';
 
 class GridItem extends StatelessWidget {
   final String id;
   final String title;
   final String imgUrl;
-  GridItem({ this.id, this.title, this.imgUrl});
+  GridItem({this.id, this.title, this.imgUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +25,18 @@ class GridItem extends StatelessWidget {
                   width: double.infinity,
                   padding: EdgeInsets.all(20),
                   color: Theme.of(context).colorScheme.primary,
-                  child: Image.network(
-                    imgUrl,
-                    fit: BoxFit.fill,
+                  child: CachedNetworkImage(
+                    imageUrl: imgUrl,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
+                  // child: Image.network(
+                  //   imgUrl,
+                  //   fit: BoxFit.fill,
+                  // ),
                 ),
               ),
               Center(
@@ -39,9 +49,10 @@ class GridItem extends StatelessWidget {
                     ),
                   ),
                   child: InkWell(
-                     splashColor: Colors.green,
+                    splashColor: Colors.green,
                     onTap: () {
-                        Navigator.of(context).pushNamed(DetailScreen.routeName,arguments: id);
+                      Navigator.of(context)
+                          .pushNamed(DetailScreen.routeName, arguments: id);
                     },
                     child: Icon(
                       Icons.play_arrow,

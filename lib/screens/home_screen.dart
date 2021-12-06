@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icons.refresh,
                       size: 30,
                     ),
-                    onTap: (){
+                    onTap: () {
                       _categories.fetchAll();
                     },
                   )

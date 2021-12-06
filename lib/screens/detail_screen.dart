@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/animation.dart';
 import 'package:provider/provider.dart';
+
 import 'package:surdotv_app/models/video_item.dart';
 
 import '../providers/videos.dart';
 import '../screens/video_player.dart';
-
 import '../widgets/common_widgets.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -18,7 +18,6 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen>
     with SingleTickerProviderStateMixin {
-  List<Widget> _imgList = [];
   String _header;
   String _dt;
   String _viewed;
@@ -28,12 +27,12 @@ class _DetailScreenState extends State<DetailScreen>
   ScrollController listScrollController = ScrollController();
 
   Animation<double> _animation;
-  Animation<double> _animation2;
+
   AnimationController _animationController;
   var _animated = false;
   var _animatedInit = false;
   var _isLoaded = false;
-  VideoItem _video;
+
   List<VideoItem> _similarItems;
 
   @override
@@ -53,8 +52,7 @@ class _DetailScreenState extends State<DetailScreen>
     } else {
       _animationController.reset();
     }
-    _animation2 = CurvedAnimation(
-        parent: _animationController, curve: Curves.fastOutSlowIn);
+
     _animation = Tween<double>(
       begin: _animated ? 50.0 : -110.0,
       end: _animated ? -110.0 : 50.0,
@@ -118,7 +116,6 @@ class _DetailScreenState extends State<DetailScreen>
                     //viewportFraction: 0.5,
                     onPageChanged: (index, r) {
                       setState(() {
-                        _video = _similarItems[index];
                         _header = _similarItems[index].videoHead;
                         _dt = _similarItems[index].dt;
                         _viewed = _similarItems[index].viewed;

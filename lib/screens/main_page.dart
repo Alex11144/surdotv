@@ -19,10 +19,8 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
   List<Map<String, Object>> _pages;
 
-
   @override
   void initState() {
-   
     _pages = [
       {
         'title': 'Home',
@@ -55,13 +53,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     final menuData = Provider.of<MenuData>(context);
+
     return Scaffold(
       body: _pages[menuData.selectedMenuIndex]['page'],
       bottomNavigationBar: BottomNavBar(menuData.selectedMenuIndex),
     );
   }
 
-  Widget BottomNavBar( int _selectedPageIndex) {
+  Widget BottomNavBar(int _selectedPageIndex) {
     return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -78,12 +77,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
           child: BottomNavigationBar(
             unselectedItemColor: Colors.black,
             selectedItemColor: Theme.of(context).colorScheme.secondary,
-            
+
             currentIndex: _selectedPageIndex, // _selected_index,
             onTap: (index) {
               setState(() {
-            //    _selectedPageIndex = index;
-                Provider.of<MenuData>(context,listen: false,).setMenuIndex(index);
+                //    _selectedPageIndex = index;
+                Provider.of<MenuData>(
+                  context,
+                  listen: false,
+                ).setMenuIndex(index);
               });
             },
             type: BottomNavigationBarType.fixed,

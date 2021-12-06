@@ -9,7 +9,7 @@ class InfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final aboutProvider = Provider.of<About>(context, listen: true);
+    final aboutProvider = Provider.of<About>(context, listen: false);
     final aboutText = aboutProvider.getContent();
     return !aboutProvider.isLoaded
         ? Center(
@@ -43,7 +43,7 @@ class InfoScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    aboutText,
+                    aboutText == null ? '':aboutText,
                     style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'Helvetica',

@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 import 'package:surdotv_app/models/video_item.dart';
 import 'carousel_with_indigator.dart';
 
 import './grid_item.dart';
+import '../providers/menu_data.dart';
+import '../screens/categories_screen.dart';
 
 class HomePageBlock extends StatefulWidget {
   final String leftHeader;
   final String rightHeader;
   final IconData leftIcon;
   final List<VideoItem> videoList;
+  final String catId;
 
-  HomePageBlock({this.leftHeader, this.leftIcon, this.rightHeader, this.videoList});
+  HomePageBlock(
+      {this.leftHeader,
+      this.leftIcon,
+      this.rightHeader,
+      this.videoList,
+      this.catId});
 
   @override
   _HomePageBlockState createState() => _HomePageBlockState();
@@ -19,18 +28,9 @@ class HomePageBlock extends StatefulWidget {
 
 class _HomePageBlockState extends State<HomePageBlock> {
   final maxHeight = 400.0;
-  var _selectedPageIndex = 1.0;
+ 
 
   List<Widget> _itemList;
-   
-
-  @override
-  void initState() {
-    // makeList();
-    print('make list called ');
-    super.initState();
-  }
-
   void makeList() {
     _itemList = [1, 2, 3]
         .map((e) => Container(
@@ -46,7 +46,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
                 ),
                 itemCount: 4,
                 itemBuilder: ((ctx, i) => GridTile(
-                      child: GridItem(title : 'a'),
+                      child: GridItem(title: 'a'),
                     )),
               ),
               alignment: Alignment.topCenter,
@@ -69,11 +69,11 @@ class _HomePageBlockState extends State<HomePageBlock> {
                               .map(
                                 (z) => Expanded(
                                   child: GridItem(
-                                    id: widget.videoList[x+y+z].id,
-                                    title: widget.videoList[x+y+z].videoHead,
-                                    imgUrl : widget.videoList[x+y+z].getImageUrl
-
-                                  ),
+                                      id: widget.videoList[x + y + z].id,
+                                      title:
+                                          widget.videoList[x + y + z].videoHead,
+                                      imgUrl: widget
+                                          .videoList[x + y + z].getImageUrl),
                                 ),
                               )
                               .toList(),
@@ -115,7 +115,16 @@ class _HomePageBlockState extends State<HomePageBlock> {
                 Text(widget.leftHeader),
                 Spacer(),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      final menuData = Provider.of<MenuData>(
+                        context,
+                        listen: false,
+                      );
+                      menuData.setMenuIndex(2);
+                      menuData.setCategoryId(widget.catId);
+                    });
+                  },
                   child: Text(
                     widget.rightHeader,
                     style: TextStyle(
@@ -124,7 +133,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
                     ),
                   ),
                 ),
-                 SizedBox(
+                SizedBox(
                   width: 10,
                 ),
               ],

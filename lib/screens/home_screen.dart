@@ -13,88 +13,86 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _isFetched = false;
-  var _isLoading = false;
-  var _isVideosLoaded = false;
-
   @override
   void initState() {
+    print(DateTime.now());
     final _catProvider = Provider.of<Categories>(
       context,
       listen: false,
     );
 
     if (!_catProvider.isLoaded) {
-      Provider.of<Categories>(
-        context,
-        listen: false,
-      ).fetchAll().then((_) {
-        setState(() {
-          _isLoading = false;
-        });
-      });
+      _catProvider.fetchAll();
     }
+
     final _videoProvider = Provider.of<Videos>(
       context,
       listen: false,
     );
 
     if (!_videoProvider.isLoaded) {
-      Provider.of<Videos>(
-        context,
-        listen: false,
-      ).fetchAll().then((_) {
-        setState(() {
-          _isVideosLoaded = true;
-        });
-      });
+      _videoProvider.fetchAll();
     }
-    _isFetched = true;
 
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    if (!_isFetched) {
-      try {
-        setState(() {
-          _isLoading = true;
-        });
-      } catch (e) {}
-    }
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final _categories = Provider.of<Categories>(context, listen: false);
+    final _categories = Provider.of<Categories>(context);
 
     return !_categories.isLoaded
         ? Center(child: CircularProgressIndicator())
-        : SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                MainCarousel(),
-                HomePageBlock(
-                    leftHeader: _categories.items[0].name,
-                    leftIcon: Icons.videocam_outlined,
-                    rightHeader: 'Bütün filmlər',
-                    videoList: _categories.items[0].videoList),
-                SizedBox(
-                  height: 5,
+        : _categories.items.length == 0
+            ? Center(
+                child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Serverlə əlaqə yaradıla bilmədi..'),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    child: Icon(
+                      Icons.refresh,
+                      size: 30,
+                    ),
+                    onTap: (){
+                      _categories.fetchAll();
+                    },
+                  )
+                ],
+              ))
+            : SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    MainCarousel(),
+                    HomePageBlock(
+                        leftHeader: _categories.items[0].name,
+                        leftIcon: Icons.videocam_outlined,
+                        rightHeader: 'Bütün filmlər',
+                        videoList: _categories.items[0].videoList,
+                        catId: _categories.items[0].id),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    adsBlock(context),
+                    HomePageBlock(
+                      leftHeader: _categories.items[1].name,
+                      leftIcon: Icons.videogame_asset_outlined,
+                      rightHeader: 'Bütün cizgi filmlər',
+                      videoList: _categories.items[1].videoList,
+                      catId: _categories.items[1].id,
+                    ),
+                  ],
                 ),
-                adsBlock(context),
-                HomePageBlock(
-                  leftHeader: _categories.items[1].name,
-                  leftIcon: Icons.videogame_asset_outlined,
-                  rightHeader: 'Bütün cizgi filmlər',
-                  videoList: _categories.items[1].videoList,
-                ),
-              ],
-            ),
-          );
+              );
   }
 }

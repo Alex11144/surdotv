@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:surdotv_app/providers/menu_data.dart';
 import 'package:surdotv_app/screens/contact_screen.dart';
 
 import '../screens/search_screen.dart';
@@ -16,11 +18,11 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   List<Map<String, Object>> _pages;
-  var _selecedPageIndex;
+
 
   @override
   void initState() {
-    _selecedPageIndex = 0;
+   
     _pages = [
       {
         'title': 'Home',
@@ -52,13 +54,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final menuData = Provider.of<MenuData>(context);
     return Scaffold(
-      body: _pages[_selecedPageIndex]['page'],
-      bottomNavigationBar: BottomNavBar(),
+      body: _pages[menuData.selectedMenuIndex]['page'],
+      bottomNavigationBar: BottomNavBar(menuData.selectedMenuIndex),
     );
   }
 
-  Widget BottomNavBar() {
+  Widget BottomNavBar( int _selectedPageIndex) {
     return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -76,10 +79,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
             unselectedItemColor: Colors.black,
             selectedItemColor: Theme.of(context).colorScheme.secondary,
             
-            currentIndex: _selecedPageIndex, // _selected_index,
+            currentIndex: _selectedPageIndex, // _selected_index,
             onTap: (index) {
               setState(() {
-                _selecedPageIndex = index;
+            //    _selectedPageIndex = index;
+                Provider.of<MenuData>(context,listen: false,).setMenuIndex(index);
               });
             },
             type: BottomNavigationBarType.fixed,

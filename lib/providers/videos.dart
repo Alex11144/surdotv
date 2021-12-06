@@ -64,15 +64,16 @@ class Videos with ChangeNotifier {
                 categoryId: cat['id'].toString(),
               );
               _items.add(_newVideoItem);
-              print('video count = ' + _items.length.toString());
+             
             });
 
             notifyListeners();
           });
         });
-        print('video count = ' + _items.length.toString());
+        
       }
       _isLoaded = true;
+         print(DateTime.now());
     });
   }
 

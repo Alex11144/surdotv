@@ -7,7 +7,7 @@ import '../models/video_item.dart';
 import '../models/category_item.dart';
 
 class Categories with ChangeNotifier {
-  List<CategoryItem> _items;
+  List<CategoryItem> _items = [];
   bool _isLoaded = false;
   BuildContext ctx;
 
@@ -37,6 +37,7 @@ class Categories with ChangeNotifier {
       final resp = await http.get(url, headers: apiKey);
 
       if (resp.statusCode >= 400) {
+         _isLoaded = true;
         return;
       } else {}
 
@@ -45,6 +46,7 @@ class Categories with ChangeNotifier {
       List<CategoryItem> loadedItems = [];
 
       if (extactedData == null) {
+        _isLoaded = true;
         return;
       }
 
@@ -58,6 +60,7 @@ class Categories with ChangeNotifier {
       _items = loadedItems;
       _isLoaded = true;
     } catch (e) {
+       _isLoaded = true;
       print('error : ${e.toString()}');
     }
     notifyListeners();

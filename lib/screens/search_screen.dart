@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:surdotv_app/models/video_item.dart';
+import 'package:surdotv_app/providers/search.dart';
+import 'package:surdotv_app/widgets/grid_item.dart';
 
 import '../widgets/common_widgets.dart';
 
@@ -9,7 +13,9 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  TextEditingController edt;
+  TextEditingController edt = new TextEditingController();
+  List<VideoItem> _videos = [];
+  var _isLoading = false;
 
   final List<String> _mostSearched = [
     'Yerli filmlər',
@@ -61,6 +67,11 @@ class _SearchScreenState extends State<SearchScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextField(
                   controller: edt,
+                  textInputAction: TextInputAction.search,
+                  
+                  onSubmitted: (txt) {
+                    _doSearch(context, txt);
+                  },
                   decoration: myInputDecoration(
                     aHintText: 'Axtar ...',
                     aSuffixIcon: Icons.search,
@@ -75,17 +86,61 @@ class _SearchScreenState extends State<SearchScreen> {
                   runSpacing: 10,
                   children: _mostSearched
                       .map((e) => OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                            
+                                 edt.text = e;
+                         
+                             
+                               _doSearch(context, e);
+                            },
                             child: Text(e),
                             style: outlinedButtonStyle,
+                            
                           ))
                       .toList(),
                 ),
+              ),
+              Expanded(
+                child: _isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : GridView.builder(
+                        primary: false,
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 5 / 4,
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
+                        itemCount: _videos.length,
+                        itemBuilder: ((ctx, i) => GridTile(
+                              child: GridItem(
+                                  id: _videos[i].id,
+                                  imgUrl: _videos[i].getImageUrl,
+                                  title: _videos[i].videoHead),
+                            )),
+                      ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _doSearch(BuildContext context, String txt) {
+      setState(() {
+      _isLoading = true;
+    });
+    
+    final searchData =
+        Provider.of<SearchData>(context, listen: false);
+    searchData.fetchData(txt).then((_) {
+      setState(() {
+        _videos = searchData.items;
+        _isLoading = false;
+                      
+      });
+    });
   }
 }

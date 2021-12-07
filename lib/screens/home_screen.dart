@@ -53,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Hero(tag: '1324',child: logoMSize),
                   Text('Serverlə əlaqə yaradıla bilmədi..'),
                   SizedBox(
                     height: 20,

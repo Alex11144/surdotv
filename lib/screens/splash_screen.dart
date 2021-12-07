@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
         print(_animation.value);
         setState(() {});
         if (_animation.isCompleted) {
-          //   Navigator.of(context).pushNamed(HomePageScreen.route_name);
+          Navigator.of(context).pushNamed(HomePageScreen.route_name);
         }
       });
 
@@ -63,40 +63,53 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
-  double _size = 200;
+  double _sizeH = 50;
+  double _sizeW = 100;
   bool _large = false;
 
   void _updateSize() {
     setState(() {
-      _size = _large ? 200.0 : 100.0;
+      _sizeH = _large ? 50.0 : 25.0;
+      _sizeW = _large ? 100.0 : 50.0;
       _large = !_large;
     });
   }
 
+  bool selected = false;
+  double _currentOpasity = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(children: [
-      Positioned(
-        child: InkWell(
-          child: AnimatedSize(
-            duration: Duration(milliseconds: 500),
-            curve: Curves.easeIn,
-            child: SizedBox(
-              width: _size,
-              child: logoLSize,
+      body: GestureDetector(
+        onTap: () {
+          _updateSize();
+          setState(() {
+            selected = !selected;
+            _currentOpasity = 0;
+          });
+        },
+        child: Center(
+          child: AnimatedOpacity(
+            duration: const Duration(seconds: 1),
+            opacity: _currentOpasity,
+            onEnd: () {
+              Navigator.of(context).pushNamed(HomePageScreen.route_name);
+            },
+            child: AnimatedAlign(
+              alignment: !selected ? Alignment.center : Alignment.topCenter,
+              duration: const Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn,
+              child: AnimatedContainer(
+                height: !selected ? 200.0 : 100.0,
+                width: !selected ? 200 : 100.0,
+                duration: Duration(seconds: 1),
+                curve: Curves.fastOutSlowIn,
+                child: logoLSize,
+              ),
             ),
           ),
-          onTap: () {
-            _animateLogo();
-            _updateSize();
-          },
         ),
-        top: _animateStarted ? _animation.value : _initTop,
-        left: _initLeft,
-        // width: _initLeft * 2,
-        // height: 50,
       ),
-    ]));
+    );
   }
 }

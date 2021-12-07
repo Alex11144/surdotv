@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../widgets/common_widgets.dart';
 
@@ -9,6 +10,19 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   static const route_name = '/contact';
+  final _form = GlobalKey<FormState>();
+
+  Future<void> _saveFrom() async {
+    if (_form.currentState.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Processing Data')),
+      );
+    }
+
+    // _form.currentState.validate();
+    // _form.currentState.save();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,17 +56,11 @@ class _ContactScreenState extends State<ContactScreen> {
                 ),
               ),
               Form(
+                key: _form,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView(
                     shrinkWrap: true,
-                    // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    //   childAspectRatio: 10 / 3,
-                    //   crossAxisCount: 2,
-                    //   crossAxisSpacing: 8,
-                    //   mainAxisSpacing: 8,
-                    // ),
-
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -65,6 +73,12 @@ class _ContactScreenState extends State<ContactScreen> {
                                 decoration:
                                     myInputDecoration(aHintText: 'Ad Soyad *'),
                                 textInputAction: TextInputAction.next,
+                                validator: (val) {
+                                  if (val.isEmpty || val == null) {
+                                    return 'Ad Soyad boş ola bilməz';
+                                  }
+                                  return null;
+                                },
                               ),
                             ),
                           ),
@@ -76,6 +90,12 @@ class _ContactScreenState extends State<ContactScreen> {
                                 decoration:
                                     myInputDecoration(aHintText: 'E-mail *'),
                                 textInputAction: TextInputAction.next,
+                                validator: (val) {
+                                  if (val.isEmpty) {
+                                    return 'Email boş ola bilməz';
+                                  }
+                                  return null;
+                                },
                               ),
                             ),
                           ),
@@ -95,6 +115,12 @@ class _ContactScreenState extends State<ContactScreen> {
                                 decoration:
                                     myInputDecoration(aHintText: 'Mobil *'),
                                 textInputAction: TextInputAction.next,
+                                validator: (val) {
+                                  if (val.isEmpty) {
+                                    return 'Mobil boş ola bilməz';
+                                  }
+                                  return null;
+                                },
                               ),
                             ),
                           ),
@@ -106,6 +132,12 @@ class _ContactScreenState extends State<ContactScreen> {
                                 decoration:
                                     myInputDecoration(aHintText: 'Şəhər *'),
                                 textInputAction: TextInputAction.next,
+                                validator: (val) {
+                                  if (val.isEmpty) {
+                                    return 'Şəhər boş ola bilməz';
+                                  }
+                                  return null;
+                                },
                               ),
                             ),
                           ),
@@ -119,6 +151,12 @@ class _ContactScreenState extends State<ContactScreen> {
                         keyboardType: TextInputType.multiline,
                         decoration: myInputDecoration(aHintText: 'Mesajınız '),
                         textInputAction: TextInputAction.next,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Mesaj boş ola bilməz';
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(
                         height: 8,
@@ -128,7 +166,14 @@ class _ContactScreenState extends State<ContactScreen> {
                         children: [
                           Text('Email: info@surdotv.az'),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (_form.currentState.validate()) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Processing Data')),
+                                );
+                              }
+                            },
                             child: Text('Mesajı Göndər'),
                             style: redFilledButtonStyle,
                           ),

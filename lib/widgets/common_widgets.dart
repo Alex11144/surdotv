@@ -20,6 +20,8 @@ Widget logo(double h, double w) {
 final Widget logoMSizeWhite = SvgPicture.asset('assets/images/logo.svg',
     height: 25, width: 50, color: Colors.white);
 
+
+
 final Widget logoMSize = getVector('assets/images/logo.svg', 25, 50);
 final Widget logoLSize = getVector('assets/images/logo.svg', 55, 80);
 final Widget vCamera = getVector('assets/images/videoCamera.svg', 35, 35);
@@ -81,6 +83,7 @@ InputDecoration myInputDecoration(
   return InputDecoration(
     filled: true,
     fillColor: Colors.white,
+    errorText: aErrortext,
     suffixIcon: aSuffixIcon != null ? Icon(aSuffixIcon) : null,
     hintText: aHintText,
     enabledBorder: OutlineInputBorder(

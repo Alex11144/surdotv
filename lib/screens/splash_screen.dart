@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
         print(_animation.value);
         setState(() {});
         if (_animation.isCompleted) {
-          Navigator.of(context).pushNamed(HomePageScreen.route_name);
+          Navigator.of(context).pushReplacementNamed(HomePageScreen.route_name);
         }
       });
 

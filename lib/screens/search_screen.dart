@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surdotv_app/models/video_item.dart';
 import 'package:surdotv_app/providers/search.dart';
+import 'package:surdotv_app/widgets/bottom_nav_bar.dart';
 import 'package:surdotv_app/widgets/grid_item.dart';
 
 import '../widgets/common_widgets.dart';
 
 class SearchScreen extends StatefulWidget {
+  static const route_name = '/search';
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -56,6 +58,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 )
               : null,
         ),
+        //  bottomNavigationBar: BottomNavBar(selectedBar: 3),
         body: Container(
           color: Theme.of(context).primaryColor.withOpacity(0.3),
           child: Column(
@@ -63,12 +66,11 @@ class _SearchScreenState extends State<SearchScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                height: 50,
+                height: 70,
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextField(
                   controller: edt,
                   textInputAction: TextInputAction.search,
-                  
                   onSubmitted: (txt) {
                     _doSearch(context, txt);
                   },
@@ -87,15 +89,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   children: _mostSearched
                       .map((e) => OutlinedButton(
                             onPressed: () {
-                            
-                                 edt.text = e;
-                         
-                             
-                               _doSearch(context, e);
+                              edt.text = e;
+
+                              _doSearch(context, e);
                             },
                             child: Text(e),
                             style: outlinedButtonStyle,
-                            
                           ))
                       .toList(),
                 ),
@@ -129,17 +128,15 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _doSearch(BuildContext context, String txt) {
-      setState(() {
+    setState(() {
       _isLoading = true;
     });
-    
-    final searchData =
-        Provider.of<SearchData>(context, listen: false);
+
+    final searchData = Provider.of<SearchData>(context, listen: false);
     searchData.fetchData(txt).then((_) {
       setState(() {
         _videos = searchData.items;
         _isLoading = false;
-                      
       });
     });
   }

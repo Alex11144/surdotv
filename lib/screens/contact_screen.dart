@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:surdotv_app/providers/send_message.dart';
+import 'package:surdotv_app/widgets/bottom_nav_bar.dart';
 
 import '../widgets/common_widgets.dart';
 
 class ContactScreen extends StatefulWidget {
+  static const route_name = '/contact';
   @override
   _ContactScreenState createState() => _ContactScreenState();
 }
 
 class _ContactScreenState extends State<ContactScreen> {
-  static const route_name = '/contact';
   final _form = GlobalKey<FormState>();
+
+  var _sendMessage = SendMessage();
 
   Future<void> _saveFrom() async {
     if (_form.currentState.validate()) {
@@ -18,9 +22,6 @@ class _ContactScreenState extends State<ContactScreen> {
         const SnackBar(content: Text('Processing Data')),
       );
     }
-
-    // _form.currentState.validate();
-    // _form.currentState.save();
   }
 
   @override
@@ -33,6 +34,7 @@ class _ContactScreenState extends State<ContactScreen> {
         title: logoMSize,
         backgroundColor: Theme.of(context).primaryColor.withOpacity(0.3),
       ),
+      //  bottomNavigationBar: BottomNavBar(selectedBar: 4),
       body: Container(
         color: Theme.of(context).primaryColor.withOpacity(0.3),
         child: SingleChildScrollView(
@@ -64,15 +66,20 @@ class _ContactScreenState extends State<ContactScreen> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Flexible(
+                          Expanded(
                             child: Container(
-                              height: 50,
+                              height: 70,
                               margin: EdgeInsets.only(right: 5),
                               child: TextFormField(
+                                keyboardType: TextInputType.text,
                                 decoration:
                                     myInputDecoration(aHintText: 'Ad Soyad *'),
                                 textInputAction: TextInputAction.next,
+                                onSaved: (val) {
+                                  _sendMessage.name = val;
+                                },
                                 validator: (val) {
                                   if (val.isEmpty || val == null) {
                                     return 'Ad Soyad boş ola bilməz';
@@ -82,17 +89,25 @@ class _ContactScreenState extends State<ContactScreen> {
                               ),
                             ),
                           ),
-                          Flexible(
+                          Expanded(
                             child: Container(
-                              height: 50,
+                              height: 70,
                               margin: EdgeInsets.only(left: 5),
                               child: TextFormField(
+                                keyboardType: TextInputType.emailAddress,
                                 decoration:
                                     myInputDecoration(aHintText: 'E-mail *'),
                                 textInputAction: TextInputAction.next,
+                                onSaved: (val) {
+                                  _sendMessage.email = val;
+                                },
                                 validator: (val) {
                                   if (val.isEmpty) {
                                     return 'Email boş ola bilməz';
+                                  } else {
+                                    if (!val.contains('@') ||
+                                        !val.contains('.'))
+                                      return 'Email düzgün daxil edilməyib';
                                   }
                                   return null;
                                 },
@@ -109,12 +124,16 @@ class _ContactScreenState extends State<ContactScreen> {
                         children: [
                           Flexible(
                             child: Container(
-                              height: 50,
+                              height: 70,
                               margin: EdgeInsets.only(right: 5),
                               child: TextFormField(
+                                keyboardType: TextInputType.phone,
                                 decoration:
                                     myInputDecoration(aHintText: 'Mobil *'),
                                 textInputAction: TextInputAction.next,
+                                onSaved: (val) {
+                                  _sendMessage.phone = val;
+                                },
                                 validator: (val) {
                                   if (val.isEmpty) {
                                     return 'Mobil boş ola bilməz';
@@ -126,12 +145,16 @@ class _ContactScreenState extends State<ContactScreen> {
                           ),
                           Flexible(
                             child: Container(
-                              height: 50,
+                              height: 70,
                               margin: EdgeInsets.only(left: 5),
                               child: TextFormField(
+                                keyboardType: TextInputType.text,
                                 decoration:
                                     myInputDecoration(aHintText: 'Şəhər *'),
                                 textInputAction: TextInputAction.next,
+                                onSaved: (val) {
+                                  _sendMessage.city = val;
+                                },
                                 validator: (val) {
                                   if (val.isEmpty) {
                                     return 'Şəhər boş ola bilməz';
@@ -151,6 +174,9 @@ class _ContactScreenState extends State<ContactScreen> {
                         keyboardType: TextInputType.multiline,
                         decoration: myInputDecoration(aHintText: 'Mesajınız '),
                         textInputAction: TextInputAction.next,
+                        onSaved: (val) {
+                          _sendMessage.message = val;
+                        },
                         validator: (val) {
                           if (val.isEmpty) {
                             return 'Mesaj boş ola bilməz';
@@ -172,6 +198,9 @@ class _ContactScreenState extends State<ContactScreen> {
                                   const SnackBar(
                                       content: Text('Processing Data')),
                                 );
+                                _sendMessage.sendMail().then((_) =>
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar());
                               }
                             },
                             child: Text('Mesajı Göndər'),

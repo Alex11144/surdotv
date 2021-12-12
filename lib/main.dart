@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:surdotv_app/helpers/custom_route.dart';
 import 'package:surdotv_app/providers/menu_data.dart';
 import 'package:surdotv_app/providers/search.dart';
+import 'package:surdotv_app/screens/contact_screen.dart';
+import 'package:surdotv_app/screens/home_screen.dart';
+import 'package:surdotv_app/screens/info_screen.dart';
+import 'package:surdotv_app/screens/search_screen.dart';
 import 'package:surdotv_app/screens/splash_screen.dart';
 
 import './providers/about.dart';
@@ -36,6 +42,7 @@ class MyApp extends StatelessWidget {
         title: 'Surdo TV App',
         theme: ThemeData(
           primaryColor: Color.fromRGBO(240, 232, 232, 1),
+
           canvasColor: Colors.white,
           colorScheme: _isDark
               ? ColorScheme.dark(
@@ -47,14 +54,22 @@ class MyApp extends StatelessWidget {
                   primary: Color.fromRGBO(240, 232, 232, 1),
                 ),
           //  fontFamily: 'Helvetica',
+
+          pageTransitionsTheme: PageTransitionsTheme(builders: {
+            TargetPlatform.android: CustomPageTransitionBuilder(),
+            TargetPlatform.iOS: CustomPageTransitionBuilder(),
+          }),
         ),
         home: SplashScreen(),
         routes: {
           CategoriesScreen.route_name: (ctx) => CategoriesScreen(),
+          InfoScreen.route_name: (ctx) => InfoScreen(),
           HomePageScreen.route_name: (ctx) => HomePageScreen(),
           SelectedCategoryScreen.routeName: (ctx) => SelectedCategoryScreen(''),
           DetailScreen.routeName: (ctx) => DetailScreen(),
           MyVideoPlayer.route_name: (ctx) => MyVideoPlayer(),
+          SearchScreen.route_name: (ctx) => SearchScreen(),
+          ContactScreen.route_name: (ctx) => ContactScreen(),
         },
       ),
     );

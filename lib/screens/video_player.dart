@@ -43,7 +43,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   }
 
   void _makeFullScreen() {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive, overlays: []);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
@@ -76,26 +76,32 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
-        
-        children: _isFullScreen? [] : [
-          FloatingActionButton(
-            child: Icon(Icons.fullscreen, color: Colors.white,),
-            onPressed: () {
-              _escapeFullScreen();
-             
-            },
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          FloatingActionButton(
-            child: Icon(Icons.close, color: Colors.white,),
-            onPressed: () {
-              _escapeFullScreen();
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
+        children: _isFullScreen
+            ? []
+            : [
+                FloatingActionButton(
+                  child: Icon(
+                    Icons.fullscreen,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    _escapeFullScreen();
+                  },
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                FloatingActionButton(
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    _escapeFullScreen();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
       ),
       body: Stack(children: [
         Container(

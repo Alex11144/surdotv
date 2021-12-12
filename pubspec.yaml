@@ -37,6 +37,8 @@ dependencies:
   provider: ^4.0.0
   http: ^0.13.0+2
   cached_network_image: ^3.2.0
+  share: ^2.0.4
+  bottom_navy_bar: ^6.0.0
 
 
 dev_dependencies:
@@ -64,6 +66,7 @@ flutter:
     - assets/images/whatsappLogo.svg    
     - assets/images/twitterLogo.svg    
     - assets/images/facebookLogo.svg    
+    - assets/images/cartoon.svg    
     - assets/images/logo_min.png
     - assets/images/logo_fond.png
     - assets/images/map.png

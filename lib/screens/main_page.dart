@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surdotv_app/providers/menu_data.dart';
 import 'package:surdotv_app/screens/contact_screen.dart';
+import 'package:surdotv_app/widgets/bottom_nav_bar.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 import '../screens/search_screen.dart';
 import './info_screen.dart';
@@ -18,36 +20,59 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   List<Map<String, Object>> _pages;
-
+  PageController _pageController;
+  int _currentIndex = 0;
   @override
   void initState() {
     _pages = [
       {
-        'title': 'Home',
+        'title': 'Baş səhifə',
         'page': HomeScreen(),
+        'icon': Icon(Icons.home),
       },
       {
-        'title': 'Info',
+        'title': 'Haqqımızda',
         'page': InfoScreen(),
+        'icon': Icon(Icons.info_outline),
       },
       {
-        'title': 'Categoties',
+        'title': 'Bölmələr',
         'page': CategoriesScreen(),
+        'icon': Icon(Icons.menu),
       },
       {
-        'title': 'Search',
+        'title': 'Axtarış',
         'page': SearchScreen(),
+        'icon': Icon(Icons.search),
       },
       {
-        'title': 'Messages',
+        'title': 'Əlaqə',
         'page': ContactScreen(),
+        'icon': Icon(Icons.mail_outline),
       },
-      {
-        'title': 'Selected Category',
-        'page': SelectedCategoryScreen(''),
-      }
+      // ,
+      // {
+      //   'title': 'Selected Category',
+      //   'page': SelectedCategoryScreen(''),
+      //   'icon': Icon(Icons.info_outline),
+      // }
     ];
+    _pageController = PageController();
     super.initState();
+  }
+
+  List<Widget> _screens = <Widget>[
+    HomeScreen(),
+    InfoScreen(),
+    CategoriesScreen(),
+    SearchScreen(),
+    ContactScreen()
+  ];
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -55,12 +80,90 @@ class _HomePageScreenState extends State<HomePageScreen> {
     final menuData = Provider.of<MenuData>(context);
 
     return Scaffold(
-      body: _pages[menuData.selectedMenuIndex]['page'],
-      bottomNavigationBar: BottomNavBar(menuData.selectedMenuIndex),
+      body: SafeArea(
+        top: false,
+        child: IndexedStack(
+          index: _currentIndex,
+          children: _screens,
+        ),
+      ),
+      // body: SizedBox.expand(
+      //   child: PageView(
+      //     controller: _pageController,
+      //     onPageChanged: (index) {
+      //       setState(() => _currentIndex = index);
+      //     },
+      //     children: [..._pages.map((e) => e['page']).toList()],
+      //   ),
+      // ), //_pages[menuData.selectedMenuIndex]['page'],
+
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+          boxShadow: [
+            BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 2),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
+          ),
+          child: BottomNavyBar(
+            selectedIndex: _currentIndex,
+            animationDuration: Duration(milliseconds: 300),
+            showElevation: true,
+            itemCornerRadius: 25,
+            onItemSelected: (index) {
+              setState(() => _currentIndex = index);
+
+              //Navigator.of(context).pushReplacementNamed(_pages[index]['routeName']);
+              // _pageController.jumpToPage(
+              //   index,
+              // );
+
+              // switch (index) {
+              //   case 0:
+              //     Navigator.pushReplacementNamed(
+              //         context, HomePageScreen.route_name);
+              //     break;
+              //   case 1:
+              //     Navigator.pushReplacementNamed(
+              //         context, InfoScreen.route_name);
+              //     break;
+              //   case 2:
+              //     Navigator.pushReplacementNamed(
+              //         context, CategoriesScreen.route_name);
+              //     break;
+              //   case 3:
+              //     Navigator.pushReplacementNamed(
+              //         context, SearchScreen.route_name);
+              //     break;
+              //   case 4:
+              //     Navigator.pushReplacementNamed(
+              //         context, ContactScreen.route_name);
+              //     break;
+              // }
+            },
+            items: <BottomNavyBarItem>[
+              ..._pages
+                  .map((e) => BottomNavyBarItem(
+                        activeColor: Colors.red,
+                        inactiveColor: Colors.black,
+                        title: Text(e['title']),
+                        icon: e['icon'],
+                      ))
+                  .toList()
+            ],
+          ),
+          //bottomNavBarNormal(context, widget.selectedBar),
+        ),
+      ),
     );
   }
 
-  Widget BottomNavBar(int _selectedPageIndex) {
+  Widget BottomNavBar2(int _selectedPageIndex) {
     return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(

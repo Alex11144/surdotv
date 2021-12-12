@@ -11,7 +11,7 @@ import '../screens/categories_screen.dart';
 class HomePageBlock extends StatefulWidget {
   final String leftHeader;
   final String rightHeader;
-  final IconData leftIcon;
+  final Widget leftIcon;
   final List<VideoItem> videoList;
   final String catId;
 
@@ -28,7 +28,6 @@ class HomePageBlock extends StatefulWidget {
 
 class _HomePageBlockState extends State<HomePageBlock> {
   final maxHeight = 400.0;
- 
 
   List<Widget> _itemList;
   void makeList() {
@@ -69,11 +68,12 @@ class _HomePageBlockState extends State<HomePageBlock> {
                               .map(
                                 (z) => Expanded(
                                   child: GridItem(
-                                      id: widget.videoList[x + y + z].id,
-                                      title:
-                                          widget.videoList[x + y + z].videoHead,
-                                      imgUrl: widget
-                                          .videoList[x + y + z].getImageUrl),
+                                    id: widget.videoList[x + y + z].id,
+                                    title:
+                                        widget.videoList[x + y + z].videoHead,
+                                    imgUrl:
+                                        widget.videoList[x + y + z].getImageUrl,
+                                  ),
                                 ),
                               )
                               .toList(),
@@ -105,10 +105,11 @@ class _HomePageBlockState extends State<HomePageBlock> {
                 SizedBox(
                   width: 10,
                 ),
-                Icon(
-                  widget.leftIcon,
-                  color: Colors.red,
-                ),
+                widget.leftIcon,
+                // Icon(
+                //   widget.leftIcon,
+                //   color: Colors.red,
+                // ),
                 SizedBox(
                   width: 5,
                 ),

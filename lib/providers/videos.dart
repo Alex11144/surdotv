@@ -32,7 +32,7 @@ class Videos with ChangeNotifier {
   Future<void> fetchAll() async {
     final url = Uri.http('api.surdotv.az', '/api/sections');
 
-    http.get(url, headers: apiKey).then((resp) {
+    await http.get(url, headers: apiKey).then((resp) {
       final catList =
           json.decode(resp.body)['category']['sub_items'] as List<dynamic>;
 
@@ -64,16 +64,15 @@ class Videos with ChangeNotifier {
                 categoryId: cat['id'].toString(),
               );
               _items.add(_newVideoItem);
-             
             });
-
+            print('how manu ${_items.length}');
+            _isLoaded = true;
             notifyListeners();
           });
         });
-        
       }
-      _isLoaded = true;
-         print(DateTime.now());
+
+      print(DateTime.now());
     });
   }
 

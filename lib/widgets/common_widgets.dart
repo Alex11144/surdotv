@@ -20,8 +20,6 @@ Widget logo(double h, double w) {
 final Widget logoMSizeWhite = SvgPicture.asset('assets/images/logo.svg',
     height: 25, width: 50, color: Colors.white);
 
-
-
 final Widget logoMSize = getVector('assets/images/logo.svg', 25, 50);
 final Widget logoLSize = getVector('assets/images/logo.svg', 55, 80);
 final Widget vCamera = getVector('assets/images/videoCamera.svg', 35, 35);
@@ -31,14 +29,11 @@ final Widget svgMail = getVector('assets/images/mail.svg', 35, 35);
 final Widget svgShareNetwork =
     getVector('assets/images/shareNetwork.svg', 35, 35);
 
-final Widget svgWhatsapp =
-    getVector('assets/images/whatsappLogo.svg', 35, 35);
+final Widget svgWhatsapp = getVector('assets/images/whatsappLogo.svg', 35, 35);
+final Widget svgTwitter = getVector('assets/images/twitterLogo.svg', 35, 35);
+final Widget svgFacebook = getVector('assets/images/facebookLogo.svg', 35, 35);
 
-final Widget svgTwitter =
-    getVector('assets/images/twitterLogo.svg', 35, 35);
-
-final Widget svgFacebook =
-    getVector('assets/images/facebookLogo.svg', 35, 35);
+final Widget svgcartoon = getVector('assets/images/cartoon.svg', 35, 35);
 
 final Widget logoMin = Image.asset('assets/images/logo_min.png');
 final Widget logoFund = Image.asset('assets/images/logo_fond.png');
@@ -83,16 +78,25 @@ InputDecoration myInputDecoration(
   return InputDecoration(
     filled: true,
     fillColor: Colors.white,
-    errorText: aErrortext,
+    errorText: aErrortext != '' ? aErrortext : null,
     suffixIcon: aSuffixIcon != null ? Icon(aSuffixIcon) : null,
     hintText: aHintText,
+    helperText: ' ',
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
-      borderSide: BorderSide(color: Colors.grey, width: 0.5),
+      borderSide: BorderSide(color: Colors.grey, width: 1),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
       borderSide: BorderSide(color: Colors.blue, width: 1),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide(color: Colors.grey, width: 1),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide(color: Colors.grey, width: 1),
     ),
   );
 }

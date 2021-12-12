@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:surdotv_app/widgets/bottom_nav_bar.dart';
 
 import './selected_category_screen.dart';
 import '../widgets/home_page_block.dart';
@@ -61,35 +62,37 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 )
               : null,
         ),
+        // bottomNavigationBar: BottomNavBar(selectedBar: 2),
         body: SingleChildScrollView(
           child: _selectedCategory != ''
               ? SelectedCategoryScreen(_selectedCategory)
-              :  _categories.items.length ==0 ?
-        Center(child: Text('Serverlə əlaqə yaradıla bilmədi..'))
-        :Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    sub_categories_buttons(_categories),
-                    HomePageBlock(
-                      leftHeader: _categories.items[0].name,
-                      leftIcon: Icons.videocam_outlined,
-                      rightHeader: 'Bütün filmlər',
-                      videoList: _categories.items[0].videoList,
-                      catId: _categories.items[0].id,
+              : _categories.items.length == 0
+                  ? Center(child: Text('Serverlə əlaqə yaradıla bilmədi..'))
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        sub_categories_buttons(_categories),
+                        HomePageBlock(
+                          leftHeader: _categories.items[0].name,
+                          leftIcon: vCamera, //Icons.videocam_outlined,
+                          rightHeader: 'Bütün filmlər',
+                          videoList: _categories.items[0].videoList,
+                          catId: _categories.items[0].id,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        HomePageBlock(
+                          leftHeader: _categories.items[1].name,
+                          leftIcon:
+                              svgcartoon, //Icons.videogame_asset_outlined,
+                          rightHeader: 'Bütün cizgi filmlər',
+                          videoList: _categories.items[1].videoList,
+                          catId: _categories.items[1].id,
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    HomePageBlock(
-                      leftHeader: _categories.items[1].name,
-                      leftIcon: Icons.videogame_asset_outlined,
-                      rightHeader: 'Bütün cizgi filmlər',
-                      videoList: _categories.items[1].videoList,
-                      catId: _categories.items[1].id,
-                    ),
-                  ],
-                ),
         ),
       ),
     );

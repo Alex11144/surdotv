@@ -85,8 +85,6 @@ class _DetailScreenState extends State<DetailScreen>
       allVideos = Provider.of<Videos>(context, listen: true);
 
       if (allVideos.isLoaded) {
-       
-
         VideoItem _video = allVideos.items.firstWhere((e) => e.id == videoId);
         if (_video != null) {
           _similarItems = allVideos.similarItems(5, _video.id);
@@ -159,7 +157,6 @@ class _DetailScreenState extends State<DetailScreen>
                                     .position.minScrollExtent;
                                 listScrollController.jumpTo(position);
                               }
-                        
                             });
                           }
                           //
@@ -177,6 +174,14 @@ class _DetailScreenState extends State<DetailScreen>
                                   child: CachedNetworkImage(
                                     imageUrl: item.getImageUrl,
                                     fit: BoxFit.fill,
+                                    progressIndicatorBuilder:
+                                        (context, url, downloadProgress) =>
+                                            Center(
+                                      child: CircularProgressIndicator(
+                                          value: downloadProgress.progress),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
                                   ),
                                 ),
                               ),

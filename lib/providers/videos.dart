@@ -10,14 +10,13 @@ class Videos with ChangeNotifier {
   bool _isLoading = false;
 
   var _step = 10;
- List<VideoItem> _itemsPartial = [];
- List<VideoItem> get itemsPartial => _itemsPartial;
+  List<VideoItem> _itemsPartial = [];
+  List<VideoItem> get itemsPartial => _itemsPartial;
 
- void stepNextPartial(){
-   _itemsPartial= (_items.getRange(0, _step).toList());
-   _step+=10;
-   
- }
+  void stepNextPartial() {
+    _itemsPartial = (_items.getRange(0, _step).toList());
+    _step += 10;
+  }
 
   void addItem(VideoItem videoItem) {
     final _idx = _items.indexWhere((element) => element.id == videoItem.id);
@@ -42,7 +41,7 @@ class Videos with ChangeNotifier {
 
   Future<void> fetchAll() async {
     final url = Uri.http('api.surdotv.az', '/api/sections');
-
+    print('videos prepare at ' + DateTime.now().toString());
     await http.get(url, headers: apiKey).then((resp) {
       print('videos start at ' + DateTime.now().toString());
       final catList =
@@ -77,12 +76,11 @@ class Videos with ChangeNotifier {
               );
               _items.add(_newVideoItem);
             });
-           print('how manu ${_items.length}');
+            print('how manu ${_items.length}');
             _isLoaded = true;
             notifyListeners();
-          });    
+          });
         });
-     
       }
 
       print('videos ended at ' + DateTime.now().toString());

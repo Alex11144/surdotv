@@ -24,7 +24,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     //  print(_selectedCategory);
     final menuData = Provider.of<MenuData>(context);
     _selectedCategory = menuData.selectedCategoryId;
- 
+
     super.didChangeDependencies();
   }
 
@@ -65,7 +65,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         // bottomNavigationBar: BottomNavBar(selectedBar: 2),
         body: SingleChildScrollView(
           child: _selectedCategory != ''
-              ? SelectedCategoryScreen(_selectedCategory)
+              ? SelectedCategoryScreen(
+                  categoryId: _selectedCategory,
+                  catTitle: _categories.items
+                      .firstWhere((e) => e.id == _selectedCategory)
+                      .name,
+                  catIcon: _categories.items
+                              .indexWhere((e) => e.id == _selectedCategory) ==
+                          0
+                      ? vCamera
+                      : svgcartoon)
               : _categories.items.length == 0
                   ? Center(child: Text('Serverlə əlaqə yaradıla bilmədi..'))
                   : Column(

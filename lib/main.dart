@@ -65,7 +65,9 @@ class MyApp extends StatelessWidget {
           CategoriesScreen.route_name: (ctx) => CategoriesScreen(),
           InfoScreen.route_name: (ctx) => InfoScreen(),
           HomePageScreen.route_name: (ctx) => HomePageScreen(),
-          SelectedCategoryScreen.routeName: (ctx) => SelectedCategoryScreen(''),
+          SelectedCategoryScreen.routeName: (ctx) => SelectedCategoryScreen(
+                categoryId: '',
+              ),
           DetailScreen.routeName: (ctx) => DetailScreen(),
           MyVideoPlayer.route_name: (ctx) => MyVideoPlayer(),
           SearchScreen.route_name: (ctx) => SearchScreen(),

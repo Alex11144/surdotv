@@ -14,7 +14,13 @@ class SelectedCategoryScreen extends StatefulWidget {
   //   'Qısametrajlı filmlər'
   // ];
   final String categoryId;
-  SelectedCategoryScreen(this.categoryId);
+  final Widget catIcon;
+  final String catTitle;
+  SelectedCategoryScreen({
+    this.categoryId,
+    this.catTitle,
+    this.catIcon,
+  });
 
   @override
   State<SelectedCategoryScreen> createState() => _SelectedCategoryScreenState();
@@ -45,9 +51,9 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
       _allVideos = videos.items
           .where((element) => element.categoryId == widget.categoryId)
           .toList();
-      _videos = _allVideos.getRange(0, pageCount *10).toList();  
-      print('loaded first 10');  
-      _isInit  = false;
+      _videos = _allVideos; //.getRange(0, pageCount * 100).toList();
+      print('loaded first 10');
+      _isInit = false;
     }
   }
 
@@ -64,15 +70,16 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
 
           pageCount = pageCount + 1;
           print("pagecount $pageCount");
-           _allVideos.getRange(_videos.length,_videos.length+ 10).toList().map((e) {
-             _videos.add(e);
-           });    
+          _allVideos
+              .getRange(_videos.length, _videos.length + 10)
+              .toList()
+              .map((e) {
+            _videos.add(e);
+          });
         }
       });
     }
   }
-
-   
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +92,12 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              vCamera,
+              widget.catIcon,
               SizedBox(
                 width: 5,
               ),
               Text(
-                'Filmlər',
+                widget.catTitle,
                 style: Theme.of(context).textTheme.headline4,
               ),
             ],
@@ -112,11 +119,11 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
           ),
         ),
         GridView.builder(
-            controller: _scrollController,
-            scrollDirection: Axis.vertical,
+            //controller: _scrollController,
+            // scrollDirection: Axis.vertical,
 
             //   physics: const AlwaysScrollableScrollPhysics(),
-          //  primary: false,
+            primary: false,
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               childAspectRatio: 5 / 4,
@@ -124,21 +131,20 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
             ),
-            itemCount: _videos.length +1 ,
+            itemCount: _videos.length + 1,
             itemBuilder: (ctx, i) {
-               if (i == _videos.length) {
-                 return true
-                        ? Center(child: CircularProgressIndicator())
-                        : Container();
-               }
-                return GridTile(
-                  child: GridItem(
-                      id: _videos[i].id,
-                      imgUrl: _videos[i].getImageUrl,
-                      title: _videos[i].videoHead,
-                      ),
-                );
-             
+              if (i == _videos.length) {
+                return true
+                    ? Center(child: CircularProgressIndicator())
+                    : Container();
+              }
+              return GridTile(
+                child: GridItem(
+                  id: _videos[i].id,
+                  imgUrl: _videos[i].getImageUrl,
+                  title: _videos[i].videoHead,
+                ),
+              );
             }),
       ],
     );

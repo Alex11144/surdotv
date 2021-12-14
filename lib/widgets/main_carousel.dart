@@ -1,5 +1,6 @@
 //import 'package:carousel_pro/carousel_pro.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:surdotv_app/screens/detail_screen.dart';
 import '../widgets/carousel_with_indigator.dart';
@@ -20,9 +21,12 @@ class MainCarousel extends StatelessWidget {
                   'id': e.id,
                 });
               },
-              child: Image.network(
-                e.getImageUrl,
+              child: CachedNetworkImage(
+                imageUrl: e.getImageUrl,
                 fit: BoxFit.fill,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    CircularProgressIndicator(value: downloadProgress.progress),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ))
         .toList();

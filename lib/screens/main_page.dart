@@ -83,7 +83,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       body: SafeArea(
         top: false,
         child: IndexedStack(
-          index: _currentIndex,
+          index: menuData.selectedMenuIndex,
           children: _screens,
         ),
       ),
@@ -111,12 +111,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
             topRight: Radius.circular(30.0),
           ),
           child: BottomNavyBar(
-            selectedIndex: _currentIndex,
+            selectedIndex: menuData.selectedMenuIndex,
             animationDuration: Duration(milliseconds: 300),
             showElevation: true,
             itemCornerRadius: 25,
             onItemSelected: (index) {
-              setState(() => _currentIndex = index);
+              setState(() {
+                _currentIndex = index;
+                menuData.setMenuIndex(index);
+              });
 
               //Navigator.of(context).pushReplacementNamed(_pages[index]['routeName']);
               // _pageController.jumpToPage(

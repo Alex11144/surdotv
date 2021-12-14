@@ -38,7 +38,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     height: selected ? 150.0 : 50.0,
                     curve: Curves.fastOutSlowIn,
                     alignment: Alignment.center,
-                    child: Hero(tag: 'logo', child: logoLSize),
+                    child: logoLSize,
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
                       boxShadow: [

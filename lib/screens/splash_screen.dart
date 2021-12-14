@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
       _initTop = MediaQuery.of(context).size.height / 2 + 25;
       _initLeft = MediaQuery.of(context).size.width / 4;
     }
-
+print('splash start ' + DateTime.now().toString());
     final _catProvider = Provider.of<Categories>(
       context,
       listen: false,
@@ -49,10 +49,12 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     if (!_videoProvider.isLoaded) {
+      print("call from splashscreen"+ DateTime.now().toString());
       _videoProvider.fetchAll().then((value) {
         setState(() {
           selected = !selected;
           _currentOpasity = 0;
+       print('splash end ' + DateTime.now().toString());
           Navigator.of(context).pushReplacementNamed(HomePageScreen.route_name);
         });
       });
@@ -76,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen>
     ).animate(CurvedAnimation(
         parent: _animationController, curve: Curves.fastOutSlowIn))
       ..addListener(() {
-        print(_animation.value);
+
         setState(() {});
         if (_animation.isCompleted) {
           Navigator.of(context).pushReplacementNamed(HomePageScreen.route_name);
@@ -121,32 +123,36 @@ class _SplashScreenState extends State<SplashScreen>
         onHorizontalDragStart: (a) {
           _updateSize();
         },
-        child: Expanded(
-          child: Center(
-            child: Hero(tag: '1324', child: logoLSize),
-            // child: AnimatedOpacity(
-            //   duration: const Duration(milliseconds: 300),
-            //   opacity: _currentOpasity,
-            //   onEnd: () {
-            //     Navigator.of(context)
-            //         .pushReplacementNamed(HomePageScreen.route_name);
-            //     // Navigator.of(context).pushReplacement(
-            //     //     CustomRoute(builder: (ctx) => HomePageScreen()));
-            //   },
-            //   child: AnimatedAlign(
-            //     alignment: !selected ? Alignment.center : Alignment.topCenter,
-            //     duration: const Duration(milliseconds: 300),
-            //     curve: Curves.fastOutSlowIn,
-            //     child: AnimatedContainer(
-            //       height: !selected ? 200.0 : 100.0,
-            //       width: !selected ? 200 : 100.0,
-            //       duration: Duration(milliseconds: 300),
-            //       curve: Curves.fastOutSlowIn,
-            //       child: logoLSize,
-            //     ),
-            //   ),
-            // ),
+        child: Flex(
+          direction: Axis.vertical,
+          children: [Expanded(
+            child: Center(
+              child: logoLSize,
+              // child: AnimatedOpacity(
+              //   duration: const Duration(milliseconds: 300),
+              //   opacity: _currentOpasity,
+              //   onEnd: () {
+              //     Navigator.of(context)
+              //         .pushReplacementNamed(HomePageScreen.route_name);
+              //     // Navigator.of(context).pushReplacement(
+              //     //     CustomRoute(builder: (ctx) => HomePageScreen()));
+              //   },
+              //   child: AnimatedAlign(
+              //     alignment: !selected ? Alignment.center : Alignment.topCenter,
+              //     duration: const Duration(milliseconds: 300),
+              //     curve: Curves.fastOutSlowIn,
+              //     child: AnimatedContainer(
+              //       height: !selected ? 200.0 : 100.0,
+              //       width: !selected ? 200 : 100.0,
+              //       duration: Duration(milliseconds: 300),
+              //       curve: Curves.fastOutSlowIn,
+              //       child: logoLSize,
+              //     ),
+              //   ),
+              // ),
+            ),
           ),
+          ]
         ),
       ),
     );

@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    print(DateTime.now());
+
     final _catProvider = Provider.of<Categories>(
       context,
       listen: false,
@@ -31,9 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
       listen: false,
     );
 
-    if (!_videoProvider.isLoaded) {
+    if (!_videoProvider.isLoading) {
+      print("call from homescreen");
       _videoProvider.fetchAll();
-      print('videos loaded ${_videoProvider.items.length}');
+  
     }
 
     super.initState();
@@ -52,10 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           centerTitle: true,
           elevation: 0,
-          title: Hero(
-            tag: 'logo',
-            child: logoMSize,
-          ),
+          title: logoMSize,
           backgroundColor: Theme.of(context).colorScheme.primary,
         ),
         // bottomNavigationBar: BottomNavBar(selectedBar: 0),
@@ -66,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Hero(tag: '1324', child: logoMSize),
+                     
                         Text('Serverlə əlaqə yaradıla bilmədi..'),
                         SizedBox(
                           height: 20,

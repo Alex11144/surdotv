@@ -85,7 +85,7 @@ class _DetailScreenState extends State<DetailScreen>
       allVideos = Provider.of<Videos>(context, listen: true);
 
       if (allVideos.isLoaded) {
-        print('loaded video = ${allVideos.items.length}');
+       
 
         VideoItem _video = allVideos.items.firstWhere((e) => e.id == videoId);
         if (_video != null) {
@@ -159,7 +159,7 @@ class _DetailScreenState extends State<DetailScreen>
                                     .position.minScrollExtent;
                                 listScrollController.jumpTo(position);
                               }
-                              print(index);
+                        
                             });
                           }
                           //

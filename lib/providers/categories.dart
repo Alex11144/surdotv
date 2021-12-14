@@ -36,7 +36,7 @@ class Categories with ChangeNotifier {
     };
 
     try {
-      print(url.toString());
+
       final resp = await http.get(url, headers: apiKey);
 
       if (resp.statusCode >= 400) {
@@ -81,7 +81,7 @@ class Categories with ChangeNotifier {
         return _newItem;
       }).toList();
 
-      print(_mainCarusel.length);
+ 
 
       _items = loadedItems;
       _isLoaded = true;

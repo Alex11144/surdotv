@@ -14,11 +14,10 @@ class About with ChangeNotifier {
     final url = Uri.http('api.surdotv.az', '/api/about');
 
     try {
-      print(DateTime.now());
+
 
       final resp = await http.get(url, headers: apiKey);
-      print(resp.body);
-      print(DateTime.now());
+ 
       if (resp.statusCode >= 400) {
         content = '404';
         return;

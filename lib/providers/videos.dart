@@ -7,15 +7,25 @@ import '../models/video_item.dart';
 class Videos with ChangeNotifier {
   List<VideoItem> _items = [];
   bool _isLoaded = false;
+  bool _isLoading = false;
+
+  var _step = 10;
+ List<VideoItem> _itemsPartial = [];
+ List<VideoItem> get itemsPartial => _itemsPartial;
+
+ void stepNextPartial(){
+   _itemsPartial= (_items.getRange(0, _step).toList());
+   _step+=10;
+   
+ }
 
   void addItem(VideoItem videoItem) {
     final _idx = _items.indexWhere((element) => element.id == videoItem.id);
     if (_idx >= 0) {
       _items.add(videoItem);
-      print('video added');
+
       notifyListeners();
-    } else
-      print('already exist');
+    }
   }
 
   void clearItems() {
@@ -24,6 +34,7 @@ class Videos with ChangeNotifier {
 
   List<VideoItem> get items => _items;
   bool get isLoaded => _isLoaded;
+  bool get isLoading => _isLoading;
 
   final apiKey = {
     'api_key': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -33,6 +44,7 @@ class Videos with ChangeNotifier {
     final url = Uri.http('api.surdotv.az', '/api/sections');
 
     await http.get(url, headers: apiKey).then((resp) {
+      print('videos start at ' + DateTime.now().toString());
       final catList =
           json.decode(resp.body)['category']['sub_items'] as List<dynamic>;
 
@@ -65,15 +77,18 @@ class Videos with ChangeNotifier {
               );
               _items.add(_newVideoItem);
             });
-            print('how manu ${_items.length}');
+           print('how manu ${_items.length}');
             _isLoaded = true;
             notifyListeners();
-          });
+          });    
         });
+     
       }
 
-      print(DateTime.now());
+      print('videos ended at ' + DateTime.now().toString());
     });
+    _isLoading = true;
+    print('how many loaded  ${_items.length}');
   }
 
   List<VideoItem> similarItems(int cnt, String id) {

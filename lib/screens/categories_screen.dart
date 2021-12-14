@@ -24,7 +24,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     //  print(_selectedCategory);
     final menuData = Provider.of<MenuData>(context);
     _selectedCategory = menuData.selectedCategoryId;
-    print('sel = $_selectedCategory');
+ 
     super.didChangeDependencies();
   }
 

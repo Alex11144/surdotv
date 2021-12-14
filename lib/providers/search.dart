@@ -29,7 +29,7 @@ class SearchData with ChangeNotifier {
 
     if (resp.statusCode >= 400) return;
     
-   print((json.decode(resp.body)));
+
     _listData = (json.decode(resp.body)['videos'] as List<dynamic>).map((e) {
       return VideoItem(
         id: e['id'].toString(),

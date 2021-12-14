@@ -135,7 +135,8 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
                   child: GridItem(
                       id: _videos[i].id,
                       imgUrl: _videos[i].getImageUrl,
-                      title: _videos[i].videoHead),
+                      title: _videos[i].videoHead,
+                      ),
                 );
              
             }),

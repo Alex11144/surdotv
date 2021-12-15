@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
 import '../screens/detail_screen.dart';
 
 class GridItem extends StatelessWidget {

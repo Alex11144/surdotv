@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:surdotv_app/models/video_item.dart';
-import 'carousel_with_indigator.dart';
 
+import '../models/video_item.dart';
+import './carousel_with_indigator.dart';
 import './grid_item.dart';
 import '../providers/menu_data.dart';
-import '../screens/categories_screen.dart';
+
 
 class HomePageBlock extends StatefulWidget {
   final String leftHeader;
@@ -123,6 +122,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
                         listen: false,
                       );
                       menuData.setMenuIndex(2);
+                      print('object ${widget.catId}');
                       menuData.setCategoryId(widget.catId);
                     });
                   },

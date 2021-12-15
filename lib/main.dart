@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:surdotv_app/helpers/custom_route.dart';
-import 'package:surdotv_app/providers/menu_data.dart';
-import 'package:surdotv_app/providers/search.dart';
-import 'package:surdotv_app/screens/contact_screen.dart';
-import 'package:surdotv_app/screens/home_screen.dart';
-import 'package:surdotv_app/screens/info_screen.dart';
-import 'package:surdotv_app/screens/search_screen.dart';
-import 'package:surdotv_app/screens/splash_screen.dart';
+
+import '../helpers/custom_route.dart';
+import '../providers/search.dart';
+import '../screens/contact_screen.dart';
+import '../screens/info_screen.dart';
+import '../screens/search_screen.dart';
+import '../screens/splash_screen.dart';
+import '../providers/menu_data.dart';
 
 import './providers/about.dart';
 import './providers/videos.dart';
@@ -18,7 +17,6 @@ import './screens/video_player.dart';
 
 import './screens/selected_category_screen.dart';
 import './screens/categories_screen.dart';
-import './test_widget.dart';
 import './screens/main_page.dart';
 
 void main() {
@@ -40,6 +38,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Surdo TV App',
+        
         theme: ThemeData(
           primaryColor: Color.fromRGBO(240, 232, 232, 1),
 

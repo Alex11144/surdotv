@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surdotv_app/providers/categories.dart';
-import 'package:surdotv_app/providers/videos.dart';
-import 'package:surdotv_app/widgets/bottom_nav_bar.dart';
 
+import '../providers/categories.dart';
+import '../providers/videos.dart';
 import '../widgets/home_page_block.dart';
 import '../widgets/main_carousel.dart';
 import '../widgets/common_widgets.dart';

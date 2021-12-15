@@ -17,6 +17,8 @@ class VideoItem {
   String len;
   String dt;
   String categoryId;
+  String subCategoryId;
+  String subCategoryName;
 
   VideoItem(
       {this.id,
@@ -36,7 +38,10 @@ class VideoItem {
       this.viewed,
       this.len,
       this.dt,
-      this.categoryId});
+      this.categoryId,
+      this.subCategoryId,
+      this.subCategoryName,
+      });
 
   String get getImageUrl => 'https://surdotv.az/uploads/$imageUrl';
   String get getVideoUrl => 'https://vimeo.com/$videoUrl';

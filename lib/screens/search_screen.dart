@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surdotv_app/models/video_item.dart';
-import 'package:surdotv_app/providers/search.dart';
-import 'package:surdotv_app/widgets/bottom_nav_bar.dart';
-import 'package:surdotv_app/widgets/grid_item.dart';
 
+import '../models/video_item.dart';
+import '../providers/search.dart';
+import '../widgets/grid_item.dart';
 import '../widgets/common_widgets.dart';
 
 class SearchScreen extends StatefulWidget {

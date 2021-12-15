@@ -1,11 +1,9 @@
-//import 'package:carousel_pro/carousel_pro.dart';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:surdotv_app/screens/detail_screen.dart';
-import '../widgets/carousel_with_indigator.dart';
-import '../widgets/common_widgets.dart';
 import 'package:provider/provider.dart';
+
+import '../screens/detail_screen.dart';
+import '../widgets/carousel_with_indigator.dart';
 import '../providers/categories.dart';
 
 class MainCarousel extends StatelessWidget {

@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../models/video_item.dart';
-
 import '../models/category_item.dart';
 
 class Categories with ChangeNotifier {
@@ -76,7 +75,9 @@ class Categories with ChangeNotifier {
           viewed: e['baxilib'],
           len: e['zaman'],
           dt: e['tarix'],
+        
         );
+
 
         return _newItem;
       }).toList();
@@ -114,9 +115,10 @@ class Categories with ChangeNotifier {
           imageUrl: e['image'],
           viewed: e['baxilib'],
           len: e['zaman'],
-          dt: e['tarix'],
+          dt: e['tarix'],  
+          
         );
-
+  
         return _newItem;
       }).toList(),
     );

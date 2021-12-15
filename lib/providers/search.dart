@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:surdotv_app/models/video_item.dart';
+import '../models/video_item.dart';
 
 class SearchData with ChangeNotifier {
   List<VideoItem> _listData = [];

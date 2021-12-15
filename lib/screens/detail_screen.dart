@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/animation.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:share/share.dart';
 
-import 'package:surdotv_app/models/video_item.dart';
-import 'package:surdotv_app/widgets/bottom_nav_bar.dart';
-
+import '../models/video_item.dart';
 import '../providers/videos.dart';
 import '../screens/video_player.dart';
 import '../widgets/common_widgets.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surdotv_app/widgets/bottom_nav_bar.dart';
+import 'package:surdotv_app/providers/videos.dart';
 
 import './selected_category_screen.dart';
 import '../widgets/home_page_block.dart';
@@ -24,13 +24,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     //  print(_selectedCategory);
     final menuData = Provider.of<MenuData>(context);
     _selectedCategory = menuData.selectedCategoryId;
-
+print('selected = $_selectedCategory');
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     final _categories = Provider.of<Categories>(context, listen: false);
+ 
     return WillPopScope(
       onWillPop: () async {
         // Do something here

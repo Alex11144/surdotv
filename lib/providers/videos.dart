@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:surdotv_app/models/category_item.dart';
 import 'dart:convert';
 
 import '../models/video_item.dart';
@@ -46,7 +48,7 @@ class Videos with ChangeNotifier {
       print('videos start at ' + DateTime.now().toString());
       final catList =
           json.decode(resp.body)['category']['sub_items'] as List<dynamic>;
-
+      int _idxCat = 0;
       if (catList != null) {
         catList.forEach((cat) {
           final url = Uri.http('api.surdotv.az', '/api/sections/${cat['id']}');
@@ -54,7 +56,7 @@ class Videos with ChangeNotifier {
           http.get(url, headers: apiKey).then((respVideo) {
             final videoList =
                 json.decode(respVideo.body)['video_list'] as List<dynamic>;
-
+            _idxCat++;
             videoList.forEach((e) {
               final _newVideoItem = VideoItem(
                 id: e['id'].toString(),
@@ -73,12 +75,19 @@ class Videos with ChangeNotifier {
                 len: e['zaman'],
                 dt: e['tarix'],
                 categoryId: cat['id'].toString(),
+                subCategoryId: e['category']['id'].toString(),
+                subCategoryName: e['category']['name'],
               );
               _items.add(_newVideoItem);
+              print(_newVideoItem);
             });
-            print('how manu ${_items.length}');
-            _isLoaded = true;
-            notifyListeners();
+
+            if (catList.length == _idxCat) {              
+              _isLoaded = true;        
+               print('videos loaded ');    
+               print('how many loaded  ${_items.length}'); 
+               notifyListeners();
+            }
           });
         });
       }
@@ -101,6 +110,24 @@ class Videos with ChangeNotifier {
         _ret.add(_items[_items.length - i - 1]);
       }
     }
+    return _ret;
+  }
+
+  List<CategoryItem> getSubCategeries({String catId}) {
+    List<CategoryItem> _ret = [];
+
+    _items.where((element) => element.categoryId == catId).forEach((e) {
+
+      final _catItem =  CategoryItem(
+          id: e.subCategoryId,
+          parentCategoryId: e.categoryId,
+          name: e.subCategoryName,); 
+        
+          if (_ret.indexWhere((e) => e.id == _catItem.id) < 0 )
+          _ret.add(_catItem);
+
+    });
+    
     return _ret;
   }
 }

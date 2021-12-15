@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surdotv_app/providers/menu_data.dart';
-import 'package:surdotv_app/screens/contact_screen.dart';
-import 'package:surdotv_app/widgets/bottom_nav_bar.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
+import '../providers/menu_data.dart';
+import '../screens/contact_screen.dart';
 import '../screens/search_screen.dart';
 import './info_screen.dart';
-import './selected_category_screen.dart';
 import './categories_screen.dart';
 import './home_screen.dart';
 
@@ -80,6 +78,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     final menuData = Provider.of<MenuData>(context);
 
     return Scaffold(
+         
       body: SafeArea(
         top: false,
         child: IndexedStack(
@@ -98,6 +97,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       // ), //_pages[menuData.selectedMenuIndex]['page'],
 
       bottomNavigationBar: Container(
+        height: 65,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(30), topLeft: Radius.circular(30)),

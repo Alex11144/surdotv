@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:surdotv_app/providers/send_message.dart';
-import 'package:surdotv_app/widgets/bottom_nav_bar.dart';
 
+import '../providers/send_message.dart';
 import '../widgets/common_widgets.dart';
 
 class ContactScreen extends StatefulWidget {

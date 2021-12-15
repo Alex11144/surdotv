@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/animation.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:surdotv_app/providers/categories.dart';
-import 'package:surdotv_app/providers/videos.dart';
-import 'package:surdotv_app/screens/home_screen.dart';
-import 'package:surdotv_app/screens/main_page.dart';
-import 'package:surdotv_app/widgets/common_widgets.dart';
-import '../helpers/custom_route.dart';
+
+import '../providers/categories.dart';
+import '../providers/videos.dart';
+import '../screens/main_page.dart';
+import '../widgets/common_widgets.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -16,23 +14,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  Animation<double> _animation;
-  AnimationController _animationController;
-
-  Animation<Size> _animationSize;
-
-  bool _animateEnded = false;
   bool selected = true;
   double _initTop = 0;
-  double _initLeft = 0;
-  double _endTop = 50;
-  double _width = 20;
+
 
   @override
   void didChangeDependencies() {
     if (_initTop == 0) {
       _initTop = MediaQuery.of(context).size.height / 2 + 25;
-      _initLeft = MediaQuery.of(context).size.width / 4;
     }
     print('splash start ' + DateTime.now().toString());
     final _catProvider = Provider.of<Categories>(
@@ -59,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     if (!_videoProvider.isLoaded) {
       print("call from splashscreen" + DateTime.now().toString());
-      _videoProvider.fetchAll().then((value) {});
+      _videoProvider.fetchAll();
     }
 
     super.didChangeDependencies();
@@ -92,11 +81,7 @@ class _SplashScreenState extends State<SplashScreen>
   //   _animationController.forward();
   // }
 
-  @override
-  void dispose() {
-    if (_animationController != null) _animationController.dispose();
-    super.dispose();
-  }
+
 
   double _sizeH = 50;
   double _sizeW = 100;

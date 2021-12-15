@@ -1,10 +1,10 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 
-import 'package:surdotv_app/screens/contact_screen.dart';
-import 'package:surdotv_app/screens/home_screen.dart';
-import 'package:surdotv_app/screens/main_page.dart';
-import 'package:surdotv_app/screens/search_screen.dart';
+import '../screens/contact_screen.dart';
+import '../screens/home_screen.dart';
+import '../screens/main_page.dart';
+import '../screens/search_screen.dart';
 import '../screens/categories_screen.dart';
 import '../screens/info_screen.dart';
 

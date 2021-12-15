@@ -13,6 +13,7 @@ class CategoryItem {
   String ogKeywords;
   String ogDescription;
   List<VideoItem> videoList;
+  String parentCategoryId;
 
   CategoryItem({
     this.id,
@@ -27,6 +28,7 @@ class CategoryItem {
     this.ogKeywords,
     this.ogDescription,
     this.videoList,
+    this.parentCategoryId,
   });
 
   void setVideoList(List<VideoItem> itemList) {

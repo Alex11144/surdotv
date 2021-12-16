@@ -6,7 +6,6 @@ import './carousel_with_indigator.dart';
 import './grid_item.dart';
 import '../providers/menu_data.dart';
 
-
 class HomePageBlock extends StatefulWidget {
   final String leftHeader;
   final String rightHeader;
@@ -112,7 +111,10 @@ class _HomePageBlockState extends State<HomePageBlock> {
                 SizedBox(
                   width: 5,
                 ),
-                Text(widget.leftHeader),
+                Text(
+                  widget.leftHeader,
+                  style: Theme.of(context).textTheme.caption,
+                ),
                 Spacer(),
                 TextButton(
                   onPressed: () {

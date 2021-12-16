@@ -17,7 +17,6 @@ class _SplashScreenState extends State<SplashScreen>
   bool selected = true;
   double _initTop = 0;
 
-
   @override
   void didChangeDependencies() {
     if (_initTop == 0) {
@@ -81,8 +80,6 @@ class _SplashScreenState extends State<SplashScreen>
   //   _animationController.forward();
   // }
 
-
-
   double _sizeH = 50;
   double _sizeW = 100;
   bool _large = false;
@@ -100,51 +97,21 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-        toolbarHeight: 0,
-        elevation: 0,
-        systemOverlayStyle:
-            SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-      ),
+      // appBar: AppBar(
+      //   toolbarHeight: 0,
+      //   elevation: 0,
+      //   systemOverlayStyle:
+      //       SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+      // ),
       body: Center(
         child: AnimatedOpacity(
-          duration: Duration(milliseconds: 2500),
-          opacity: selected ? 0.0 : 1.0,
-          child: AnimatedContainer(
-            duration: Duration(seconds: 2),
-            width: selected ? 50.0 : 250.0,
-            //  color: selected ? Colors.transparent : Colors.amber,
-            curve: Curves.easeInToLinear,
-            child: logoLSize,
-            onEnd: () {
-              // _animateEnded = true;
-
-              Navigator.of(context)
-                  .pushReplacementNamed(HomePageScreen.route_name);
-            },
-            // child: AnimatedOpacity(
-            //   duration: const Duration(milliseconds: 300),
-            //   opacity: _currentOpasity,
-            //   onEnd: () {
-            //     Navigator.of(context)
-            //         .pushReplacementNamed(HomePageScreen.route_name);
-            //     // Navigator.of(context).pushReplacement(
-            //     //     CustomRoute(builder: (ctx) => HomePageScreen()));
-            //   },
-            //   child: AnimatedAlign(
-            //     alignment: !selected ? Alignment.center : Alignment.topCenter,
-            //     duration: const Duration(milliseconds: 300),
-            //     curve: Curves.fastOutSlowIn,
-            //     child: AnimatedContainer(
-            //       height: !selected ? 200.0 : 100.0,
-            //       width: !selected ? 200 : 100.0,
-            //       duration: Duration(milliseconds: 300),
-            //       curve: Curves.fastOutSlowIn,
-            //       child: logoLSize,
-            //     ),
-            //   ),
-            // ),
-          ),
+          duration: Duration(milliseconds: 1000),
+          opacity: selected ? 1.0 : 0.0,
+          child: logoMSize,
+          onEnd: () {
+            Navigator.of(context)
+                .pushReplacementNamed(HomePageScreen.route_name);
+          },
         ),
       ),
     );

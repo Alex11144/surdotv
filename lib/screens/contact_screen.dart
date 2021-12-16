@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+//import 'package:location/location.dart';
 
+import '../helpers/location_helper.dart';
 import '../providers/send_message.dart';
 import '../widgets/common_widgets.dart';
 
@@ -14,6 +15,9 @@ class _ContactScreenState extends State<ContactScreen> {
   final _form = GlobalKey<FormState>();
 
   var _sendMessage = SendMessage();
+
+  final _mapImgUrl = LocationHelper.generateLocationPreviewImage(
+      latitude: 40.3739596, longitude: 49.8146498);
 
   Future<void> _saveFrom() async {
     if (_form.currentState.validate()) {
@@ -203,7 +207,7 @@ class _ContactScreenState extends State<ContactScreen> {
                               }
                             },
                             child: Text('Mesajı Göndər'),
-                            style: redFilledButtonStyle,
+                            style: redFilledButtonStyle(context),
                           ),
                         ],
                       )
@@ -228,8 +232,10 @@ class _ContactScreenState extends State<ContactScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Image.asset(
-                  'assets/images/map.png',
+                child: Image.network(
+                  _mapImgUrl,
+                  //.asset('assets/images/map.png',
+
                   fit: BoxFit.fill,
                 ),
               ),

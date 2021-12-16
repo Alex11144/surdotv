@@ -26,27 +26,42 @@ class _HomePageScreenState extends State<HomePageScreen> {
       {
         'title': 'Baş səhifə',
         'page': HomeScreen(),
-        'icon': Icon(Icons.home),
+        'icon': Icon(
+          Icons.home,
+          size: 30,
+        ),
       },
       {
         'title': 'Haqqımızda',
         'page': InfoScreen(),
-        'icon': Icon(Icons.info_outline),
+        'icon': Icon(
+          Icons.info_outline,
+          size: 30,
+        ),
       },
       {
         'title': 'Bölmələr',
         'page': CategoriesScreen(),
-        'icon': Icon(Icons.menu),
+        'icon': Icon(
+          Icons.menu,
+          size: 30,
+        ),
       },
       {
         'title': 'Axtarış',
         'page': SearchScreen(),
-        'icon': Icon(Icons.search),
+        'icon': Icon(
+          Icons.search,
+          size: 30,
+        ),
       },
       {
         'title': 'Əlaqə',
         'page': ContactScreen(),
-        'icon': Icon(Icons.mail_outline),
+        'icon': Icon(
+          Icons.mail_outline,
+          size: 30,
+        ),
       },
       // ,
       // {
@@ -78,7 +93,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     final menuData = Provider.of<MenuData>(context);
 
     return Scaffold(
-         
       body: SafeArea(
         top: false,
         child: IndexedStack(
@@ -99,22 +113,23 @@ class _HomePageScreenState extends State<HomePageScreen> {
       bottomNavigationBar: Container(
         height: 65,
         decoration: BoxDecoration(
+          color: Colors.orange,
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+              topRight: Radius.circular(20), topLeft: Radius.circular(20)),
           boxShadow: [
             BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 2),
           ],
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.0),
-            topRight: Radius.circular(30.0),
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
           ),
           child: BottomNavyBar(
             selectedIndex: menuData.selectedMenuIndex,
             animationDuration: Duration(milliseconds: 300),
             showElevation: true,
-            itemCornerRadius: 25,
+            itemCornerRadius: 20,
             onItemSelected: (index) {
               setState(() {
                 _currentIndex = index;
@@ -152,7 +167,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             items: <BottomNavyBarItem>[
               ..._pages
                   .map((e) => BottomNavyBarItem(
-                        activeColor: Colors.red,
+                        activeColor: Theme.of(context).colorScheme.secondary,
                         inactiveColor: Colors.black,
                         title: Text(e['title']),
                         icon: e['icon'],

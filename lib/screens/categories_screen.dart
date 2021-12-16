@@ -24,14 +24,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     //  print(_selectedCategory);
     final menuData = Provider.of<MenuData>(context);
     _selectedCategory = menuData.selectedCategoryId;
-print('selected = $_selectedCategory');
+    print('selected = $_selectedCategory');
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     final _categories = Provider.of<Categories>(context, listen: false);
- 
+
     return WillPopScope(
       onWillPop: () async {
         // Do something here
@@ -123,7 +123,7 @@ print('selected = $_selectedCategory');
                   });
                 },
                 child: Text(e.name),
-                style: outlinedButtonStyle,
+                style: outlinedButtonStyle(context),
               ),
             )
             .toList(),

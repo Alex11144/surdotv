@@ -17,11 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
   List<VideoItem> _videos = [];
   var _isLoading = false;
 
-  final List<String> _mostSearched = [
-    'Yerli filmlər',
-    'Qısametrajlı filmlər',
-    'Qısametrajlı filmlər'
-  ];
+  final List<String> _mostSearched = ['a', 'ev'];
 
   @override
   Widget build(BuildContext context) {
@@ -74,27 +70,43 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                   decoration: myInputDecoration(
                     aHintText: 'Axtar ...',
-                    aSuffixIcon: Icons.search,
-                  ),
+                    aSuffixIcon: Icons.clear,
+                    aPrefixIcon: Icons.search,
+                  ).copyWith(
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              edt.clear();
+                            });
+                          },
+                          icon: Icon(Icons.clear))),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                width: double.infinity,
-                child: Wrap(
-                  spacing: 10,
-                  runSpacing: 10,
-                  children: _mostSearched
-                      .map((e) => OutlinedButton(
-                            onPressed: () {
-                              edt.text = e;
+              AnimatedOpacity(
+                duration: Duration(milliseconds: 600),
+                curve: Curves.easeInOut,
+                opacity: edt.text.isNotEmpty ? 0.0 : 1,
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  height: edt.text.isNotEmpty ? 0.0 : 80,
+                  padding: EdgeInsets.all(10),
+                  width: double.infinity,
+                  child: Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: _mostSearched
+                        .map((e) => OutlinedButton(
+                              onPressed: () {
+                                edt.text = e;
 
-                              _doSearch(context, e);
-                            },
-                            child: Text(e),
-                            style: outlinedButtonStyle,
-                          ))
-                      .toList(),
+                                _doSearch(context, e);
+                              },
+                              child: Text(e),
+                              style: outlinedButtonStyle(context),
+                            ))
+                        .toList(),
+                  ),
                 ),
               ),
               Expanded(

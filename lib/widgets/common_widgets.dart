@@ -38,27 +38,6 @@ final Widget svgcartoon = getVector('assets/images/cartoon.svg', 35, 35);
 final Widget logoMin = Image.asset('assets/images/logo_min.png');
 final Widget logoFund = Image.asset('assets/images/logo_fond.png');
 
-final ButtonStyle outlinedButtonStyle = OutlinedButton.styleFrom(
-  padding: EdgeInsets.all(15),
-  side: BorderSide(
-    width: 1.0,
-    color: Colors.red,
-  ),
-  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-  primary: Colors.black,
-);
-
-final ButtonStyle redFilledButtonStyle = OutlinedButton.styleFrom(
-  padding: EdgeInsets.all(15),
-  backgroundColor: Colors.red,
-  side: BorderSide(
-    width: 1.0,
-    color: Colors.red,
-  ),
-  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-  primary: Colors.white,
-);
-
 Widget adsBlock(BuildContext ctx) {
   return Container(
     color: Theme.of(ctx).colorScheme.primary.withOpacity(0.2),
@@ -74,12 +53,17 @@ Widget adsBlock(BuildContext ctx) {
 }
 
 InputDecoration myInputDecoration(
-    {String aHintText, IconData aSuffixIcon, String aErrortext = ''}) {
+    {String aHintText,
+    IconData aSuffixIcon,
+    String aErrortext = '',
+    IconData aPrefixIcon}) {
   return InputDecoration(
     filled: true,
+    contentPadding: EdgeInsets.only(left: 10),
     fillColor: Colors.white,
     errorText: aErrortext != '' ? aErrortext : null,
     suffixIcon: aSuffixIcon != null ? Icon(aSuffixIcon) : null,
+    prefixIcon: aPrefixIcon != null ? Icon(aPrefixIcon) : null,
     hintText: aHintText,
     helperText: ' ',
     enabledBorder: OutlineInputBorder(
@@ -122,4 +106,29 @@ class TextButtonWithSubfixIconChild extends StatelessWidget {
       ],
     );
   }
+}
+
+ButtonStyle outlinedButtonStyle(BuildContext context) {
+  return OutlinedButton.styleFrom(
+    padding: EdgeInsets.all(15),
+    side: BorderSide(
+      width: 1.0,
+      color: Theme.of(context).colorScheme.secondary,
+    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+    primary: Colors.black,
+  );
+}
+
+ButtonStyle redFilledButtonStyle(BuildContext context) {
+  return OutlinedButton.styleFrom(
+    padding: EdgeInsets.all(15),
+    backgroundColor: Theme.of(context).colorScheme.secondary,
+    side: BorderSide(
+      width: 1.0,
+      color: Theme.of(context).colorScheme.secondary,
+    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+    primary: Colors.white,
+  );
 }

@@ -76,32 +76,36 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: _isFullScreen
-            ? []
-            : [
-                FloatingActionButton(
-                  child: Icon(
-                    Icons.fullscreen,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    _escapeFullScreen();
-                  },
-                ),
-                SizedBox(
-                  height: 6,
-                ),
-                FloatingActionButton(
-                  child: Icon(
-                    Icons.close,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    _escapeFullScreen();
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
+        children: [
+          FloatingActionButton(
+            backgroundColor: Colors.red.withOpacity(_isFullScreen ? 0.5 : 1),
+            child: Icon(
+              Icons.fullscreen,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (_isFullScreen) {
+                _escapeFullScreen();
+              } else {
+                _makeFullScreen();
+              }
+            },
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          FloatingActionButton(
+            backgroundColor: Colors.red.withOpacity(_isFullScreen ? 0.5 : 1),
+            child: Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              _escapeFullScreen();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
       ),
       body: Stack(children: [
         Container(

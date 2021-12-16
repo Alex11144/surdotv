@@ -54,7 +54,7 @@ class _CarouselWithIndigatorState extends State<CarouselWithIndigator> {
             position: _itemIndex.toDouble(),
             decorator: DotsDecorator(
               color: Colors.red[100], // Inactive color
-              activeColor: Colors.redAccent,
+              activeColor: Theme.of(context).colorScheme.secondary,
             ),
             onTap: (index) {},
           ),

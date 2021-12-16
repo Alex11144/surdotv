@@ -38,7 +38,6 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
   double _height;
   double _floatButtonOpacity = 1;
 
-
   bool _isInit = true;
   String _subCategoryId = '';
   bool _showUpButton = false;
@@ -66,8 +65,6 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
     final videos = Provider.of<Videos>(context, listen: false);
     pageCount = 1;
 
- 
-
     _allVideos = videos.items
         .where((element) => element.categoryId == widget.categoryId)
         .toList();
@@ -81,17 +78,19 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
     print('init called');
 
     _videos = _allVideos.getRange(0, pageCount * 10).toList();
-       _scrollController.animateTo(0.0,
+    _scrollController.animateTo(0.0,
         duration: Duration(milliseconds: 300), curve: Curves.easeOut);
   }
 
   _scrollListener() {
     setState(() {
-       _showUpButton = _scrollController.offset > _scrollController.position.maxScrollExtent* 0.2;
-       _floatButtonOpacity = _scrollController.offset /_scrollController.position.maxScrollExtent;
-       print(_scrollController.offset);
+      _showUpButton = _scrollController.offset >
+          _scrollController.position.maxScrollExtent * 0.2;
+      _floatButtonOpacity =
+          _scrollController.offset / _scrollController.position.maxScrollExtent;
+      print(_scrollController.offset);
     });
-          
+
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
@@ -104,17 +103,14 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
 
           pageCount = pageCount + 1;
           print("pagecount $pageCount");
-          if (_videos.length < _allVideos.length)
-          {
+          if (_videos.length < _allVideos.length) {
             _videos += _allVideos
                 .getRange(
                     _videos.length,
                     _videos.length +
                         min(_allVideos.length - _videos.length, 10))
                 .toList();
-          }
-          else
-          {
+          } else {
             _showUpButton = true;
           }
         }
@@ -127,9 +123,8 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
     // final String categoryId =
     //     ModalRoute.of(context).settings.arguments as String;
 
-    return Stack(
-      alignment: AlignmentDirectional.bottomEnd,
-      children: [Column(children: [
+    return Stack(alignment: AlignmentDirectional.bottomEnd, children: [
+      Column(children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -162,13 +157,13 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
                         });
                       },
                       child: Text(e.name),
-                      style: outlinedButtonStyle,
+                      style: outlinedButtonStyle(context),
                     ))
                 .toList(),
           ),
         ),
         Container(
-          height:  _height - 260,
+          height: _height - 260,
           child: GridView.builder(
               controller: _scrollController,
               scrollDirection: Axis.vertical,
@@ -180,7 +175,7 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
               ),
-              itemCount: _videos.length ,
+              itemCount: _videos.length,
               itemBuilder: (ctx, i) {
                 // if (i == _videos.length) {
                 //   setState(() {
@@ -197,23 +192,25 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
                 );
               }),
         ),
-        
       ]),
-      _showUpButton ? Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: FloatingActionButton(
-        
-              child: Icon(Icons.arrow_upward,),
-              backgroundColor: Theme.of(context).colorScheme.secondary,//.withOpacity(_floatButtonOpacity),
-              
-              onPressed: () {
-                _scrollController.animateTo(0.0,
-                    duration: Duration(milliseconds: 600),
-                    curve: Curves.easeOut);
-              },
-            ),
-      ) : Container(),
-      ]);
+      _showUpButton
+          ? Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: FloatingActionButton(
+                child: Icon(
+                  Icons.arrow_upward,
+                ),
+                backgroundColor:
+                    Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+                onPressed: () {
+                  _scrollController.animateTo(0.0,
+                      duration: Duration(milliseconds: 600),
+                      curve: Curves.easeOut);
+                },
+              ),
+            )
+          : Container(),
+    ]);
   }
 
   // Future<void> getNextPage(Videos videos, List<VideoItem> _videos) async {

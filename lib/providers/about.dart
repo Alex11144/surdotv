@@ -4,6 +4,8 @@ import 'dart:convert';
 
 class About with ChangeNotifier {
   String content = '';
+  String _content1;
+  String _content2;
   bool _isLoaded = false;
 
   final apiKey = {
@@ -14,15 +16,17 @@ class About with ChangeNotifier {
     final url = Uri.http('api.surdotv.az', '/api/about');
 
     try {
-
-
       final resp = await http.get(url, headers: apiKey);
- 
+
       if (resp.statusCode >= 400) {
         content = '404';
         return;
       }
       content = json.decode(resp.body)['metn'];
+
+      _content1 = content.substring(1, content.indexOf('Müxtəlif'));
+      _content2 =
+          content.substring(content.indexOf('Müxtəlif'), content.length);
       _isLoaded = true;
       notifyListeners();
     } catch (e) {
@@ -31,12 +35,19 @@ class About with ChangeNotifier {
   }
 
   bool get isLoaded => _isLoaded;
+
+  String get content1 => _content1;
+  String get content2 => _content2;
+
   String getContent() {
     if (content == '') {
       fetchAll().then((_) {
-        return content;
-      }).onError((error, stackTrace) => null);
+        print(content1);
+        return content1;
+      }).onError((error, stackTrace) {
+        return null;
+      });
     } else
-      return content;
+      return content1;
   }
 }

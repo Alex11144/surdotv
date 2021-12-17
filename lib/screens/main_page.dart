@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:surdotv_app/widgets/common_widgets.dart';
 
 import '../providers/menu_data.dart';
 import '../screens/contact_screen.dart';
@@ -58,7 +59,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
       {
         'title': 'Əlaqə',
         'page': ContactScreen(),
-        'icon': Icon(
+        'icon': //SizedBox(height: 30, width: 30, child:svgMail),
+            Icon(
           Icons.mail_outline,
           size: 30,
         ),
@@ -228,7 +230,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 label: 'Search',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.mail_outline),
+                icon: svgMail, //;Icon(Icons.mail_outline),
                 label: 'Message',
               ),
             ],

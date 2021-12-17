@@ -17,7 +17,7 @@ class _ContactScreenState extends State<ContactScreen> {
   var _sendMessage = SendMessage();
 
   final _mapImgUrl = LocationHelper.generateLocationPreviewImage(
-      latitude: 40.3739596, longitude: 49.8146498);
+      latitude: 49.8679136, longitude: 40.3954418,);
 
   Future<void> _saveFrom() async {
     if (_form.currentState.validate()) {

@@ -48,7 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final _categories = Provider.of<Categories>(context);
 
-    return Scaffold(
+    return 
+    !_categories.isLoaded
+            ? Center(child: CircularProgressIndicator()):
+    
+    Scaffold(
         appBar: AppBar(
           centerTitle: true,
           elevation: 0,
@@ -56,9 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Theme.of(context).colorScheme.primary,
         ),
         // bottomNavigationBar: BottomNavBar(selectedBar: 0),
-        body: !_categories.isLoaded
-            ? Center(child: CircularProgressIndicator())
-            : _categories.items.length == 0
+        body:  _categories.items.length == 0
                 ? Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -78,7 +78,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
-            backgroundColor: Colors.red.withOpacity(_isFullScreen ? 0.5 : 1),
+            backgroundColor: Theme.of(context).colorScheme.secondary..withOpacity(_isFullScreen ? 0.5 : 1),
             child: Icon(
               Icons.fullscreen,
               color: Colors.white,
@@ -95,7 +95,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
             height: 6,
           ),
           FloatingActionButton(
-            backgroundColor: Colors.red.withOpacity(_isFullScreen ? 0.5 : 1),
+            backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(_isFullScreen ? 0.5 : 1),
             child: Icon(
               Icons.close,
               color: Colors.white,

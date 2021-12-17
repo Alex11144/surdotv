@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     if (!_catProvider.isLoaded) {
       _catProvider.fetchAll().then((value) {
-        //  Navigator.of(context).pushReplacementNamed(HomePageScreen.route_name);
+          Navigator.of(context).pushReplacementNamed(HomePageScreen.route_name);
 
         setState(() {
           _currentOpasity = 0;
@@ -104,15 +104,16 @@ class _SplashScreenState extends State<SplashScreen>
       //       SystemUiOverlayStyle(statusBarColor: Colors.transparent),
       // ),
       body: Center(
-        child: AnimatedOpacity(
-          duration: Duration(milliseconds: 1000),
-          opacity: selected ? 1.0 : 0.0,
-          child: logoMSize,
-          onEnd: () {
-            Navigator.of(context)
-                .pushReplacementNamed(HomePageScreen.route_name);
-          },
-        ),
+        child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,),
+        // AnimatedOpacity(
+        //   duration: Duration(milliseconds: 1000),
+        //   opacity: selected ? 1.0 : 0.0,
+        //   child: logoMSize,
+        //   onEnd: () {
+        //     Navigator.of(context)
+        //         .pushReplacementNamed(HomePageScreen.route_name);
+        //   },
+        // ),
       ),
     );
   }

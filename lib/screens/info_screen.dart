@@ -27,7 +27,7 @@ class _InfoScreenState extends State<InfoScreen> {
     return Scaffold(
         body: !aboutProvider.isLoaded
             ? Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,),
               )
             : CustomScrollView(slivers: <Widget>[
                 SliverAppBar(

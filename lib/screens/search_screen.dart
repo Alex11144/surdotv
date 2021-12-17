@@ -111,7 +111,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               Expanded(
                 child: _isLoading
-                    ? Center(child: CircularProgressIndicator())
+                    ? Center(child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,))
                     : GridView.builder(
                         primary: false,
                         shrinkWrap: true,

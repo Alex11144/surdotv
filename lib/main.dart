@@ -23,7 +23,7 @@ import './screens/categories_screen.dart';
 import './screens/main_page.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);

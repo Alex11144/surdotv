@@ -126,7 +126,7 @@ class _DetailScreenState extends State<DetailScreen>
       ),
       body: !allVideos.isLoaded
           ? Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,),
             )
           : Column(
               children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:surdotv_app/widgets/outline_button_widget.dart';
 
 import '../models/video_item.dart';
 import '../providers/search.dart';
@@ -17,7 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
   List<VideoItem> _videos = [];
   var _isLoading = false;
 
-  final List<String> _mostSearched = ['a', 'ev'];
+  final List<String> _mostSearched = ['Yay günləri', 'an'];
 
   @override
   Widget build(BuildContext context) {
@@ -60,18 +61,21 @@ class _SearchScreenState extends State<SearchScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                height: 70,
+                height: 80,
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextField(
                   controller: edt,
                   textInputAction: TextInputAction.search,
+                  onChanged: (txt) {
+                    if (!txt.isEmpty) _doSearch(context, txt);
+                  },
                   onSubmitted: (txt) {
                     _doSearch(context, txt);
                   },
                   decoration: myInputDecoration(
                     aHintText: 'Axtar ...',
-                    aSuffixIcon: Icons.clear,
-                    aPrefixIcon: Icons.search,
+                    // aSuffixIcon: Icons.clear,
+                    // aSuffixIcon: Icons.search,
                   ).copyWith(
                       suffixIcon: IconButton(
                           onPressed: () {
@@ -79,7 +83,10 @@ class _SearchScreenState extends State<SearchScreen> {
                               edt.clear();
                             });
                           },
-                          icon: Icon(Icons.clear))),
+                          icon: Icon(
+                            edt.text.isEmpty ? Icons.search : Icons.clear,
+                            color: Colors.black45,
+                          ))),
                 ),
               ),
               AnimatedOpacity(
@@ -96,31 +103,26 @@ class _SearchScreenState extends State<SearchScreen> {
                     spacing: 10,
                     runSpacing: 10,
                     children: _mostSearched
-                        .map((e) => OutlinedButton(
-                              onPressed: () {
-                                edt.text = e;
-
-                                _doSearch(context, e);
-                              },
-                              child: Text(e),
-                              style: outlinedButtonStyle(context),
-                            ))
+                        .map((e) => OutlineButtonWithAnimation(
+                            func: () {
+                              edt.text = e;
+                              _doSearch(context, e);
+                            },
+                            txt: e))
                         .toList(),
                   ),
                 ),
               ),
               Expanded(
                 child: _isLoading
-                    ? Center(child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,))
+                    ? Center(
+                        child: CircularProgressIndicator(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ))
                     : GridView.builder(
                         primary: false,
                         shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 5 / 4,
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                        ),
+                        gridDelegate: gridDelegate,
                         itemCount: _videos.length,
                         itemBuilder: ((ctx, i) => GridTile(
                               child: GridItem(

@@ -27,7 +27,9 @@ class _InfoScreenState extends State<InfoScreen> {
     return Scaffold(
         body: !aboutProvider.isLoaded
             ? Center(
-                child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,),
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
               )
             : CustomScrollView(slivers: <Widget>[
                 SliverAppBar(
@@ -41,17 +43,17 @@ class _InfoScreenState extends State<InfoScreen> {
                   //         bottomLeft: Radius.circular(335),
                   //         bottomRight: Radius.circular(335))),
                   expandedHeight: 160.0,
-                  collapsedHeight: 100,
+                  collapsedHeight: 60,
+
+                  shadowColor: Colors.transparent,
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
-
-                    ///    title: logoMSize,
                     title: Container(
                       height: 120,
                       alignment: Alignment.center,
-                      padding: EdgeInsets.all(25),
+                      padding: EdgeInsets.all(10),
                       child: Container(
-                        //  margin: EdgeInsets.only(bottom: 20),
+                        margin: EdgeInsets.only(top: 25),
                         child: logoMSize,
                       ),
                       decoration: BoxDecoration(

@@ -17,7 +17,9 @@ class _ContactScreenState extends State<ContactScreen> {
   var _sendMessage = SendMessage();
 
   final _mapImgUrl = LocationHelper.generateLocationPreviewImage(
-      latitude: 49.8679136, longitude: 40.3954418,);
+    latitude: 49.8679136,
+    longitude: 40.3954418,
+  );
 
   Future<void> _saveFrom() async {
     if (_form.currentState.validate()) {
@@ -73,7 +75,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         children: [
                           Expanded(
                             child: Container(
-                              height: 70,
+                              //   height: 70,
                               margin: EdgeInsets.only(right: 5),
                               child: TextFormField(
                                 keyboardType: TextInputType.text,
@@ -94,7 +96,8 @@ class _ContactScreenState extends State<ContactScreen> {
                           ),
                           Expanded(
                             child: Container(
-                              height: 70,
+                              //     height: 70,
+
                               margin: EdgeInsets.only(left: 5),
                               child: TextFormField(
                                 keyboardType: TextInputType.emailAddress,
@@ -127,7 +130,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         children: [
                           Flexible(
                             child: Container(
-                              height: 70,
+                              //        height: 70,
                               margin: EdgeInsets.only(right: 5),
                               child: TextFormField(
                                 keyboardType: TextInputType.phone,
@@ -148,7 +151,7 @@ class _ContactScreenState extends State<ContactScreen> {
                           ),
                           Flexible(
                             child: Container(
-                              height: 70,
+                              //   height: 70,
                               margin: EdgeInsets.only(left: 5),
                               child: TextFormField(
                                 keyboardType: TextInputType.text,

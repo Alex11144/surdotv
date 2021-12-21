@@ -19,7 +19,6 @@ class _CarouselWithIndigatorState extends State<CarouselWithIndigator> {
   Widget build(BuildContext context) {
     return Container(
       height: widget.carouselHeigth,
-      //   color: Colors.red,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -39,8 +38,6 @@ class _CarouselWithIndigatorState extends State<CarouselWithIndigator> {
                 builder: (BuildContext context) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
-                    //margin: EdgeInsets.symmetric(horizontal: 5.0),
-                    //  decoration: BoxDecoration(color: Colors.amber),
                     child: Center(
                       child: item,
                     ),

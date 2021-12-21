@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surdotv_app/models/category_item.dart';
+import 'package:surdotv_app/widgets/outline_button_widget.dart';
 
 import '../models/video_item.dart';
 import '../widgets/common_widgets.dart';
@@ -147,17 +148,16 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
             spacing: 10,
             runSpacing: 10,
             children: _subcatList
-                .map((e) => OutlinedButton(
-                      onPressed: () {
+                .map((e) => OutlineButtonWithAnimation(
+                      txt: e.name,
+                      func: () {
                         setState(() {
                           _subCategoryId = e.id;
                           _showUpButton = false;
-                          print(_subCategoryId);
+
                           _reloadPage();
                         });
                       },
-                      child: Text(e.name),
-                      style: outlinedButtonStyle(context),
                     ))
                 .toList(),
           ),
@@ -169,12 +169,7 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
               scrollDirection: Axis.vertical,
               primary: false,
               shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 5 / 4,
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
+              gridDelegate: gridDelegate,
               itemCount: _videos.length,
               itemBuilder: (ctx, i) {
                 // if (i == _videos.length) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surdotv_app/providers/videos.dart';
+import 'package:surdotv_app/widgets/outline_button_widget.dart';
 
 import './selected_category_screen.dart';
 import '../widgets/home_page_block.dart';
@@ -24,7 +25,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     //  print(_selectedCategory);
     final menuData = Provider.of<MenuData>(context);
     _selectedCategory = menuData.selectedCategoryId;
-    print('selected = $_selectedCategory');
+    _selectedCategory = '';
+    print('selectedd = $_selectedCategory');
     super.didChangeDependencies();
   }
 
@@ -116,15 +118,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         runSpacing: 10,
         children: categories.items
             .map(
-              (e) => OutlinedButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedCategory = e.id;
-                  });
-                },
-                child: Text(e.name),
-                style: outlinedButtonStyle(context),
-              ),
+              (e) => OutlineButtonWithAnimation(
+                  func: () {
+                    setState(() {
+                      _selectedCategory = e.id;
+                    });
+                  },
+                  txt: e.name),
             )
             .toList(),
       ),

@@ -59,20 +59,31 @@ InputDecoration myInputDecoration(
     IconData aPrefixIcon}) {
   return InputDecoration(
     filled: true,
-    contentPadding: EdgeInsets.only(left: 10),
-    fillColor: Colors.white,
+    contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+    fillColor: Colors.transparent,
     errorText: aErrortext != '' ? aErrortext : null,
-    suffixIcon: aSuffixIcon != null ? Icon(aSuffixIcon) : null,
-    prefixIcon: aPrefixIcon != null ? Icon(aPrefixIcon) : null,
+    errorStyle: TextStyle(fontSize: 12),
+    suffixIcon: aSuffixIcon != null
+        ? Icon(
+            aSuffixIcon,
+            color: Colors.black45,
+          )
+        : null,
+    prefixIcon: aPrefixIcon != null
+        ? Icon(
+            aPrefixIcon,
+            color: Colors.black45,
+          )
+        : null,
     hintText: aHintText,
-    helperText: ' ',
+    //helperText: ' ',
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
       borderSide: BorderSide(color: Colors.grey, width: 1),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
-      borderSide: BorderSide(color: Colors.blue, width: 1),
+      borderSide: BorderSide(color: Colors.grey, width: 1),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
@@ -96,19 +107,21 @@ class TextButtonWithSubfixIconChild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Flexible(child: label),
-        SizedBox(width: 4),
-        icon,
-      ],
+    return InkWell(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Flexible(child: label),
+          SizedBox(width: 4),
+          icon,
+        ],
+      ),
     );
   }
 }
 
-ButtonStyle outlinedButtonStyle(BuildContext context) {
+ButtonStyle outlinedButtonStyle(BuildContext context, bool isPressed) {
   return OutlinedButton.styleFrom(
     padding: EdgeInsets.all(15),
     side: BorderSide(
@@ -116,7 +129,10 @@ ButtonStyle outlinedButtonStyle(BuildContext context) {
       color: Theme.of(context).colorScheme.secondary,
     ),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-    primary: Colors.black,
+    primary: isPressed ? Colors.white : Colors.black,
+    backgroundColor: isPressed
+        ? Theme.of(context).colorScheme.secondary
+        : Colors.transparent,
   );
 }
 
@@ -132,3 +148,10 @@ ButtonStyle redFilledButtonStyle(BuildContext context) {
     primary: Colors.white,
   );
 }
+
+final gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+  childAspectRatio: 100 / 86,
+  crossAxisCount: 2,
+  crossAxisSpacing: 5,
+  mainAxisSpacing: 5,
+);

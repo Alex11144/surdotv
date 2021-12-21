@@ -12,8 +12,9 @@ class GridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
+    return Container(
+      height: 160,
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 1),
       child: Column(
         children: [
           Stack(
@@ -22,7 +23,7 @@ class GridItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 child: Container(
-                  height: 100,
+                  height: 125,
                   width: double.infinity,
                   // padding: EdgeInsets.all(20),
                   color: Theme.of(context).colorScheme.primary,
@@ -73,8 +74,8 @@ class GridItem extends StatelessWidget {
             height: 3,
           ),
           Container(
-            height: 20,
-            alignment: Alignment.bottomLeft,
+            height: 35,
+            alignment: Alignment.topLeft,
             child: Text(title),
           ),
         ],

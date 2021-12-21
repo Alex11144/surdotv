@@ -33,6 +33,7 @@ class _DetailScreenState extends State<DetailScreen>
   var _animated = false;
   var _animatedInit = false;
   var _isLoaded = false;
+  var _isHover = false;
 
   Videos allVideos;
   List<VideoItem> _similarItems;
@@ -126,14 +127,16 @@ class _DetailScreenState extends State<DetailScreen>
       ),
       body: !allVideos.isLoaded
           ? Center(
-              child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,),
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             )
           : Column(
               children: [
                 Container(
                   child: Stack(children: [
                     Container(
-                      height: 130,
+                      height: 150,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     CarouselSlider(
@@ -216,13 +219,16 @@ class _DetailScreenState extends State<DetailScreen>
                   child: ListView(
                     controller: listScrollController,
                     children: [
+                      SizedBox(
+                        height: 10,
+                      ),
                       ListTile(
                         title: Text(
                           _header,
                           style: Theme.of(context).textTheme.headline5,
                         ),
                         subtitle: Padding(
-                          padding: const EdgeInsets.only(top: 6),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Row(
                             children: [
                               Icon(
@@ -230,39 +236,66 @@ class _DetailScreenState extends State<DetailScreen>
                                 size: 15,
                                 color: Colors.black45,
                               ),
+                              SizedBox(
+                                width: 5,
+                              ),
                               Text(
                                 _dt,
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                ),
                               ),
                               SizedBox(
-                                width: 8.0,
+                                width: 12.0,
                               ),
                               Icon(
                                 Icons.remove_red_eye_outlined,
                                 size: 15,
                                 color: Colors.black45,
                               ),
-                              Text(_viewed),
+                              SizedBox(width: 5.0),
+                              Text(
+                                '$_viewed baxış ',
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                        trailing: TextButton(
-                          onPressed: () {
-                            buttonCarouselController.nextPage();
+                        trailing: GestureDetector(
+                          onTapDown: (_) {
+                            setState(() {
+                              _isHover = true;
+                            });
+                          },
+                          onTap: () {
+                            buttonCarouselController.nextPage().then((value) {
+                              setState(() {
+                                _isHover = false;
+                              });
+                            });
                           },
                           child: TextButtonWithSubfixIconChild(
                             label: Text(
                               'Digər',
                               style: TextStyle(
-                                  color: Colors.black54, fontSize: 18),
+                                  color: _isHover
+                                      ? Theme.of(context).colorScheme.secondary
+                                      : Colors.black54,
+                                  fontSize: 18),
                             ),
                             icon: Icon(
                               Icons.arrow_forward_ios,
+                              color: _isHover
+                                  ? Theme.of(context).colorScheme.secondary
+                                  : Colors.black54,
                             ),
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),

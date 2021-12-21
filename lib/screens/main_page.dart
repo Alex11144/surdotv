@@ -115,7 +115,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
       bottomNavigationBar: Container(
         height: 65,
         decoration: BoxDecoration(
-          color: Colors.orange,
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), topLeft: Radius.circular(20)),
           boxShadow: [

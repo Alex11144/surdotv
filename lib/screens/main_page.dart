@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
@@ -113,7 +115,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       // ), //_pages[menuData.selectedMenuIndex]['page'],
 
       bottomNavigationBar: Container(
-        height: 65,
+        height:Platform.isAndroid? 65 : 80,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), topLeft: Radius.circular(20)),
@@ -135,6 +137,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               setState(() {
                 _currentIndex = index;
                 menuData.setMenuIndex(index);
+                menuData.setCategoryId('');
               });
 
               //Navigator.of(context).pushReplacementNamed(_pages[index]['routeName']);

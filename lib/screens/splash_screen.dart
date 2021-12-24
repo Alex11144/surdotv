@@ -28,14 +28,16 @@ class _SplashScreenState extends State<SplashScreen>
         });
       }
 
-      final _videoProvider = Provider.of<Videos>(
-        context,
-        listen: false,
-      );
+      // final _videoProvider = Provider.of<Videos>(
+      //   context,
+      //   listen: false,
+      // );
 
-      if (!_videoProvider.isLoaded) {
-        _videoProvider.fetchAll();
-      }
+      // if (!_videoProvider.isLoaded) {
+      //       print("call from splash");
+      //   _videoProvider.fetchAll();
+      // }
+      _isLoaded = true;
     }
     super.didChangeDependencies();
   }

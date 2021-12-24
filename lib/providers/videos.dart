@@ -42,6 +42,7 @@ class Videos with ChangeNotifier {
   };
 
   Future<void> fetchAll() async {
+      print('fetch called ');    
     final url = Uri.http('api.surdotv.az', '/api/sections');
     print('videos prepare at ' + DateTime.now().toString());
     await http.get(url, headers: apiKey).then((resp) {
@@ -84,8 +85,8 @@ class Videos with ChangeNotifier {
 
             if (catList.length == _idxCat) {              
               _isLoaded = true;        
-               print('videos loaded ');    
-               print('how many loaded  ${_items.length}'); 
+             
+               print('how many loaded = ${_items.length}'); 
                notifyListeners();
             }
           });

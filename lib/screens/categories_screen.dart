@@ -25,7 +25,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     //  print(_selectedCategory);
     final menuData = Provider.of<MenuData>(context);
     _selectedCategory = menuData.selectedCategoryId;
-    _selectedCategory = '';
+  
     print('selectedd = $_selectedCategory');
     super.didChangeDependencies();
   }
@@ -42,6 +42,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         } else {
           setState(() {
             _selectedCategory = '';
+            
           });
           return false;
         }

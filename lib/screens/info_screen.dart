@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,8 +44,9 @@ class _InfoScreenState extends State<InfoScreen> {
                   //     borderRadius: BorderRadius.only(
                   //         bottomLeft: Radius.circular(335),
                   //         bottomRight: Radius.circular(335))),
-                  expandedHeight: 160.0,
-                  collapsedHeight: 60,
+                  expandedHeight: Platform.isAndroid? 160.0 : 140.0,
+                  collapsedHeight: Platform.isAndroid? 60 : 40,
+                  
 
                   shadowColor: Colors.transparent,
                   flexibleSpace: FlexibleSpaceBar(

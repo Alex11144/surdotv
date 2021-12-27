@@ -14,20 +14,31 @@ class InfoScreen extends StatefulWidget {
 }
 
 class _InfoScreenState extends State<InfoScreen> {
+  bool _isLoaded = false;
+  String aboutText1 = '';
+  String aboutText2 = '';
+
+  @override
+  void didChangeDependencies() {
+    if (!_isLoaded) {
+      print('about provider called' + DateTime.now().toString());
+      final aboutProvider = Provider.of<About>(context);
+      aboutProvider.getContent();
+      aboutText1 = aboutProvider.content1;
+      aboutText2 = aboutProvider.content2;
+
+      setState(() {
+        _isLoaded = !_isLoaded;
+      });
+    }
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool selected = false;
-    final aboutProvider = Provider.of<About>(context);
-    aboutProvider.getContent();
-    final aboutText1 = aboutProvider.content1;
-    final aboutText2 = aboutProvider.content2;
-
-    setState(() {
-      selected = !selected;
-    });
-
     return Scaffold(
-        body: !aboutProvider.isLoaded
+        body: !_isLoaded
             ? Center(
                 child: CircularProgressIndicator(
                   color: Theme.of(context).colorScheme.secondary,
@@ -44,9 +55,8 @@ class _InfoScreenState extends State<InfoScreen> {
                   //     borderRadius: BorderRadius.only(
                   //         bottomLeft: Radius.circular(335),
                   //         bottomRight: Radius.circular(335))),
-                  expandedHeight: Platform.isAndroid? 160.0 : 140.0,
-                  collapsedHeight: Platform.isAndroid? 60 : 40,
-                  
+                  expandedHeight: Platform.isAndroid ? 160.0 : 140.0,
+                  collapsedHeight: Platform.isAndroid ? 60 : 40,
 
                   shadowColor: Colors.transparent,
                   flexibleSpace: FlexibleSpaceBar(

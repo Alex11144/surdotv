@@ -80,10 +80,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   List<Widget> _screens = <Widget>[
     HomeScreen(),
-    InfoScreen(),
-    CategoriesScreen(),
-    SearchScreen(),
-    ContactScreen()
+     InfoScreen(),
+    // CategoriesScreen(),
+    // SearchScreen(),
+    // ContactScreen()
   ];
 
   @override

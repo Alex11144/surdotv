@@ -16,6 +16,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void didChangeDependencies() {
+    print(' changeddd' + DateTime.now().toString());
     if (!_isLoaded) {
       final _catProvider = Provider.of<Categories>(
         context,

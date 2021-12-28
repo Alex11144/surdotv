@@ -23,13 +23,17 @@ class _InfoScreenState extends State<InfoScreen> {
     if (!_isLoaded) {
       print('about provider called' + DateTime.now().toString());
       final aboutProvider = Provider.of<About>(context);
-      aboutProvider.getContent();
-      aboutText1 = aboutProvider.content1;
-      aboutText2 = aboutProvider.content2;
-
-      setState(() {
-        _isLoaded = !_isLoaded;
+      aboutProvider.fetchAll().then((_) {
+ 
+        aboutText1 = aboutProvider.content1;
+        aboutText2 = aboutProvider.content2;
+        print(aboutText1);
+        setState(() {
+          _isLoaded = !_isLoaded;
+        });
+ 
       });
+     
     }
 
     super.didChangeDependencies();
@@ -49,7 +53,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   pinned: true,
                   snap: true,
                   floating: true,
-
+                  elevation: 0.0,
                   backgroundColor: Colors.transparent,
                   // shape: ContinuousRectangleBorder(
                   //     borderRadius: BorderRadius.only(
@@ -59,6 +63,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   collapsedHeight: Platform.isAndroid ? 60 : 40,
 
                   shadowColor: Colors.transparent,
+                  
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     title: Container(

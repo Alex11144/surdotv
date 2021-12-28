@@ -78,13 +78,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
     super.initState();
   }
 
-  List<Widget> _screens = <Widget>[
-    HomeScreen(),
-     InfoScreen(),
-    // CategoriesScreen(),
-    // SearchScreen(),
-    // ContactScreen()
+  List loadedPages = [
+    0,
   ];
+  // List<Widget> _screens = <Widget>[
+  //   HomeScreen(),
+  //   //  InfoScreen(),
+  //   //  CategoriesScreen(),
+  //   //  SearchScreen(),
+  //   //  ContactScreen()
+  // ];
 
   @override
   void dispose() {
@@ -95,6 +98,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     final menuData = Provider.of<MenuData>(context);
+    var _screens = [
+      HomeScreen(),
+      loadedPages.contains(1) ? InfoScreen() : Container(),
+      loadedPages.contains(2) ? CategoriesScreen() : Container(),
+      loadedPages.contains(3) ? SearchScreen() : Container(),
+      loadedPages.contains(4) ? ContactScreen() : Container(),
+    ];
 
     return Scaffold(
       body: SafeArea(
@@ -115,7 +125,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       // ), //_pages[menuData.selectedMenuIndex]['page'],
 
       bottomNavigationBar: Container(
-        height:Platform.isAndroid? 65 : 80,
+        height: Platform.isAndroid ? 65 : 80,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), topLeft: Radius.circular(20)),
@@ -134,6 +144,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
             showElevation: true,
             itemCornerRadius: 20,
             onItemSelected: (index) {
+              if (!loadedPages.contains(index)) {
+                loadedPages.add(index);
+              }
+
               setState(() {
                 _currentIndex = index;
                 menuData.setMenuIndex(index);

@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     if (!_videoProvider.isLoading) {
-      print("call from homescreen");
+      print("call from homescreen" + DateTime.now().toString());
       _videoProvider.fetchAll();
   
     }

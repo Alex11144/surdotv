@@ -23,8 +23,9 @@ class _SplashScreenState extends State<SplashScreen>
         listen: false,
       );
 
-      if (!_catProvider.isLoaded) {
+      if (!_isLoaded) {
         _catProvider.fetchAll().then((value) {
+          print('categ fetched'+ DateTime.now().toString());
           Navigator.of(context).pushReplacementNamed(HomePageScreen.route_name);
         });
       }

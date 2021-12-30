@@ -42,10 +42,10 @@ class Videos with ChangeNotifier {
   };
 
   Future<void> fetchAll() async {
-      print('fetch called ');    
+      print('fetch called ' );    
     final url = Uri.http('api.surdotv.az', '/api/sections');
     print('videos prepare at ' + DateTime.now().toString());
-    await http.get(url, headers: apiKey).then((resp) {
+     http.get(url, headers: apiKey).then((resp) {
       print('videos start at ' + DateTime.now().toString());
       final catList =
           json.decode(resp.body)['category']['sub_items'] as List<dynamic>;

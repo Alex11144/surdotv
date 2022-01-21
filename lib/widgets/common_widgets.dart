@@ -36,7 +36,12 @@ final Widget svgFacebook = getVector('assets/images/facebookLogo.svg', 35, 35);
 final Widget svgcartoon = getVector('assets/images/cartoon.svg', 35, 35);
 
 final Widget logoMin = Image.asset('assets/images/logo_min.png');
-final Widget logoFund = Image.asset('assets/images/logo_fond.png');
+final Widget logoFund = Image.asset('assets/images/logo_fond.png',height: 65, width: 65,);
+
+final Widget svgEmekNaz = getVector('assets/images/emek_naz.svg', 65, 65);
+final Widget svgUsaqGencler = getVector('assets/images/usaq_gencler.svg', 65, 65);
+final Widget svgSosAgent = getVector('assets/images/sos_agent.svg', 65, 65);
+
 
 Widget adsBlock(BuildContext ctx) {
   return Container(
@@ -45,8 +50,9 @@ Widget adsBlock(BuildContext ctx) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        logoMin,
+        svgEmekNaz,
         logoFund,
+        svgSosAgent
       ],
     ),
   );

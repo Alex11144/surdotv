@@ -66,7 +66,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
-                    title: Container(
+                    title:  Container(
                       height: 120,
                       alignment: Alignment.center,
                       padding: EdgeInsets.all(10),

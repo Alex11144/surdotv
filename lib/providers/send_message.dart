@@ -14,11 +14,7 @@ class SendMessage {
       'api.surdotv.az',
       '/api/send-message',
     );
-    final apiKey = {
-      'api_key':
-          'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
-      'Content-Type': 'application/x-www-form-urlencoded'
-    };
+
 
     final msgBody = {
       'api_key':

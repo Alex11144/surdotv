@@ -6,27 +6,49 @@ import '../models/video_item.dart';
 
 class SearchData with ChangeNotifier {
   List<VideoItem> _listData = [];
+  List<String> _recommendList = [];
 
   List<VideoItem> get items => _listData;
+    List<String> get recommendList => _recommendList ;
+
+  final apiKey = {
+    'api_key': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+    'Content-Type': 'application/x-www-form-urlencoded'
+  };
+
+  Future<void> getRecommends() async {
+    final url = Uri.http(
+      'api.surdotv.az',
+      '/api/recommended-movies',
+    );
+    final resp = await http.get(url, headers: apiKey);
+
+    if (resp.statusCode >= 400) return ;
+
+    final _listPhrases = (json.decode(resp.body)['itemsa'] as List<dynamic>);
+
+    _listPhrases.forEach((e) { 
+      _recommendList.add(e as String);
+    });
+       
+        notifyListeners();
+   
+  }
 
   Future<void> fetchData(String kwd) async {
-    final url = Uri.http('api.surdotv.az', '/api/search',);
-    final apiKey = {
-      'api_key':'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
-      'Content-Type': 'application/x-www-form-urlencoded'
-    };
+    final url = Uri.http(
+      'api.surdotv.az',
+      '/api/search',
+    );
 
-
- 
     final resp = await http.post(
       url,
       headers: apiKey,
-      body: {'keyword': kwd},      
+      body: {'keyword': kwd},
       encoding: Encoding.getByName("utf-8"),
     );
 
     if (resp.statusCode >= 400) return;
-    
 
     _listData = (json.decode(resp.body)['videos'] as List<dynamic>).map((e) {
       return VideoItem(

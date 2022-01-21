@@ -18,7 +18,23 @@ class _SearchScreenState extends State<SearchScreen> {
   List<VideoItem> _videos = [];
   var _isLoading = false;
 
-  final List<String> _mostSearched = ['Yay günləri', 'an'];
+
+  List<String> _mostSearched = [];
+
+  @override
+  void initState() {
+
+    Future.delayed(Duration(milliseconds: 100)).then((_)  {
+       final _searchData = Provider.of<SearchData>(context,listen: false)..getRecommends();
+   
+    setState(() {
+       _mostSearched = _searchData.recommendList;
+    });
+    });
+   
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,23 +109,26 @@ class _SearchScreenState extends State<SearchScreen> {
                 duration: Duration(milliseconds: 600),
                 curve: Curves.easeInOut,
                 opacity: edt.text.isNotEmpty ? 0.0 : 1,
-                child: AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                  height: edt.text.isNotEmpty ? 0.0 : 80,
-                  padding: EdgeInsets.all(10),
-                  width: double.infinity,
-                  child: Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: _mostSearched
-                        .map((e) => OutlineButtonWithAnimation(
-                            func: () {
-                              edt.text = e;
-                              _doSearch(context, e);
-                            },
-                            txt: e))
-                        .toList(),
+                child: Visibility(
+                  visible: !edt.text.isNotEmpty,
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    //height: edt.text.isNotEmpty ? 0.0 : ,
+                    padding: EdgeInsets.all(10),
+                    width: double.infinity,
+                    child: Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: _mostSearched
+                          .map((e) => OutlineButtonWithAnimation(
+                              func: () {
+                                edt.text = e;
+                                _doSearch(context, e);
+                              },
+                              txt: e))
+                          .toList(),
+                    ),
                   ),
                 ),
               ),

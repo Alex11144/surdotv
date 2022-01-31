@@ -31,7 +31,10 @@ class _HomePageBlockState extends State<HomePageBlock> {
 
   @override
   void initState() {
-    makeList();
+    Future.delayed(Duration.zero).then((_){
+       makeList();
+    });
+   
     super.initState();
   }
 
@@ -41,22 +44,30 @@ class _HomePageBlockState extends State<HomePageBlock> {
         .map((e) => Container(
               height: 350,
               width: double.infinity,
-              child: GridView.builder(
-                  gridDelegate: gridDelegate,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: 4,
-                  itemBuilder: (ctx, i) {
-                    return GridTile(
-                      child: GridItem(
-                        id: widget.videoList[e + i].id,
-                        title: widget.videoList[e + i].videoHead,
-                        imgUrl: widget.videoList[e + i].getImageUrl,
-                      ),
-                    );
-                  }),
+              child: OrientationBuilder(
+                builder: (context, orientation) {
+                  final or = MediaQuery.of(context).orientation;
+                  return GridView.builder(
+                      gridDelegate: gridDelegate(or),
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: 4,
+                      itemBuilder: (ctx, i) {
+                        return GridTile(
+                          child: GridItem(
+                            id: widget.videoList[e + i].id,
+                            title: widget.videoList[e + i].videoHead,
+                            imgUrl: widget.videoList[e + i].getImageUrl,
+                          ),
+                        );
+                      });
+                }
+              ),
               alignment: Alignment.topCenter,
             ))
         .toList();
+        setState(() {
+          
+        });
   }
 
   // void makeList2() {
@@ -148,6 +159,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
               ],
             ),
           ),
+          _itemList == null ? Center(child: CircularProgressIndicator()) : 
           CarouselWithIndigator(_itemList, 360),
         ],
       ),

@@ -138,18 +138,22 @@ class _SearchScreenState extends State<SearchScreen> {
                         child: CircularProgressIndicator(
                         color: Theme.of(context).colorScheme.secondary,
                       ))
-                    : GridView.builder(
-                        primary: false,
-                        shrinkWrap: true,
-                        gridDelegate: gridDelegate,
-                        itemCount: _videos.length,
-                        itemBuilder: ((ctx, i) => GridTile(
-                              child: GridItem(
-                                  id: _videos[i].id,
-                                  imgUrl: _videos[i].getImageUrl,
-                                  title: _videos[i].videoHead),
-                            )),
-                      ),
+                    : OrientationBuilder(
+                      builder: (context,orientation) {
+                        return GridView.builder(
+                            primary: false,
+                            shrinkWrap: true,
+                            gridDelegate: gridDelegate(orientation),
+                            itemCount: _videos.length,
+                            itemBuilder: ((ctx, i) => GridTile(
+                                  child: GridItem(
+                                      id: _videos[i].id,
+                                      imgUrl: _videos[i].getImageUrl,
+                                      title: _videos[i].videoHead),
+                                )),
+                          );
+                      }
+                    ),
               ),
             ],
           ),

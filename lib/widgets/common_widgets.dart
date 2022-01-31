@@ -155,9 +155,13 @@ ButtonStyle redFilledButtonStyle(BuildContext context) {
   );
 }
 
-final gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
-  childAspectRatio: 100 / 86,
+ gridDelegate(Orientation orient) {
+   final isPortrait = orient == Orientation.portrait;
+
+  return  SliverGridDelegateWithFixedCrossAxisCount(
+  childAspectRatio: isPortrait? 100 / 86 : 100/ 46,
   crossAxisCount: 2,
   crossAxisSpacing: 5,
   mainAxisSpacing: 5,
 );
+}

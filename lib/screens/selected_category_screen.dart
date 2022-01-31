@@ -164,28 +164,32 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
         ),
         Container(
           height: _height - 260,
-          child: GridView.builder(
-              controller: _scrollController,
-              scrollDirection: Axis.vertical,
-              primary: false,
-              shrinkWrap: true,
-              gridDelegate: gridDelegate,
-              itemCount: _videos.length,
-              itemBuilder: (ctx, i) {
-                // if (i == _videos.length) {
-                //   setState(() {
-                //     _showUpButton = true;
-                //   });
-                //   return  Container();
-                // }
-                return GridTile(
-                  child: GridItem(
-                    id: _videos[i].id,
-                    imgUrl: _videos[i].getImageUrl,
-                    title: _videos[i].videoHead,
-                  ),
-                );
-              }),
+          child: OrientationBuilder(
+            builder: (context,orientation) {
+              return GridView.builder(
+                  controller: _scrollController,
+                  scrollDirection: Axis.vertical,
+                  primary: false,
+                  shrinkWrap: true,
+                  gridDelegate: gridDelegate(orientation),
+                  itemCount: _videos.length,
+                  itemBuilder: (ctx, i) {
+                    // if (i == _videos.length) {
+                    //   setState(() {
+                    //     _showUpButton = true;
+                    //   });
+                    //   return  Container();
+                    // }
+                    return GridTile(
+                      child: GridItem(
+                        id: _videos[i].id,
+                        imgUrl: _videos[i].getImageUrl,
+                        title: _videos[i].videoHead,
+                      ),
+                    );
+                  });
+            }
+          ),
         ),
       ]),
       _showUpButton

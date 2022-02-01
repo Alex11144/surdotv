@@ -31,7 +31,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': HomeScreen(),
         'icon': Icon(
           Icons.home,
-          size: 30,
+          size: 20,
         ),
       },
       {
@@ -39,7 +39,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': InfoScreen(),
         'icon': Icon(
           Icons.info_outline,
-          size: 30,
+          size: 20,
         ),
       },
       {
@@ -47,7 +47,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': CategoriesScreen(),
         'icon': Icon(
           Icons.menu,
-          size: 30,
+          size: 20,
         ),
       },
       {
@@ -55,7 +55,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': SearchScreen(),
         'icon': Icon(
           Icons.search,
-          size: 30,
+          size: 20,
         ),
       },
       {
@@ -64,7 +64,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'icon': //SizedBox(height: 30, width: 30, child:svgMail),
             Icon(
           Icons.mail_outline,
-          size: 30,
+          size: 20,
         ),
       },
       // ,
@@ -125,7 +125,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       // ), //_pages[menuData.selectedMenuIndex]['page'],
 
       bottomNavigationBar: Container(
-        height: Platform.isAndroid ? 65 : 80,
+        height: Platform.isAndroid ? 65 : 65,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), topLeft: Radius.circular(20)),
@@ -187,7 +187,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   .map((e) => BottomNavyBarItem(
                         activeColor: Theme.of(context).colorScheme.secondary,
                         inactiveColor: Colors.black,
-                        title: Text(e['title']),
+                        title: Text(
+                          e['title'],
+                          style: TextStyle(fontSize: 12),
+                        ),
                         icon: e['icon'],
                       ))
                   .toList()

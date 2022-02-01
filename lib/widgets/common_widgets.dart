@@ -36,12 +36,16 @@ final Widget svgFacebook = getVector('assets/images/facebookLogo.svg', 35, 35);
 final Widget svgcartoon = getVector('assets/images/cartoon.svg', 35, 35);
 
 final Widget logoMin = Image.asset('assets/images/logo_min.png');
-final Widget logoFund = Image.asset('assets/images/logo_fond.png',height: 65, width: 65,);
+final Widget logoFund = Image.asset(
+  'assets/images/logo_fond.png',
+  height: 65,
+  width: 65,
+);
 
 final Widget svgEmekNaz = getVector('assets/images/emek_naz.svg', 65, 65);
-final Widget svgUsaqGencler = getVector('assets/images/usaq_gencler.svg', 65, 65);
+final Widget svgUsaqGencler =
+    getVector('assets/images/usaq_gencler.svg', 65, 65);
 final Widget svgSosAgent = getVector('assets/images/sos_agent.svg', 65, 65);
-
 
 Widget adsBlock(BuildContext ctx) {
   return Container(
@@ -49,11 +53,7 @@ Widget adsBlock(BuildContext ctx) {
     padding: EdgeInsets.symmetric(vertical: 10),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        svgEmekNaz,
-        logoFund,
-        svgSosAgent
-      ],
+      children: [svgEmekNaz, logoFund, svgSosAgent],
     ),
   );
 }
@@ -155,13 +155,13 @@ ButtonStyle redFilledButtonStyle(BuildContext context) {
   );
 }
 
- gridDelegate(Orientation orient) {
-   final isPortrait = orient == Orientation.portrait;
+gridDelegate(Orientation orient) {
+  final isPortrait = orient == Orientation.portrait;
 
-  return  SliverGridDelegateWithFixedCrossAxisCount(
-  childAspectRatio: isPortrait? 100 / 86 : 100/ 46,
-  crossAxisCount: 2,
-  crossAxisSpacing: 5,
-  mainAxisSpacing: 5,
-);
+  return SliverGridDelegateWithFixedCrossAxisCount(
+    childAspectRatio: isPortrait ? 100 / 86 : 100 / 46,
+    crossAxisCount: 2,
+    crossAxisSpacing: 5,
+    mainAxisSpacing: 5,
+  );
 }

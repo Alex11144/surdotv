@@ -107,6 +107,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
       loadedPages.contains(4) ? ContactScreen() : Container(),
     ];
 
+    final _ScreenSize = MediaQuery.of(context).size;
+    print(_ScreenSize.height);
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -126,7 +128,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       // ), //_pages[menuData.selectedMenuIndex]['page'],
 
       bottomNavigationBar: Container(
-        height: Platform.isAndroid ? 65 : 65,
+        height: Platform.isAndroid ? 65 : 85,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), topLeft: Radius.circular(20)),

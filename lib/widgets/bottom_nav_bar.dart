@@ -16,7 +16,6 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _currentIndex;
   List<Map<String, Object>> _pages = [
     {
       'title': 'Baş səhifə',
@@ -84,7 +83,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
               showElevation: true,
               itemCornerRadius: 25,
               onItemSelected: (index) {
-                setState(() => _currentIndex = index);
                 //Navigator.of(context).pushReplacementNamed(_pages[index]['routeName']);
                 // _pageController.jumpToPage(
                 //   index,

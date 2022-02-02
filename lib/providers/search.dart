@@ -9,7 +9,7 @@ class SearchData with ChangeNotifier {
   List<String> _recommendList = [];
 
   List<VideoItem> get items => _listData;
-    List<String> get recommendList => _recommendList ;
+  List<String> get recommendList => _recommendList;
 
   final apiKey = {
     'api_key': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
@@ -23,16 +23,16 @@ class SearchData with ChangeNotifier {
     );
     final resp = await http.get(url, headers: apiKey);
 
-    if (resp.statusCode >= 400) return ;
+    if (resp.statusCode >= 400) return;
 
     final _listPhrases = (json.decode(resp.body)['itemsa'] as List<dynamic>);
 
-    _listPhrases.forEach((e) { 
-      _recommendList.add(e as String);
-    });
-       
-        notifyListeners();
-   
+    if (_listPhrases != null)
+      _listPhrases.forEach((e) {
+        _recommendList.add(e as String);
+      });
+
+    notifyListeners();
   }
 
   Future<void> fetchData(String kwd) async {

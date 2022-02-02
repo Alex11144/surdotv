@@ -12,7 +12,7 @@ class MyVideoPlayer extends StatefulWidget {
 class _MyVideoPlayerState extends State<MyVideoPlayer> {
   var videoId = '';
   var _maxHeight = 0.0;
-  var _maxWidth = 0.0;
+
   var _isFullScreen = false;
 
   @override
@@ -24,7 +24,6 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   void didChangeDependencies() {
     if (_maxHeight == 0.0) {
       _maxHeight = MediaQuery.of(context).size.height;
-      _maxWidth = MediaQuery.of(context).size.width;
     }
     if (videoId.isEmpty) {
       videoId = ModalRoute.of(context).settings.arguments;
@@ -50,7 +49,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
     ]);
     setState(() {
       _maxHeight = MediaQuery.of(context).size.height;
-      _maxWidth = MediaQuery.of(context).size.width;
+
       _isFullScreen = true;
     });
   }
@@ -78,7 +77,8 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
-            backgroundColor: Theme.of(context).colorScheme.secondary..withOpacity(_isFullScreen ? 0.5 : 1),
+            backgroundColor: Theme.of(context).colorScheme.secondary
+              ..withOpacity(_isFullScreen ? 0.5 : 1),
             child: Icon(
               Icons.fullscreen,
               color: Colors.white,
@@ -95,7 +95,10 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
             height: 6,
           ),
           FloatingActionButton(
-            backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(_isFullScreen ? 0.5 : 1),
+            backgroundColor: Theme.of(context)
+                .colorScheme
+                .secondary
+                .withOpacity(_isFullScreen ? 0.5 : 1),
             child: Icon(
               Icons.close,
               color: Colors.white,

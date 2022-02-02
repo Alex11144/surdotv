@@ -31,43 +31,41 @@ class _HomePageBlockState extends State<HomePageBlock> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero).then((_){
-       makeList();
+    Future.delayed(Duration.zero).then((_) {
+      makeList();
     });
-   
+
     super.initState();
   }
 
   void makeList() {
-    int _cnt = -1;
     _itemList = [0, 4, 8]
         .map((e) => Container(
               height: 350,
               width: double.infinity,
-              child: OrientationBuilder(
-                builder: (context, orientation) {
-                  final or = MediaQuery.of(context).orientation;
-                  return GridView.builder(
-                      gridDelegate: gridDelegate(or),
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: 4,
-                      itemBuilder: (ctx, i) {
-                        return GridTile(
+              child: OrientationBuilder(builder: (context, orientation) {
+                final or = MediaQuery.of(context).orientation;
+                return GridView.builder(
+                    gridDelegate: gridDelegate(or),
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: 4,
+                    itemBuilder: (ctx, i) {
+                      return GridTile(
+                        child: Container(
+                          margin: EdgeInsets.all(2),
                           child: GridItem(
                             id: widget.videoList[e + i].id,
                             title: widget.videoList[e + i].videoHead,
                             imgUrl: widget.videoList[e + i].getImageUrl,
                           ),
-                        );
-                      });
-                }
-              ),
+                        ),
+                      );
+                    });
+              }),
               alignment: Alignment.topCenter,
             ))
         .toList();
-        setState(() {
-          
-        });
+    setState(() {});
   }
 
   // void makeList2() {
@@ -141,8 +139,10 @@ class _HomePageBlockState extends State<HomePageBlock> {
                         listen: false,
                       );
                       menuData.setMenuIndex(2);
-                      print('object ${widget.catId}');
+
                       menuData.setCategoryId(widget.catId);
+
+                      print('submenu ${menuData.selectedCategoryId}');
                     });
                   },
                   child: Text(
@@ -159,8 +159,9 @@ class _HomePageBlockState extends State<HomePageBlock> {
               ],
             ),
           ),
-          _itemList == null ? Center(child: CircularProgressIndicator()) : 
-          CarouselWithIndigator(_itemList, 360),
+          _itemList == null
+              ? Center(child: CircularProgressIndicator())
+              : CarouselWithIndigator(_itemList, 360),
         ],
       ),
     );

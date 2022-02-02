@@ -39,7 +39,7 @@ class About with ChangeNotifier {
   String get content1 => _content1;
   String get content2 => _content2;
 
-  Future<String> getContent() async{
+  Future<String> getContent() async {
     if (content == '') {
       fetchAll().then((_) {
         print(content1);
@@ -49,5 +49,6 @@ class About with ChangeNotifier {
       });
     } else
       return content1;
+    return null;
   }
 }

@@ -22,7 +22,7 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
   List<Map<String, Object>> _pages;
   PageController _pageController;
-  int _currentIndex = 0;
+
   @override
   void initState() {
     _pages = [
@@ -80,6 +80,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   List loadedPages = [
     0,
+    2,
   ];
   // List<Widget> _screens = <Widget>[
   //   HomeScreen(),
@@ -149,7 +150,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
               }
 
               setState(() {
-                _currentIndex = index;
                 menuData.setMenuIndex(index);
                 menuData.setCategoryId('');
               });
@@ -202,7 +202,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 
-  Widget BottomNavBar2(int _selectedPageIndex) {
+  Widget bottomNavBar2(int _selectedPageIndex) {
     return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(

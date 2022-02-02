@@ -18,20 +18,18 @@ class _SearchScreenState extends State<SearchScreen> {
   List<VideoItem> _videos = [];
   var _isLoading = false;
 
-
   List<String> _mostSearched = [];
 
   @override
   void initState() {
+    Future.delayed(Duration(milliseconds: 100)).then((_) {
+      final _searchData = Provider.of<SearchData>(context, listen: false)
+        ..getRecommends();
 
-    Future.delayed(Duration(milliseconds: 100)).then((_)  {
-       final _searchData = Provider.of<SearchData>(context,listen: false)..getRecommends();
-   
-    setState(() {
-       _mostSearched = _searchData.recommendList;
+      setState(() {
+        _mostSearched = _searchData.recommendList;
+      });
     });
-    });
-   
 
     super.initState();
   }
@@ -83,7 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   controller: edt,
                   textInputAction: TextInputAction.search,
                   onChanged: (txt) {
-                    if (!txt.isEmpty) _doSearch(context, txt);
+                    if (txt.isNotEmpty) _doSearch(context, txt);
                   },
                   onSubmitted: (txt) {
                     _doSearch(context, txt);
@@ -138,22 +136,20 @@ class _SearchScreenState extends State<SearchScreen> {
                         child: CircularProgressIndicator(
                         color: Theme.of(context).colorScheme.secondary,
                       ))
-                    : OrientationBuilder(
-                      builder: (context,orientation) {
+                    : OrientationBuilder(builder: (context, orientation) {
                         return GridView.builder(
-                            primary: false,
-                            shrinkWrap: true,
-                            gridDelegate: gridDelegate(orientation),
-                            itemCount: _videos.length,
-                            itemBuilder: ((ctx, i) => GridTile(
-                                  child: GridItem(
-                                      id: _videos[i].id,
-                                      imgUrl: _videos[i].getImageUrl,
-                                      title: _videos[i].videoHead),
-                                )),
-                          );
-                      }
-                    ),
+                          primary: false,
+                          shrinkWrap: true,
+                          gridDelegate: gridDelegate(orientation),
+                          itemCount: _videos.length,
+                          itemBuilder: ((ctx, i) => GridTile(
+                                child: GridItem(
+                                    id: _videos[i].id,
+                                    imgUrl: _videos[i].getImageUrl,
+                                    title: _videos[i].videoHead),
+                              )),
+                        );
+                      }),
               ),
             ],
           ),

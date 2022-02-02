@@ -37,7 +37,6 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
   List<VideoItem> _allVideos = [];
   List<CategoryItem> _subcatList = [];
   double _height;
-  double _floatButtonOpacity = 1;
 
   bool _isInit = true;
   String _subCategoryId = '';
@@ -87,23 +86,17 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
     setState(() {
       _showUpButton = _scrollController.offset >
           _scrollController.position.maxScrollExtent * 0.2;
-      _floatButtonOpacity =
-          _scrollController.offset / _scrollController.position.maxScrollExtent;
-      print(_scrollController.offset);
     });
 
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       setState(() {
-        print("comes to bottom $isLoading");
         isLoading = true;
 
         if (isLoading) {
-          print("RUNNING LOAD MORE");
-
           pageCount = pageCount + 1;
-          print("pagecount $pageCount");
+
           if (_videos.length < _allVideos.length) {
             _videos += _allVideos
                 .getRange(
@@ -164,32 +157,34 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
         ),
         Container(
           height: _height - 260,
-          child: OrientationBuilder(
-            builder: (context,orientation) {
-              return GridView.builder(
-                  controller: _scrollController,
-                  scrollDirection: Axis.vertical,
-                  primary: false,
-                  shrinkWrap: true,
-                  gridDelegate: gridDelegate(orientation),
-                  itemCount: _videos.length,
-                  itemBuilder: (ctx, i) {
-                    // if (i == _videos.length) {
-                    //   setState(() {
-                    //     _showUpButton = true;
-                    //   });
-                    //   return  Container();
-                    // }
-                    return GridTile(
-                      child: GridItem(
-                        id: _videos[i].id,
-                        imgUrl: _videos[i].getImageUrl,
-                        title: _videos[i].videoHead,
-                      ),
-                    );
-                  });
-            }
-          ),
+          child: OrientationBuilder(builder: (context, orientation) {
+            final or = MediaQuery.of(context).orientation;
+            return GridView.builder(
+                controller: _scrollController,
+                scrollDirection: Axis.vertical,
+                primary: false,
+                shrinkWrap: true,
+                gridDelegate: gridDelegate(or),
+                itemCount: _videos.length,
+                itemBuilder: (ctx, i) {
+                  return Container(
+                    margin: EdgeInsets.all(2),
+                    child: GridItem(
+                      id: _videos[i].id,
+                      imgUrl: _videos[i].getImageUrl,
+                      title: _videos[i].videoHead,
+                    ),
+                  );
+
+                  // GridTile(
+                  //   child: GridItem(
+                  //     id: _videos[i].id,
+                  //     imgUrl: _videos[i].getImageUrl,
+                  //     title: _videos[i].videoHead,
+                  //   ),
+                  // );
+                });
+          }),
         ),
       ]),
       _showUpButton

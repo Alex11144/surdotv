@@ -13,62 +13,69 @@ class GridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160,
+      //height: 160,
+
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 1),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                child: Container(
-                  height: 125,
-                  width: double.infinity,
-                  // padding: EdgeInsets.all(20),
-                  color: Theme.of(context).colorScheme.primary,
+          Expanded(
+            child: Container(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    child: Container(
+                      height: double.infinity,
 
-                  child: CachedNetworkImage(
-                    imageUrl: imgUrl,
-                    fit: BoxFit.fill,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                            CircularProgressIndicator(
-                                value: downloadProgress.progress),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                      //  width: double.infinity,
+                      // padding: EdgeInsets.all(20),
+                      color: Theme.of(context).colorScheme.primary,
+
+                      child: CachedNetworkImage(
+                        imageUrl: imgUrl,
+                        fit: BoxFit.fill,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                CircularProgressIndicator(
+                                    value: downloadProgress.progress),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    ),
+                    //   child: Image.network(
+                    //     imgUrl,
+                    //     fit: BoxFit.fill,
+                    // ),
                   ),
-                ),
-                //   child: Image.network(
-                //     imgUrl,
-                //     fit: BoxFit.fill,
-                // ),
-              ),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 1.5,
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 1.5,
+                        ),
+                      ),
+                      child: InkWell(
+                        splashColor: Colors.green,
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(DetailScreen.routeName, arguments: {
+                            'id': id,
+                          });
+                        },
+                        child: Icon(
+                          Icons.play_arrow,
+                          color: Colors.white,
+                          size: 50,
+                        ),
+                      ),
                     ),
                   ),
-                  child: InkWell(
-                    splashColor: Colors.green,
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(DetailScreen.routeName, arguments: {
-                        'id': id,
-                      });
-                    },
-                    child: Icon(
-                      Icons.play_arrow,
-                      color: Colors.white,
-                      size: 50,
-                    ),
-                  ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
           SizedBox(
             height: 3,

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surdotv_app/providers/videos.dart';
-import 'package:surdotv_app/widgets/outline_button_widget.dart';
 
+import '../widgets/outline_button_widget.dart';
 import './selected_category_screen.dart';
 import '../widgets/home_page_block.dart';
 import '../widgets/common_widgets.dart';
@@ -25,7 +24,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     //  print(_selectedCategory);
     final menuData = Provider.of<MenuData>(context);
     _selectedCategory = menuData.selectedCategoryId;
-  
+
     print('selectedd = $_selectedCategory');
     super.didChangeDependencies();
   }
@@ -33,7 +32,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     final _categories = Provider.of<Categories>(context, listen: false);
-
+    print('enter categories = $_selectedCategory');
     return WillPopScope(
       onWillPop: () async {
         // Do something here
@@ -42,7 +41,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         } else {
           setState(() {
             _selectedCategory = '';
-            
           });
           return false;
         }
@@ -85,7 +83,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        sub_categories_buttons(_categories),
+                        subCategoriesButtons(_categories),
                         HomePageBlock(
                           leftHeader: _categories.items[0].name,
                           leftIcon: vCamera, //Icons.videocam_outlined,
@@ -111,7 +109,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
-  Widget sub_categories_buttons(Categories categories) {
+  Widget subCategoriesButtons(Categories categories) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Wrap(

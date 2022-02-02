@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:surdotv_app/widgets/common_widgets.dart';
 

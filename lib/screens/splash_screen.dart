@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/categories.dart';
-import '../providers/videos.dart';
 import '../screens/main_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -25,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen>
 
       if (!_isLoaded) {
         _catProvider.fetchAll().then((value) {
-          print('categ fetched'+ DateTime.now().toString());
+          print('categ fetched' + DateTime.now().toString());
           Navigator.of(context).pushReplacementNamed(HomePageScreen.route_name);
         });
       }

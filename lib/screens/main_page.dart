@@ -108,9 +108,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
     ];
 
     final _ScreenSize = MediaQuery.of(context);
-    print(_ScreenSize.devicePixelRatio);
 
-    final _bottomNavBarHeight = _ScreenSize.devicePixelRatio * _ScreenSize.size.height * 0.03;
+    final _bottomNavBarHeight =
+        _ScreenSize.devicePixelRatio * _ScreenSize.size.height * 0.04;
     return Scaffold(
       body: SafeArea(
         top: false,

@@ -31,7 +31,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': HomeScreen(),
         'icon': Icon(
           Icons.home,
-          size: 20,
+          size: 30,
         ),
       },
       {
@@ -39,7 +39,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': InfoScreen(),
         'icon': Icon(
           Icons.info_outline,
-          size: 20,
+          size: 30,
         ),
       },
       {
@@ -47,7 +47,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': CategoriesScreen(),
         'icon': Icon(
           Icons.menu,
-          size: 20,
+          size: 30,
         ),
       },
       {
@@ -55,7 +55,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': SearchScreen(),
         'icon': Icon(
           Icons.search,
-          size: 20,
+          size: 30,
         ),
       },
       {
@@ -64,7 +64,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'icon': //SizedBox(height: 30, width: 30, child:svgMail),
             Icon(
           Icons.mail_outline,
-          size: 20,
+          size: 30,
         ),
       },
       // ,
@@ -107,8 +107,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
       loadedPages.contains(4) ? ContactScreen() : Container(),
     ];
 
-    final _ScreenSize = MediaQuery.of(context).size;
-    print(_ScreenSize.height);
+    final _ScreenSize = MediaQuery.of(context);
+    print(_ScreenSize.devicePixelRatio);
+
+    final _bottomNavBarHeight = _ScreenSize.devicePixelRatio * _ScreenSize.size.height * 0.03;
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -128,7 +130,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       // ), //_pages[menuData.selectedMenuIndex]['page'],
 
       bottomNavigationBar: Container(
-        height: Platform.isAndroid ? 65 : 85,
+        height: _bottomNavBarHeight,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), topLeft: Radius.circular(20)),

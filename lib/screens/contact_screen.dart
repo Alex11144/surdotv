@@ -196,7 +196,8 @@ class _ContactScreenState extends State<ContactScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Email: info@surdotv.az'),
+                          Text('Email: info@surdotv.az',
+                              style: Theme.of(context).textTheme.headline6),
                           TextButton(
                             onPressed: () {
                               if (_form.currentState.validate()) {
@@ -209,7 +210,11 @@ class _ContactScreenState extends State<ContactScreen> {
                                         .hideCurrentSnackBar());
                               }
                             },
-                            child: Text('Mesajı Göndər'),
+                            child: Text('Mesajı Göndər',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption
+                                    .copyWith(color: Colors.white)),
                             style: redFilledButtonStyle(context),
                           ),
                         ],

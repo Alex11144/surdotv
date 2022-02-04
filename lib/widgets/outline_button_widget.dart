@@ -30,7 +30,13 @@ class _OutlineButtonWithAnimationState
           });
         });
       },
-      child: Text(widget.txt),
+      child: Text(
+        widget.txt,
+        style: Theme.of(context)
+            .textTheme
+            .caption
+            .copyWith(color: _isPressed ? Colors.white : Colors.black),
+      ),
       style: outlinedButtonStyle(context, _isPressed),
     );
   }

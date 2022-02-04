@@ -114,10 +114,7 @@ class _InfoScreenState extends State<InfoScreen> {
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
                               aboutText1 == null ? '' : aboutText1,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Helvetica',
-                                  fontStyle: FontStyle.normal),
+                              style: Theme.of(context).textTheme.headline6,
                               textAlign: TextAlign.justify,
                             ),
                           ),
@@ -126,10 +123,7 @@ class _InfoScreenState extends State<InfoScreen> {
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
                               aboutText2 == null ? '' : aboutText2,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Helvetica',
-                                  fontStyle: FontStyle.normal),
+                              style: Theme.of(context).textTheme.headline6,
                               textAlign: TextAlign.justify,
                             ),
                           ),

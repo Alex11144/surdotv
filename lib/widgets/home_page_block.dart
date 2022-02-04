@@ -27,12 +27,22 @@ class HomePageBlock extends StatefulWidget {
 
 class _HomePageBlockState extends State<HomePageBlock> {
   List<Widget> _itemList;
-  double maxHeight = 420;
+
+  double _maxHeight = 420.0;
+  double _carueselHeight = 360.0;
+  double _textScaleFactor = 1.0;
 
   @override
   void initState() {
     Future.delayed(Duration.zero).then((_) {
       makeList();
+      final _size = MediaQuery.of(context);
+
+      if (_size.size.width > 600) {
+        _carueselHeight = 720;
+        _maxHeight = 840;
+        _textScaleFactor = 1.15;
+      } else {}
     });
 
     super.initState();
@@ -41,7 +51,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
   void makeList() {
     _itemList = [0, 4, 8]
         .map((e) => Container(
-              height: 350,
+              //  height: 700,
               width: double.infinity,
               child: OrientationBuilder(builder: (context, orientation) {
                 final or = MediaQuery.of(context).orientation;
@@ -104,7 +114,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: maxHeight,
+      height: _maxHeight,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -147,10 +157,11 @@ class _HomePageBlockState extends State<HomePageBlock> {
                   },
                   child: Text(
                     widget.rightHeader,
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Colors.black54,
-                    ),
+                    textScaleFactor: _textScaleFactor,
+                    style: Theme.of(context).textTheme.caption.copyWith(
+                          decoration: TextDecoration.underline,
+                          color: Colors.black54,
+                        ),
                   ),
                 ),
                 SizedBox(
@@ -161,7 +172,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
           ),
           _itemList == null
               ? Center(child: CircularProgressIndicator())
-              : CarouselWithIndigator(_itemList, 360),
+              : CarouselWithIndigator(_itemList, _carueselHeight),
         ],
       ),
     );

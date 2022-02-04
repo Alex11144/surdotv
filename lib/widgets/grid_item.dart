@@ -83,7 +83,10 @@ class GridItem extends StatelessWidget {
           Container(
             height: 35,
             alignment: Alignment.topLeft,
-            child: Text(title),
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.headline6,
+            ),
           ),
         ],
       ),

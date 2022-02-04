@@ -111,7 +111,7 @@ class _DetailScreenState extends State<DetailScreen>
     final RenderBox box = context.findRenderObject() as RenderBox;
 
     await Share.share('text',
-        subject: 'aaaa',
+        subject: '',
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
@@ -165,23 +165,25 @@ class _DetailScreenState extends State<DetailScreen>
                         return Builder(
                           builder: (BuildContext context) {
                             return Stack(children: [
-                              SizedBox(
-                                height: 200,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(15.0),
-                                  ),
-                                  child: CachedNetworkImage(
-                                    imageUrl: item.getImageUrl,
-                                    fit: BoxFit.fill,
-                                    progressIndicatorBuilder:
-                                        (context, url, downloadProgress) =>
-                                            Center(
-                                      child: CircularProgressIndicator(
-                                          value: downloadProgress.progress),
+                              Center(
+                                child: SizedBox(
+                                  height: 200,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(15.0),
                                     ),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
+                                    child: CachedNetworkImage(
+                                      imageUrl: item.getImageUrl,
+                                      fit: BoxFit.fill,
+                                      progressIndicatorBuilder:
+                                          (context, url, downloadProgress) =>
+                                              Center(
+                                        child: CircularProgressIndicator(
+                                            value: downloadProgress.progress),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -301,10 +303,7 @@ class _DetailScreenState extends State<DetailScreen>
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
                           _txt,
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Helvetica',
-                              fontStyle: FontStyle.normal),
+                          style: Theme.of(context).textTheme.headline6,
                           textAlign: TextAlign.justify,
                         ),
                       ),

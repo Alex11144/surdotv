@@ -32,6 +32,7 @@ void main() {
 class MyApp extends StatelessWidget {
   final _isDark = false;
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -44,32 +45,53 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Surdo TV App',
-        theme: ThemeData(
-          appBarTheme: AppBarTheme(
-              systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-          )),
-
-          textTheme: TextTheme(
-              caption: TextStyle(fontSize: 18, color: Colors.black87)),
-          primaryColor: Color.fromRGBO(240, 232, 232, 1),
-          canvasColor: Colors.white,
-          colorScheme: _isDark
-              ? ColorScheme.dark(
-                  secondary: Color.fromRGBO(203, 33, 41, 1),
-                  primary: Color.fromRGBO(240, 232, 232, 1),
-                )
-              : ColorScheme.light(
-                  secondary: Color.fromRGBO(203, 33, 41, 1),
-                  primary: Color.fromRGBO(240, 232, 232, 1),
+        builder: (ctx, child) {
+          final _screenWidth = MediaQuery.of(ctx).size.width;
+          final _scaleFactor = _screenWidth > 600
+              ? 1.15
+              : _screenWidth < 350
+                  ? 0.85
+                  : 1.0;
+          print(_screenWidth);
+          return Theme(
+              data: ThemeData(
+                appBarTheme: AppBarTheme(
+                    systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Colors.transparent,
+                )),
+                textTheme: TextTheme(
+                  caption: TextStyle(
+                    fontSize: 16 * _scaleFactor,
+                    color: Colors.black87,
+                  ),
+                  headline6: TextStyle(
+                    fontSize: 16 * _scaleFactor,
+                  ),
+                  button: TextStyle(
+                    fontSize: 16 * _scaleFactor,
+                  ),
                 ),
-          //  fontFamily: 'Helvetica',
-
-          pageTransitionsTheme: PageTransitionsTheme(builders: {
-            TargetPlatform.android: CustomPageTransitionBuilder(),
-            TargetPlatform.iOS: CustomPageTransitionBuilder(),
-          }),
-        ),
+                iconTheme:
+                    IconThemeData(size: _screenWidth < 350 ? 20.0 : 30.0),
+                primaryColor: Color.fromRGBO(240, 232, 232, 1),
+                canvasColor: Colors.white,
+                colorScheme: _isDark
+                    ? ColorScheme.dark(
+                        secondary: Color.fromRGBO(203, 33, 41, 1),
+                        primary: Color.fromRGBO(240, 232, 232, 1),
+                      )
+                    : ColorScheme.light(
+                        secondary: Color.fromRGBO(203, 33, 41, 1),
+                        primary: Color.fromRGBO(240, 232, 232, 1),
+                      ),
+                fontFamily: 'Helvetica',
+                pageTransitionsTheme: PageTransitionsTheme(builders: {
+                  TargetPlatform.android: CustomPageTransitionBuilder(),
+                  TargetPlatform.iOS: CustomPageTransitionBuilder(),
+                }),
+              ),
+              child: child);
+        },
         home: SplashScreen(),
         routes: {
           CategoriesScreen.route_name: (ctx) => CategoriesScreen(),

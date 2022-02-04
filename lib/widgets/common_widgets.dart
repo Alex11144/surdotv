@@ -159,7 +159,7 @@ gridDelegate(Orientation orient) {
   final isPortrait = orient == Orientation.portrait;
 
   return SliverGridDelegateWithFixedCrossAxisCount(
-    childAspectRatio: isPortrait ? 100 / 90 : 100 / 60,
+    childAspectRatio: isPortrait ? 100 / 80 : 100 / 60,
     crossAxisCount: 2,
     crossAxisSpacing: 5,
     mainAxisSpacing: 5,

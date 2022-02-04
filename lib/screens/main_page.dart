@@ -31,7 +31,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': HomeScreen(),
         'icon': Icon(
           Icons.home,
-          size: 30,
         ),
       },
       {
@@ -39,7 +38,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': InfoScreen(),
         'icon': Icon(
           Icons.info_outline,
-          size: 30,
         ),
       },
       {
@@ -47,7 +45,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': CategoriesScreen(),
         'icon': Icon(
           Icons.menu,
-          size: 30,
         ),
       },
       {
@@ -55,7 +52,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'page': SearchScreen(),
         'icon': Icon(
           Icons.search,
-          size: 30,
         ),
       },
       {
@@ -64,7 +60,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
         'icon': //SizedBox(height: 30, width: 30, child:svgMail),
             Icon(
           Icons.mail_outline,
-          size: 30,
         ),
       },
       // ,
@@ -193,7 +188,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         inactiveColor: Colors.black,
                         title: Text(
                           e['title'],
-                          style: TextStyle(fontSize: 12),
+                          style: Theme.of(context).textTheme.headline6.copyWith(
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
                         ),
                         icon: e['icon'],
                       ))

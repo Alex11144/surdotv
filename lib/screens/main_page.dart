@@ -188,7 +188,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         inactiveColor: Colors.black,
                         title: Text(
                           e['title'],
-                          style: Theme.of(context).textTheme.headline6.copyWith(
+                          style: Theme.of(context).textTheme.button.copyWith(
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
                         ),

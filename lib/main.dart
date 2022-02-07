@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:surdotv_app/providers/vimeo_api.dart';
 
 import '../helpers/custom_route.dart';
 import '../providers/search.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => About()),
         ChangeNotifierProvider(create: (ctx) => MenuData()),
         ChangeNotifierProvider(create: (ctx) => SearchData()),
+        ChangeNotifierProvider(create: (ctx) => VimeoApi()),
       ],
       child: MaterialApp(
         title: 'Surdo TV App',
@@ -68,7 +70,7 @@ class MyApp extends StatelessWidget {
                     fontSize: 16 * _scaleFactor,
                   ),
                   button: TextStyle(
-                    fontSize: 16 * _scaleFactor,
+                    fontSize: 14 * _scaleFactor,
                   ),
                 ),
                 iconTheme:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vimeo_player_flutter/vimeo_player_flutter.dart';
+//import 'package:vimeo_player_flutter/vimeo_player_flutter.dart';
+import '../widgets/video_player_vimeo.dart';
 
 class MyVideoPlayer extends StatefulWidget {
   static const route_name = '/video-player';
@@ -115,8 +116,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: InkWell(
-              onDoubleTap: _changeScreenMode,
-              child: VimeoPlayer(videoId: videoId)),
+              onDoubleTap: _changeScreenMode, child: MyVimeoPlayer(videoId)),
         ),
         // Positioned(
         //   top: _maxHeight - 80,

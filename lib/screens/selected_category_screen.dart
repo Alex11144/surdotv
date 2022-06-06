@@ -77,9 +77,11 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
     _subcatList = videos.getSubCategeries(catId: widget.categoryId);
     print('init called');
 
-    _videos = _allVideos.getRange(0, pageCount * 10).toList();
-    _scrollController.animateTo(0.0,
-        duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+    _videos =
+        _allVideos.getRange(0, pageCount * min(10, _allVideos.length)).toList();
+    if (_scrollController != null)
+      _scrollController.animateTo(0.0,
+          duration: Duration(milliseconds: 300), curve: Curves.easeOut);
   }
 
   _scrollListener() {

@@ -80,9 +80,11 @@ class GridItem extends StatelessWidget {
           SizedBox(
             height: 3,
           ),
-          Container(
-            height: 35,
-            alignment: Alignment.topLeft,
+          ConstrainedBox(
+            constraints: new BoxConstraints(
+              minHeight: 35.0,
+              maxHeight: 60.0,
+            ),
             child: Text(
               title,
               style: Theme.of(context).textTheme.headline6,

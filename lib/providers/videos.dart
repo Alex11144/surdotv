@@ -42,11 +42,9 @@ class Videos with ChangeNotifier {
   };
 
   Future<void> fetchAll() async {
-      print('fetch called ' );    
     final url = Uri.http('api.surdotv.az', '/api/sections');
-    print('videos prepare at ' + DateTime.now().toString());
-     http.get(url, headers: apiKey).then((resp) {
-      print('videos start at ' + DateTime.now().toString());
+
+    http.get(url, headers: apiKey).then((resp) {
       final catList =
           json.decode(resp.body)['category']['sub_items'] as List<dynamic>;
       int _idxCat = 0;
@@ -83,17 +81,15 @@ class Videos with ChangeNotifier {
               print(_newVideoItem);
             });
 
-            if (catList.length == _idxCat) {              
-              _isLoaded = true;        
-             
-               print('how many loaded = ${_items.length}'); 
-               notifyListeners();
+            if (catList.length == _idxCat) {
+              _isLoaded = true;
+
+              print('how many loaded = ${_items.length}');
+              notifyListeners();
             }
           });
         });
       }
-
-      print('videos ended at ' + DateTime.now().toString());
     });
     _isLoading = true;
     print('how many loaded  ${_items.length}');
@@ -117,18 +113,16 @@ class Videos with ChangeNotifier {
   List<CategoryItem> getSubCategeries({String catId}) {
     List<CategoryItem> _ret = [];
 
-    _items.where((element) => element.categoryId == catId).forEach((e) {
+    _items.where((element) => element.subId == catId).forEach((e) {
+      final _catItem = CategoryItem(
+        id: e.subCategoryId,
+        parentCategoryId: e.categoryId,
+        name: e.subCategoryName,
+      );
 
-      final _catItem =  CategoryItem(
-          id: e.subCategoryId,
-          parentCategoryId: e.categoryId,
-          name: e.subCategoryName,); 
-        
-          if (_ret.indexWhere((e) => e.id == _catItem.id) < 0 )
-          _ret.add(_catItem);
-
+      if (_ret.indexWhere((e) => e.id == _catItem.id) < 0) _ret.add(_catItem);
     });
-    
+
     return _ret;
   }
 }

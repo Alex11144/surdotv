@@ -65,23 +65,30 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
     final videos = Provider.of<Videos>(context, listen: false);
     pageCount = 1;
 
-    _allVideos = videos.items
-        .where((element) => element.categoryId == widget.categoryId)
-        .toList();
+    
 
     if (_subCategoryId != '') {
-      _allVideos = _allVideos
-          .where((element) => element.subCategoryId == _subCategoryId)
+      _allVideos = videos.items
+          .where((element) => element.categoryId == _subCategoryId)
           .toList();
+    }
+    else
+    {
+      _allVideos = videos.items
+        .where((element) => element.categoryId == widget.categoryId)
+        .toList();
     }
     _subcatList = videos.getSubCategeries(catId: widget.categoryId);
     print('init called');
 
     _videos =
         _allVideos.getRange(0, pageCount * min(10, _allVideos.length)).toList();
-    if (_scrollController != null)
-      _scrollController.animateTo(0.0,
-          duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+    if (_scrollController != null) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(0.0,
+            duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+      }
+    }
   }
 
   _scrollListener() {

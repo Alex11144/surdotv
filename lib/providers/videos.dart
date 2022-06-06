@@ -59,7 +59,7 @@ class Videos with ChangeNotifier {
             videoList.forEach((e) {
               final _newVideoItem = VideoItem(
                 id: e['id'].toString(),
-                subId: e['sub_id'],
+                subId: e['category']['id'].toString(),//e['sub_id'],
                 ordering: e['ordering'],
                 videoHead: e['video_head'],
                 videoUrl: e['video_url'],
@@ -73,8 +73,8 @@ class Videos with ChangeNotifier {
                 viewed: e['baxilib'],
                 len: e['zaman'],
                 dt: e['tarix'],
-                categoryId: cat['id'].toString(),
-                subCategoryId: e['category']['id'].toString(),
+                categoryId: e['category']['id'].toString(),
+                subCategoryId: e['category']['sub_id'].toString(),
                 subCategoryName: e['category']['name'],
               );
               _items.add(_newVideoItem);
@@ -113,10 +113,10 @@ class Videos with ChangeNotifier {
   List<CategoryItem> getSubCategeries({String catId}) {
     List<CategoryItem> _ret = [];
 
-    _items.where((element) => element.subId == catId).forEach((e) {
+    _items.where((element) => element.subCategoryId == catId).forEach((e) {
       final _catItem = CategoryItem(
-        id: e.subCategoryId,
-        parentCategoryId: e.categoryId,
+        id: e.categoryId,
+        parentCategoryId: e.subCategoryId,
         name: e.subCategoryName,
       );
 

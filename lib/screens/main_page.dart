@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
@@ -105,7 +103,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     final _ScreenSize = MediaQuery.of(context);
 
     final _bottomNavBarHeight =
-        _ScreenSize.devicePixelRatio * _ScreenSize.size.height * 0.04;
+        _ScreenSize.devicePixelRatio * _ScreenSize.size.height * 0.035;
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -143,6 +141,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             animationDuration: Duration(milliseconds: 300),
             showElevation: true,
             itemCornerRadius: 20,
+            
             onItemSelected: (index) {
               if (!loadedPages.contains(index)) {
                 loadedPages.add(index);

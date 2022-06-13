@@ -75,7 +75,7 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
     else
     {
       _allVideos = videos.items
-        .where((element) => element.categoryId == widget.categoryId)
+        .where((element) => element.subCategoryId == widget.categoryId || element.categoryId == widget.categoryId)
         .toList();
     }
     _subcatList = videos.getSubCategeries(catId: widget.categoryId);

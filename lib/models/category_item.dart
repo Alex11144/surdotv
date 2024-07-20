@@ -1,19 +1,19 @@
 import 'package:surdotv_app/models/video_item.dart';
 
 class CategoryItem {
-  String id;
-  String name;
-  String url;
-  int active;
-  int ordering;
-  String subId;
-  String txt;
-  String image;
-  String ogTitle;
-  String ogKeywords;
-  String ogDescription;
-  List<VideoItem> videoList;
-  String parentCategoryId;
+  String? id;
+  String? name;
+  String? url;
+  int? active;
+  int? ordering;
+  String? subId;
+  String? txt;
+  String? image;
+  String? ogTitle;
+  String? ogKeywords;
+  String? ogDescription;
+  List<VideoItem>? videoList;
+  String? parentCategoryId;
 
   CategoryItem({
     this.id,
@@ -47,3 +47,4 @@ class CategoryItem {
   //       "og_keywords": "surdotv, surdo tv filmlər, surdo tv filmlər, surdo tv filmlər",
   //       "og_description": "SurdoTV -də yayımlanan filmlər",
   //       "video_list": [
+  

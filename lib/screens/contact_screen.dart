@@ -14,7 +14,7 @@ class ContactScreen extends StatefulWidget {
 class _ContactScreenState extends State<ContactScreen> {
   final _form = GlobalKey<FormState>();
 
-  var _sendMessage = SendMessage();
+  var _sendMessage = SendMessage(name: '', email: '', phone: '', city: '', message: '');
 
   final _mapImgUrl = LocationHelper.generateLocationPreviewImage(
     latitude: 49.8679136,
@@ -22,7 +22,7 @@ class _ContactScreenState extends State<ContactScreen> {
   );
 
   Future<void> _saveFrom() async {
-    if (_form.currentState.validate()) {
+    if (_form.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Processing Data')),
       );
@@ -83,10 +83,10 @@ class _ContactScreenState extends State<ContactScreen> {
                                     myInputDecoration(aHintText: 'Ad Soyad *'),
                                 textInputAction: TextInputAction.next,
                                 onSaved: (val) {
-                                  _sendMessage.name = val;
+                                  _sendMessage.name = val!;
                                 },
                                 validator: (val) {
-                                  if (val.isEmpty || val == null) {
+                                  if (val == null||val.isEmpty  ) {
                                     return 'Ad Soyad boş ola bilməz';
                                   }
                                   return null;
@@ -105,10 +105,10 @@ class _ContactScreenState extends State<ContactScreen> {
                                     myInputDecoration(aHintText: 'E-mail *'),
                                 textInputAction: TextInputAction.next,
                                 onSaved: (val) {
-                                  _sendMessage.email = val;
+                                  _sendMessage.email = val!;
                                 },
                                 validator: (val) {
-                                  if (val.isEmpty) {
+                                  if (val!.isEmpty) {
                                     return 'Email boş ola bilməz';
                                   } else {
                                     if (!val.contains('@') ||
@@ -138,10 +138,10 @@ class _ContactScreenState extends State<ContactScreen> {
                                     myInputDecoration(aHintText: 'Mobil *'),
                                 textInputAction: TextInputAction.next,
                                 onSaved: (val) {
-                                  _sendMessage.phone = val;
+                                  _sendMessage.phone = val!;
                                 },
                                 validator: (val) {
-                                  if (val.isEmpty) {
+                                  if (val!.isEmpty) {
                                     return 'Mobil boş ola bilməz';
                                   }
                                   return null;
@@ -159,10 +159,10 @@ class _ContactScreenState extends State<ContactScreen> {
                                     myInputDecoration(aHintText: 'Şəhər *'),
                                 textInputAction: TextInputAction.next,
                                 onSaved: (val) {
-                                  _sendMessage.city = val;
+                                  _sendMessage.city = val!;
                                 },
                                 validator: (val) {
-                                  if (val.isEmpty) {
+                                  if (val!.isEmpty) {
                                     return 'Şəhər boş ola bilməz';
                                   }
                                   return null;
@@ -181,10 +181,10 @@ class _ContactScreenState extends State<ContactScreen> {
                         decoration: myInputDecoration(aHintText: 'Mesajınız '),
                         textInputAction: TextInputAction.next,
                         onSaved: (val) {
-                          _sendMessage.message = val;
+                          _sendMessage.message = val!;
                         },
                         validator: (val) {
-                          if (val.isEmpty) {
+                          if (val!.isEmpty) {
                             return 'Mesaj boş ola bilməz';
                           }
                           return null;
@@ -200,7 +200,7 @@ class _ContactScreenState extends State<ContactScreen> {
                               style: Theme.of(context).textTheme.headline6),
                           TextButton(
                             onPressed: () {
-                              if (_form.currentState.validate()) {
+                              if (_form.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text('Processing Data')),
@@ -213,7 +213,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             child: Text('Mesajı Göndər',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption
+                                    .caption!
                                     .copyWith(color: Colors.white)),
                             style: redFilledButtonStyle(context),
                           ),

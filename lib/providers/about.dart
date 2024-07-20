@@ -4,8 +4,8 @@ import 'dart:convert';
 
 class About with ChangeNotifier {
   String content = '';
-  String _content1;
-  String _content2;
+  String _content1 = '';
+  String _content2 = '';
   bool _isLoaded = false;
 
   final apiKey = {
@@ -45,10 +45,10 @@ class About with ChangeNotifier {
         print(content1);
         return content1;
       }).onError((error, stackTrace) {
-        return null;
+        return '';
       });
     } else
       return content1;
-    return null;
+    return '';
   }
 }

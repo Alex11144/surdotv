@@ -16,9 +16,9 @@ class SelectedCategoryScreen extends StatefulWidget {
   //   'Qısametrajlı filmlər',
   //   'Qısametrajlı filmlər'
   // ];
-  final String categoryId;
-  final Widget catIcon;
-  final String catTitle;
+  final String? categoryId;
+  final Widget? catIcon;
+  final String? catTitle;
   SelectedCategoryScreen({
     this.categoryId,
     this.catTitle,
@@ -30,13 +30,13 @@ class SelectedCategoryScreen extends StatefulWidget {
 }
 
 class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
-  ScrollController _scrollController;
+  ScrollController? _scrollController;
   int pageCount = 1;
   bool isLoading = false;
   List<VideoItem> _videos = [];
   List<VideoItem> _allVideos = [];
   List<CategoryItem> _subcatList = [];
-  double _height;
+  double? _height;
 
   bool _isInit = true;
   String _subCategoryId = '';
@@ -78,14 +78,14 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
         .where((element) => element.subCategoryId == widget.categoryId || element.categoryId == widget.categoryId)
         .toList();
     }
-    _subcatList = videos.getSubCategeries(catId: widget.categoryId);
+    _subcatList = videos.getSubCategeries(catId: widget.categoryId!);
     print('init called');
 
     _videos =
         _allVideos.getRange(0, pageCount * min(10, _allVideos.length)).toList();
     if (_scrollController != null) {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(0.0,
+      if (_scrollController!.hasClients) {
+        _scrollController!.animateTo(0.0,
             duration: Duration(milliseconds: 300), curve: Curves.easeOut);
       }
     }
@@ -93,13 +93,13 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
 
   _scrollListener() {
     setState(() {
-      _showUpButton = _scrollController.offset >
-          _scrollController.position.maxScrollExtent * 0.2;
+      _showUpButton = _scrollController!.offset >
+          _scrollController!.position.maxScrollExtent * 0.2;
     });
 
-    if (_scrollController.offset >=
-            _scrollController.position.maxScrollExtent &&
-        !_scrollController.position.outOfRange) {
+    if (_scrollController!.offset >=
+            _scrollController!.position.maxScrollExtent &&
+        !_scrollController!.position.outOfRange) {
       setState(() {
         isLoading = true;
 
@@ -132,12 +132,12 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              widget.catIcon,
+              widget.catIcon!,
               SizedBox(
                 width: 5,
               ),
               Text(
-                widget.catTitle,
+                widget.catTitle??'',
                 style: Theme.of(context).textTheme.headline4,
               ),
             ],
@@ -154,7 +154,7 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
                       txt: e.name,
                       func: () {
                         setState(() {
-                          _subCategoryId = e.id;
+                          _subCategoryId = e.id!;
                           _showUpButton = false;
 
                           _reloadPage();
@@ -165,7 +165,7 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
           ),
         ),
         Container(
-          height: _height - 260,
+          height: _height! - 260,
           child: OrientationBuilder(builder: (context, orientation) {
             final or = MediaQuery.of(context).orientation;
             return GridView.builder(
@@ -206,7 +206,7 @@ class _SelectedCategoryScreenState extends State<SelectedCategoryScreen> {
                 backgroundColor:
                     Theme.of(context).colorScheme.secondary.withOpacity(0.8),
                 onPressed: () {
-                  _scrollController.animateTo(0.0,
+                  _scrollController!.animateTo(0.0,
                       duration: Duration(milliseconds: 600),
                       curve: Curves.easeOut);
                 },

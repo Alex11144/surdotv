@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
                   TargetPlatform.iOS: CustomPageTransitionBuilder(),
                 }),
               ),
-              child: child);
+              child: child!);
         },
         home: SplashScreen(),
         routes: {

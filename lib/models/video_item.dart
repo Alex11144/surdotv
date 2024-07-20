@@ -1,24 +1,24 @@
 class VideoItem {
-  String id;
-  String subId;
-  String ordering;
-  String videoHead;
-  String videoUrl;
-  String videoAbout;
-  String active;
-  String url;
-  String shortText;
-  String serialId;
-  String ogTitle;
-  String ogKeywords;
-  String ogDescription;
-  String imageUrl;
-  String viewed;
-  String len;
-  String dt;
-  String categoryId;
-  String subCategoryId;
-  String subCategoryName;
+  String? id;
+  String? subId;
+  String? ordering;
+  String? videoHead;
+  String? videoUrl;
+  String? videoAbout;
+  String? active;
+  String? url;
+  String? shortText;
+  String? serialId;
+  String? ogTitle;
+  String? ogKeywords;
+  String? ogDescription;
+  String? imageUrl;
+  String? viewed;
+  String? len;
+  String? dt;
+  String? categoryId;
+  String? subCategoryId;
+  String? subCategoryName;
 
   VideoItem(
       {this.id,

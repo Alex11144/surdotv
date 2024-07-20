@@ -4,9 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../screens/detail_screen.dart';
 
 class GridItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imgUrl;
+  final String? id;
+  final String? title;
+  final String? imgUrl;
 
   GridItem({this.id, this.title, this.imgUrl});
 
@@ -34,7 +34,7 @@ class GridItem extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
 
                       child: CachedNetworkImage(
-                        imageUrl: imgUrl,
+                        imageUrl: imgUrl!,
                         fit: BoxFit.fill,
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) =>
@@ -86,7 +86,7 @@ class GridItem extends StatelessWidget {
               maxHeight: 60.0,
             ),
             child: Text(
-              title,
+              title??'',
               style: Theme.of(context).textTheme.headline6,
             ),
           ),

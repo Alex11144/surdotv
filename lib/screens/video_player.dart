@@ -27,7 +27,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
       _maxHeight = MediaQuery.of(context).size.height;
     }
     if (videoId.isEmpty) {
-      videoId = ModalRoute.of(context).settings.arguments;
+      videoId = ModalRoute.of(context)!.settings.arguments as String;
       print('video = ' + videoId);
     }
 
@@ -57,7 +57,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
 
   void _escapeFullScreen() {
     _isFullScreen = false;
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,

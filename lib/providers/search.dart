@@ -25,7 +25,7 @@ class SearchData with ChangeNotifier {
 
     if (resp.statusCode >= 400) return;
 
-    final _listPhrases = (json.decode(resp.body)['itemsa'] as List<dynamic>);
+    final _listPhrases = (json.decode(resp.body)['items'] as List<dynamic>);
 
     if (_listPhrases != null)
       _listPhrases.forEach((e) {

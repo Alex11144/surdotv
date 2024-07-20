@@ -8,11 +8,11 @@ import './grid_item.dart';
 import '../providers/menu_data.dart';
 
 class HomePageBlock extends StatefulWidget {
-  final String leftHeader;
-  final String rightHeader;
-  final Widget leftIcon;
-  final List<VideoItem> videoList;
-  final String catId;
+  final String? leftHeader;
+  final String? rightHeader;
+  final Widget? leftIcon;
+  final List<VideoItem>? videoList;
+  final String? catId;
 
   HomePageBlock(
       {this.leftHeader,
@@ -26,7 +26,7 @@ class HomePageBlock extends StatefulWidget {
 }
 
 class _HomePageBlockState extends State<HomePageBlock> {
-  List<Widget> _itemList;
+  List<Widget>? _itemList;
 
   double _maxHeight = 420.0;
   double _carueselHeight = 360.0;
@@ -64,9 +64,9 @@ class _HomePageBlockState extends State<HomePageBlock> {
                         child: Container(
                           margin: EdgeInsets.all(2),
                           child: GridItem(
-                            id: widget.videoList[e + i].id,
-                            title: widget.videoList[e + i].videoHead,
-                            imgUrl: widget.videoList[e + i].getImageUrl,
+                            id: widget.videoList![e + i].id!,
+                            title: widget.videoList![e + i].videoHead??'',
+                            imgUrl: widget.videoList![e + i].getImageUrl,
                           ),
                         ),
                       );
@@ -128,7 +128,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
                 SizedBox(
                   width: 10,
                 ),
-                widget.leftIcon,
+                widget.leftIcon!,
                 // Icon(
                 //   widget.leftIcon,
                 //   color: Colors.red,
@@ -137,7 +137,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
                   width: 5,
                 ),
                 Text(
-                  widget.leftHeader,
+                  widget.leftHeader??'',
                   style: Theme.of(context).textTheme.caption,
                 ),
                 Spacer(),
@@ -150,15 +150,15 @@ class _HomePageBlockState extends State<HomePageBlock> {
                       );
                       menuData.setMenuIndex(2);
 
-                      menuData.setCategoryId(widget.catId);
+                      menuData.setCategoryId(widget.catId!);
 
                       print('submenu ${menuData.selectedCategoryId}');
                     });
                   },
                   child: Text(
-                    widget.rightHeader,
+                    widget.rightHeader??'',
                     textScaleFactor: _textScaleFactor,
-                    style: Theme.of(context).textTheme.caption.copyWith(
+                    style: Theme.of(context).textTheme.caption!.copyWith(
                           decoration: TextDecoration.underline,
                           color: Colors.black54,
                         ),
@@ -172,7 +172,7 @@ class _HomePageBlockState extends State<HomePageBlock> {
           ),
           _itemList == null
               ? Center(child: CircularProgressIndicator())
-              : CarouselWithIndigator(_itemList, _carueselHeight),
+              : CarouselWithIndigator(_itemList!, _carueselHeight),
         ],
       ),
     );

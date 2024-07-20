@@ -120,7 +120,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               (e) => OutlineButtonWithAnimation(
                   func: () {
                     setState(() {
-                      _selectedCategory = e.id;
+                      _selectedCategory = e.id!;
                     });
                   },
                   txt: e.name),

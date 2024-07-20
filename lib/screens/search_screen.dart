@@ -144,9 +144,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           itemCount: _videos.length,
                           itemBuilder: ((ctx, i) => GridTile(
                                 child: GridItem(
-                                    id: _videos[i].id,
+                                    id: _videos[i].id!,
                                     imgUrl: _videos[i].getImageUrl,
-                                    title: _videos[i].videoHead),
+                                    title: _videos[i].videoHead??''),
                               )),
                         );
                       }),

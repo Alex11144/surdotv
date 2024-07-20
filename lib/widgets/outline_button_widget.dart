@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:surdotv_app/widgets/common_widgets.dart';
 
 class OutlineButtonWithAnimation extends StatefulWidget {
-  final VoidCallback func;
-  final String txt;
+  final VoidCallback? func;
+  final String? txt;
   OutlineButtonWithAnimation({this.txt, this.func});
 
   @override
@@ -24,17 +24,17 @@ class _OutlineButtonWithAnimationState
         });
 
         Future.delayed(Duration(milliseconds: 200)).then((value) {
-          widget.func();
+          widget.func!();
           setState(() {
             _isPressed = !_isPressed;
           });
         });
       },
       child: Text(
-        widget.txt,
+        widget.txt??'',
         style: Theme.of(context)
             .textTheme
-            .caption
+            .caption!
             .copyWith(color: _isPressed ? Colors.white : Colors.black),
       ),
       style: outlinedButtonStyle(context, _isPressed),

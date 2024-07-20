@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomRoute<T> extends MaterialPageRoute<T> {
-  CustomRoute({WidgetBuilder builder, RouteSettings settings})
+  CustomRoute({WidgetBuilder? builder, RouteSettings? settings})
       : super(
-          builder: builder,
+          builder: builder!,
           settings: settings,
         );
 

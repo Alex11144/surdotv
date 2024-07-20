@@ -18,8 +18,8 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-  List<Map<String, Object>> _pages;
-  PageController _pageController;
+  List<Map<String, Object>> _pages= [];
+  PageController? _pageController;
 
   @override
   void initState() {
@@ -85,7 +85,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController!.dispose();
     super.dispose();
   }
 
@@ -186,12 +186,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         activeColor: Theme.of(context).colorScheme.secondary,
                         inactiveColor: Colors.black,
                         title: Text(
-                          e['title'],
-                          style: Theme.of(context).textTheme.button.copyWith(
+                          e['title'].toString(),
+                          style: Theme.of(context).textTheme.button!.copyWith(
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
                         ),
-                        icon: e['icon'],
+                        icon: e['icon'] as Widget,
                       ))
                   .toList()
             ],

@@ -7,7 +7,7 @@ class SendMessage {
   String city;
   String message;
 
-  SendMessage({this.name, this.email, this.phone, this.city, this.message});
+  SendMessage( {required this.name,required this.email,required this.phone,required this.city,required this.message});
 
   Future<void> sendMail() async {
     final url = Uri.http(

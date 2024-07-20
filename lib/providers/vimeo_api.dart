@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class VimeoApi with ChangeNotifier {
-  String _videoPage;
+  String? _videoPage;
 
-  String get videoPage => _videoPage;
+  String? get videoPage => _videoPage;
 
   Future<String> getVideoPage(String videoId) async {
     Uri url = Uri.parse('https://api.vimeo.com/videos/$videoId');
@@ -17,13 +17,15 @@ class VimeoApi with ChangeNotifier {
     final resp = await http.get(url, headers: params);
     print(resp.body);
     if (resp.statusCode >= 400) {
+      return "";
+
       ///
     } else {
       final _jsonData = json.decode(resp.body);
       final _html = _jsonData['embed']['html'];
       _videoPage = _html;
       notifyListeners();
-      return _videoPage;
+      return _videoPage??'';
     }
   }
 }

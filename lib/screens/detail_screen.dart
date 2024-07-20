@@ -18,25 +18,25 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen>
     with SingleTickerProviderStateMixin {
-  String _header;
-  String _dt;
-  String _viewed;
-  String _txt;
-  String _videoUrl;
+  String? _header;
+  String? _dt;
+  String? _viewed;
+  String? _txt;
+  String? _videoUrl;
 
   CarouselController buttonCarouselController = CarouselController();
   ScrollController listScrollController = ScrollController();
 
-  Animation<double> _animation;
+  Animation<double>? _animation;
 
-  AnimationController _animationController;
+  AnimationController? _animationController;
   var _animated = false;
   var _animatedInit = false;
   var _isLoaded = false;
   var _isHover = false;
 
-  Videos allVideos;
-  List<VideoItem> _similarItems;
+  Videos? allVideos;
+  List<VideoItem> _similarItems = [];
 
   @override
   void initState() {
@@ -53,39 +53,39 @@ class _DetailScreenState extends State<DetailScreen>
         duration: Duration(milliseconds: 500),
       );
     } else {
-      _animationController.reset();
+      _animationController!.reset();
     }
 
     _animation = Tween<double>(
       begin: _animated ? 50.0 : -110.0,
       end: _animated ? -110.0 : 50.0,
     ).animate(CurvedAnimation(
-        parent: _animationController, curve: Curves.fastOutSlowIn))
+        parent: _animationController!, curve: Curves.fastOutSlowIn))
       ..addListener(() {
         setState(() {});
       });
     _animated = !_animated;
-    _animationController.forward();
+    _animationController!.forward();
   }
 
   @override
   void dispose() {
-    if (_animationController != null) _animationController.dispose();
+    if (_animationController != null) _animationController!.dispose();
     super.dispose();
   }
 
   @override
   void didChangeDependencies() {
     if (!_isLoaded) {
-      final videoId = (ModalRoute.of(context).settings.arguments
-          as Map<String, String>)['id'];
+      final videoId = (ModalRoute.of(context)!.settings.arguments
+          as Map<String, String?>)['id'];
 
       allVideos = Provider.of<Videos>(context, listen: true);
 
-      if (allVideos.isLoaded) {
-        VideoItem _video = allVideos.items.firstWhere((e) => e.id == videoId);
+      if (allVideos!.isLoaded) {
+        VideoItem _video = allVideos!.items.firstWhere((e) => e.id == videoId);
         if (_video != null) {
-          _similarItems = allVideos.similarItems(5, _video.id);
+          _similarItems = allVideos!.similarItems(5, _video.id!);
           _video = _video;
           _header = _video.videoHead;
           _dt = _video.dt;
@@ -125,7 +125,7 @@ class _DetailScreenState extends State<DetailScreen>
         title: logoMSizeWhite,
         backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
-      body: !allVideos.isLoaded
+      body: !allVideos!.isLoaded
           ? Center(
               child: CircularProgressIndicator(
                 color: Theme.of(context).colorScheme.secondary,
@@ -226,7 +226,7 @@ class _DetailScreenState extends State<DetailScreen>
                       ),
                       ListTile(
                         title: Text(
-                          _header,
+                          _header ?? '',
                           style: Theme.of(context).textTheme.headline5,
                         ),
                         subtitle: Padding(
@@ -242,7 +242,7 @@ class _DetailScreenState extends State<DetailScreen>
                                 width: 5,
                               ),
                               Text(
-                                _dt,
+                                _dt ?? '',
                                 style: TextStyle(
                                   color: Colors.black45,
                                 ),
@@ -302,7 +302,7 @@ class _DetailScreenState extends State<DetailScreen>
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          _txt,
+                          _txt ?? '',
                           style: Theme.of(context).textTheme.headline6,
                           textAlign: TextAlign.justify,
                         ),
@@ -316,7 +316,7 @@ class _DetailScreenState extends State<DetailScreen>
                               onTap: animateShareIcons,
                             ),
                             Positioned(
-                              left: _animatedInit ? _animation.value : -120,
+                              left: _animatedInit ? _animation!.value : -120,
                               child: Container(
                                 child: Row(
                                   children: [
@@ -334,7 +334,7 @@ class _DetailScreenState extends State<DetailScreen>
                                       child: svgWhatsapp,
                                       onTap: () async {
                                         await Share.share(
-                                          _videoUrl,
+                                          _videoUrl!,
                                         );
                                       },
                                     ),

@@ -36,7 +36,7 @@ class _MyVimeoPlayerState extends State<MyVimeoPlayer> {
 
       _vimeoApi.getVideoPage(widget.videoId).then((_) {
         setState(() {
-          _videoPage = _vimeoApi.videoPage;
+          _videoPage = _vimeoApi.videoPage!;
           _isLoaded = true;
           print(_videoPage);
         });

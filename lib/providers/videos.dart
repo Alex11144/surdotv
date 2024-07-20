@@ -30,7 +30,7 @@ class Videos with ChangeNotifier {
   }
 
   void clearItems() {
-    _items = null;
+    _items = [];
   }
 
   List<VideoItem> get items => _items;
@@ -110,7 +110,7 @@ class Videos with ChangeNotifier {
     return _ret;
   }
 
-  List<CategoryItem> getSubCategeries({String catId}) {
+  List<CategoryItem> getSubCategeries({String? catId}) {
     List<CategoryItem> _ret = [];
 
     _items.where((element) => element.subCategoryId == catId).forEach((e) {

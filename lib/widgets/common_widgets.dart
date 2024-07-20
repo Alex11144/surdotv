@@ -59,10 +59,10 @@ Widget adsBlock(BuildContext ctx) {
 }
 
 InputDecoration myInputDecoration(
-    {String aHintText,
-    IconData aSuffixIcon,
+    {String? aHintText,
+    IconData? aSuffixIcon,
     String aErrortext = '',
-    IconData aPrefixIcon}) {
+    IconData? aPrefixIcon}) {
   return InputDecoration(
     filled: true,
     contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -104,8 +104,8 @@ InputDecoration myInputDecoration(
 
 class TextButtonWithSubfixIconChild extends StatelessWidget {
   TextButtonWithSubfixIconChild({
-    @required this.label,
-    @required this.icon,
+    required this.label,
+    required this.icon,
   });
 
   final Widget label;

@@ -7,7 +7,7 @@ import '../models/category_item.dart';
 
 class Categories with ChangeNotifier {
   List<CategoryItem> _items = [];
-  List<VideoItem> _mainCarusel;
+  List<VideoItem> _mainCarusel=[];
 
   bool _isLoaded = false;
   BuildContext ctx;
@@ -20,7 +20,7 @@ class Categories with ChangeNotifier {
   }
 
   void clearItems() {
-    _items = null;
+    _items = [];
   }
 
   List<CategoryItem> get items => _items;

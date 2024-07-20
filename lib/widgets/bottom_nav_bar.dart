@@ -9,7 +9,7 @@ import '../screens/categories_screen.dart';
 import '../screens/info_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
-  final int selectedBar;
+  final int? selectedBar;
   BottomNavBar({this.selectedBar});
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -78,7 +78,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               topRight: Radius.circular(30.0),
             ),
             child: BottomNavyBar(
-              selectedIndex: widget.selectedBar,
+              selectedIndex: widget.selectedBar!,
               animationDuration: Duration(milliseconds: 300),
               showElevation: true,
               itemCornerRadius: 25,
@@ -115,8 +115,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     .map((e) => BottomNavyBarItem(
                           activeColor: Theme.of(context).colorScheme.error,
                           inactiveColor: Colors.black,
-                          title: Text(e['title']),
-                          icon: e['icon'],
+                          title: Text(e['title'].toString()),
+                          icon: e['icon']as Widget,
                         ))
                     .toList()
               ],
